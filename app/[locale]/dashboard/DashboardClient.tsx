@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState } from 'react';
@@ -10,6 +11,7 @@ import { createClient } from '@/lib/supabase/client';
 import Input from '@/components/ui/Input';
 import { SocialIcon } from '@/lib/utils/social';
 import { LayoutGrid, List, Edit2, X, Link as LinkIcon } from 'lucide-react';
+import { toast } from "sonner";
 
 export default function DashboardClient({
     user,
@@ -63,13 +65,14 @@ export default function DashboardClient({
 
             if (authError) throw authError;
 
-            setIsEditProfileOpen(false);
             router.refresh(); // Refresh to see changes
+            toast.success("Profil başarıyla güncellendi!");
         } catch (error) {
             console.error('Error updating profile:', error);
-            alert('Profil güncellenirken bir hata oluştu.');
+            toast.error('Profil güncellenirken bir hata oluştu veya yetkiniz yok.');
         } finally {
             setIsSaving(false);
+            setIsEditProfileOpen(false);
         }
     };
 
@@ -124,7 +127,7 @@ export default function DashboardClient({
                             <div className="flex items-center gap-2 ml-2 border-l border-white/10 pl-3">
                                 {profileForm.social_links.map((link, i) => (
                                     link.trim() !== '' && (
-                                        <a key={i} href={link.includes('@') && !link.startsWith('mailto:') ? `mailto:${link}` : link} target="_blank" rel="noopener noreferrer" className="hover:scale-110 transition-transform">
+                                        <a key={i} href={link.includes('@') && !link.startsWith('mailto:') ? `mailto:${link} ` : link} target="_blank" rel="noopener noreferrer" className="hover:scale-110 transition-transform">
                                             <SocialIcon url={link} size={18} />
                                         </a>
                                     )
@@ -140,13 +143,13 @@ export default function DashboardClient({
                     <div className="flex bg-white/5 p-1 rounded-lg border border-white/10">
                         <button
                             onClick={() => setViewMode('grid')}
-                            className={`p-2 rounded-md transition-all ${viewMode === 'grid' ? 'bg-white/10 text-white' : 'text-gray-400 hover:text-white'}`}
+                            className={`p - 2 rounded - md transition - all ${viewMode === 'grid' ? 'bg-white/10 text-white' : 'text-gray-400 hover:text-white'} `}
                         >
                             <LayoutGrid size={20} />
                         </button>
                         <button
                             onClick={() => setViewMode('list')}
-                            className={`p-2 rounded-md transition-all ${viewMode === 'list' ? 'bg-white/10 text-white' : 'text-gray-400 hover:text-white'}`}
+                            className={`p - 2 rounded - md transition - all ${viewMode === 'list' ? 'bg-white/10 text-white' : 'text-gray-400 hover:text-white'} `}
                         >
                             <List size={20} />
                         </button>
@@ -157,8 +160,8 @@ export default function DashboardClient({
                 <div className="flex gap-4 border-b border-white/10">
                     <button
                         onClick={() => setActiveTab('my')}
-                        className={`pb-3 text-sm font-medium transition-colors relative ${activeTab === 'my' ? 'text-white' : 'text-gray-400 hover:text-white/80'
-                            }`}
+                        className={`pb - 3 text - sm font - medium transition - colors relative ${activeTab === 'my' ? 'text-white' : 'text-gray-400 hover:text-white/80'
+                            } `}
                     >
                         {t('myProjects')}
                         {activeTab === 'my' && (
@@ -167,8 +170,8 @@ export default function DashboardClient({
                     </button>
                     <button
                         onClick={() => setActiveTab('all')}
-                        className={`pb-3 text-sm font-medium transition-colors relative ${activeTab === 'all' ? 'text-white' : 'text-gray-400 hover:text-white/80'
-                            }`}
+                        className={`pb - 3 text - sm font - medium transition - colors relative ${activeTab === 'all' ? 'text-white' : 'text-gray-400 hover:text-white/80'
+                            } `}
                     >
                         {t('community')}
                         {activeTab === 'all' && (

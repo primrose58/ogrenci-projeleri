@@ -7,6 +7,7 @@ import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
 import Textarea from "@/components/ui/Textarea";
 import { useRouter } from "@/i18n/routing";
+import { toast } from "sonner";
 import { UploadCloud, X, Link as LinkIcon } from "lucide-react";
 import Image from "next/image";
 import { SocialIcon } from '@/lib/utils/social';
@@ -154,11 +155,12 @@ export default function UploadPage() {
 
             if (insertError) throw insertError;
 
-            alert(t('success'));
+            toast.success(t('success'));
             router.push('/dashboard');
             router.refresh();
         } catch (err: any) {
             console.error('Upload Error:', err);
+            toast.error(t('error') || "Bir hata oluştu.");
             if (err instanceof Error) {
                 setError(err.message);
             } else if (typeof err === 'object' && err !== null && 'message' in err) {
