@@ -41,6 +41,7 @@ export default function AuthPage() {
                     email: formData.email,
                     password: formData.password,
                     options: {
+                        emailRedirectTo: `${location.origin}/auth/callback`,
                         data: {
                             full_name: formData.name,
                             student_number: formData.studentId
