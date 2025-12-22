@@ -129,7 +129,10 @@ export default async function ProfilePage({ params }: { params: Promise<{ id: st
 
                             {/* Age Display */}
                             {profile.birth_date && (
-                                <div className="flex items-center gap-2 px-3 py-1.5 bg-gray-100 dark:bg-white/5 rounded-full border border-gray-200 dark:border-white/5">
+                                <div
+                                    title={new Date(profile.birth_date).toLocaleDateString('tr-TR', { day: 'numeric', month: 'long' })}
+                                    className="flex items-center gap-2 px-3 py-1.5 bg-gray-100 dark:bg-white/5 rounded-full border border-gray-200 dark:border-white/5 cursor-help transition-colors hover:bg-gray-200 dark:hover:bg-white/10"
+                                >
                                     <Calendar size={16} className="text-pink-500" />
                                     <span className="text-sm font-medium">
                                         {/* Simple Age Calculation */}
@@ -142,7 +145,7 @@ export default async function ProfilePage({ params }: { params: Promise<{ id: st
                                                 age--;
                                             }
                                             return age;
-                                        })()} {t('age') || 'Yaş'}
+                                        })()} {t('age')}
                                     </span>
                                 </div>
                             )}

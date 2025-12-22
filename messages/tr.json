@@ -127,6 +127,7 @@
         "noProjectsTitle": "Henüz Proje Yok",
         "noProjectsDesc": "Bu kullanıcı henüz bir proje paylaşmamış.",
         "studentNumber": "Öğrenci No",
+        "age": "Yaş",
         "department": "Bölüm"
     }
 }

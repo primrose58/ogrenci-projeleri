@@ -109,7 +109,8 @@
     "noProjectsTitle": "No Projects Yet",
     "noProjectsDesc": "This user hasn't shared any projects yet.",
     "studentNumber": "Student No",
-    "department": "Department"
+    "department": "Department",
+    "age": "Age"
   },
   "Guide": {
     "title": "Detailed Project Guide",
