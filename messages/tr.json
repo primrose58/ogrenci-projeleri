@@ -25,6 +25,7 @@
         "repoLink": "GitHub/Kaynak Linki",
         "demoLink": "Canlı Demo Linki",
         "tags": "Teknolojiler (virgül ile ayırın)",
+        "collaborators": "Proje Arkadaşları (virgül ile ayırın)",
         "submit": "Projeyi Paylaş",
         "image": "Proje Görseli",
         "dropImage": "Görsel yüklemek için tıklayın veya sürükleyin",
@@ -33,7 +34,6 @@
     "Navigation": {
         "home": "Ana Sayfa",
         "projects": "Projeler",
-        "upload": "Proje Yükle",
         "upload": "Proje Yükle",
         "login": "Giriş",
         "logout": "Çıkış Yap"

@@ -18,6 +18,16 @@ export default function Navbar({ user }: { user: User | null }) {
                     <Link href="/projects" className="hover:text-white/80 transition-colors">{t('projects')}</Link>
                 </div>
                 <div className="flex items-center gap-4">
+                    {user && (
+                        <div className="hidden lg:flex flex-col items-end mr-2">
+                            <span className="text-sm font-medium text-white">
+                                {user.user_metadata.full_name}
+                            </span>
+                            <span className="text-xs text-gray-400">
+                                {user.user_metadata.student_number}
+                            </span>
+                        </div>
+                    )}
                     <AuthButton user={user} />
                     <LanguageSwitcher />
                 </div>

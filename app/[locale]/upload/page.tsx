@@ -19,7 +19,8 @@ export default function UploadPage() {
         description: '',
         repoLink: '',
         demoLink: '',
-        tags: ''
+        tags: '',
+        collaborators: ''
     });
 
     const supabase = createClient();
@@ -41,6 +42,7 @@ export default function UploadPage() {
                 repo_url: formData.repoLink,
                 demo_url: formData.demoLink,
                 tags: formData.tags ? formData.tags.split(',').map(t => t.trim()) : [],
+                collaborators: formData.collaborators ? formData.collaborators.split(',').map(c => c.trim()) : [],
                 user_id: user.id
             });
 
@@ -90,6 +92,14 @@ export default function UploadPage() {
                                 onChange={(e) => setFormData({ ...formData, tags: e.target.value })}
                             />
                         </div>
+
+                        <Input
+                            label={t('collaborators')}
+                            placeholder="Ahmet Yılmaz, Ayşe Demir..."
+                            value={formData.collaborators}
+                            onChange={(e) => setFormData({ ...formData, collaborators: e.target.value })}
+                        />
+
 
                         <Textarea
                             label={t('description')}

@@ -25,6 +25,7 @@
     "repoLink": "GitHub/Source Link",
     "demoLink": "Live Demo Link",
     "tags": "Technologies (comma separated)",
+    "collaborators": "Collaborators (comma separated)",
     "submit": "Share Project",
     "image": "Project Thumbnail",
     "dropImage": "Click or drag to upload image",
@@ -33,7 +34,6 @@
   "Navigation": {
     "home": "Home",
     "projects": "Projects",
-    "upload": "Upload Project",
     "upload": "Upload Project",
     "login": "Login",
     "logout": "Logout"
