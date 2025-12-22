@@ -187,9 +187,7 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
                             <div className="flex gap-3 mt-2">
                                 {(project.user.social_links || []).map((link: string, i: number) => (
                                     link && (
-                                        <a key={i} href={link.includes('@') && !link.startsWith('mailto:') ? `mailto:${link}` : link} target="_blank" rel="noopener noreferrer" className="hover:scale-110 transition-transform">
-                                            <SocialIcon url={link} size={20} />
-                                        </a>
+                                        <SocialIcon key={i} url={link} size={20} />
                                     )
                                 ))}
                             </div>
@@ -247,9 +245,7 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
                                             <div className="flex gap-2 mt-1">
                                                 {(collab.social_links || []).map((link: string, i: number) => (
                                                     link && (
-                                                        <a key={i} href={link.includes('@') && !link.startsWith('mailto:') ? `mailto:${link}` : link} target="_blank" rel="noopener noreferrer" className="hover:scale-110 transition-transform">
-                                                            <SocialIcon url={link} size={16} />
-                                                        </a>
+                                                        <SocialIcon key={i} url={link} size={16} />
                                                     )
                                                 ))}
                                             </div>

@@ -254,7 +254,7 @@ export default function DashboardClient({
                                             <span className="text-3xl">{profileForm.full_name?.charAt(0) || '?'}</span>
                                         </div>
                                     )}
-                                    <label className="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer">
+                                    <label className="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer z-10">
                                         <span className="text-xs text-white font-medium">Değiştir</span>
                                         <input
                                             type="file"
@@ -295,7 +295,36 @@ export default function DashboardClient({
                                     </label>
                                 </div>
                                 <div className="flex gap-2">
-                                    <span className="text-xs text-gray-500 dark:text-gray-400">Tıklayıp yükleyebilirsiniz</span>
+                                    <label className="text-xs text-blue-500 hover:text-blue-600 cursor-pointer font-medium">
+                                        Fotoğraf Seç
+                                        <input
+                                            type="file"
+                                            accept="image/*"
+                                            className="hidden"
+                                            onChange={async (e) => {
+                                                const file = e.target.files?.[0];
+                                                if (!file) return;
+
+                                                // Same upload logic as above (duplicated for reliability)
+                                                // Ideally refactor to handler function
+                                                const objectUrl = URL.createObjectURL(file);
+                                                setProfileForm(prev => ({ ...prev, avatar_url: objectUrl }));
+                                                try {
+                                                    const supabase = createClient();
+                                                    const fileExt = file.name.split('.').pop();
+                                                    const fileName = `${user.id}-${Math.random()}.${fileExt}`;
+                                                    const { error: uploadError } = await supabase.storage.from('avatars').upload(fileName, file);
+                                                    if (uploadError) throw uploadError;
+                                                    const { data: { publicUrl } } = supabase.storage.from('avatars').getPublicUrl(fileName);
+                                                    setProfileForm(prev => ({ ...prev, avatar_url: publicUrl }));
+                                                } catch (error) {
+                                                    console.error('Avatar upload error:', error);
+                                                    toast.error('Avatar yüklenirken hata oluştu.');
+                                                }
+                                            }}
+                                        />
+                                    </label>
+                                    <span className="text-gray-300">|</span>
                                     {profileForm.avatar_url && (
                                         <button
                                             type="button"

@@ -116,14 +116,10 @@ export default async function ProfilePage({ params }: { params: Promise<{ id: st
                         </div>
 
                         {/* Social Links */}
-                        <div className="mt-6 flex flex-wrap gap-3 justify-center md:justify-start">
-                            {socialLinks.length > 0 ? (
-                                socialLinks.map((link: string, index: number) => (
-                                    <SocialIcon key={index} url={link} />
-                                ))
-                            ) : (
-                                <span className="text-sm text-gray-400 italic">{t('noSocialLinks')}</span>
-                            )}
+                        <div className="flex gap-3 justify-center md:justify-start">
+                            {profile.social_links?.map((link: string, i: number) => (
+                                <SocialIcon key={i} url={link} size={24} />
+                            ))}
                         </div>
                     </div>
                 </div>
