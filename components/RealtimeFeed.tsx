@@ -3,24 +3,10 @@
 import { useEffect, useState } from "react";
 import ProjectCard from "./ProjectCard";
 import { createClient } from "@/lib/supabase/client";
+import { Project } from '@/types/project';
 
-// Define interface for Project type to avoid 'any'
-interface Project {
-    id: string;
-    title: string;
-    description: string;
-    thumbnail_url?: string;
-    tags: string[];
-    user: {
-        full_name: string;
-    };
-    created_at: string;
-    repo_url?: string;
-    demo_url?: string;
-}
-
-export default function RealtimeFeed() {
-    const [projects, setProjects] = useState<Project[]>([]);
+export default function RealtimeFeed({ serverProjects, userId }: { serverProjects?: Project[], userId?: string }) {
+    const [projects, setProjects] = useState<Project[]>(serverProjects || []);
     const supabase = createClient();
 
     useEffect(() => {
@@ -58,11 +44,12 @@ export default function RealtimeFeed() {
                     .single();
 
                 if (data) {
-                    const newProject = {
+                    const newProject: Project = {
                         ...data,
                         tags: data.tags || [],
+                        collaborators: data.collaborators || [], // Handle collaborators
                         user: data.user || { full_name: 'Unknown' }
-                    };
+                    } as Project;
                     setProjects(current => [newProject, ...current]);
                 }
             })
