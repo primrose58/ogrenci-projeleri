@@ -11,6 +11,7 @@
         "email": "E-posta",
         "password": "Şifre",
         "name": "Ad Soyad",
+        "idNumber": "Öğrenci Numarası (Kullanıcı Adı)",
         "submitLogin": "Giriş Yap",
         "submitSignup": "Hesap Oluştur",
         "haveAccount": "Zaten hesabın var mı?",

@@ -11,6 +11,7 @@
     "email": "Email",
     "password": "Password",
     "name": "Full Name",
+    "idNumber": "Student Number (Username)",
     "submitLogin": "Sign In",
     "submitSignup": "Create Account",
     "haveAccount": "Already have an account?",

@@ -17,7 +17,8 @@ export default function AuthPage() {
     const [formData, setFormData] = useState({
         email: '',
         password: '',
-        name: ''
+        name: '',
+        studentId: ''
     });
 
     const supabase = createClient();
@@ -41,7 +42,8 @@ export default function AuthPage() {
                     password: formData.password,
                     options: {
                         data: {
-                            full_name: formData.name
+                            full_name: formData.name,
+                            student_number: formData.studentId
                         }
                     }
                 });
@@ -81,13 +83,22 @@ export default function AuthPage() {
 
                     <form onSubmit={handleAuth} className="w-full flex flex-col gap-4">
                         {!isLogin && (
-                            <Input
-                                label={t('name')}
-                                placeholder="John Doe"
-                                value={formData.name}
-                                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                                required
-                            />
+                            <>
+                                <Input
+                                    label={t('name')}
+                                    placeholder="John Doe"
+                                    value={formData.name}
+                                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                                    required
+                                />
+                                <Input
+                                    label={t('idNumber')}
+                                    placeholder="2023001"
+                                    value={formData.studentId}
+                                    onChange={(e) => setFormData({ ...formData, studentId: e.target.value })}
+                                    required
+                                />
+                            </>
                         )}
                         <Input
                             label={t('email')}
