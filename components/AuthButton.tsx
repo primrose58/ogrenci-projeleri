@@ -4,23 +4,44 @@ import { useTranslations } from 'next-intl';
 import { Link, useRouter } from '@/i18n/routing';
 import { createClient } from '@/lib/supabase/client';
 import { User } from '@supabase/supabase-js';
-import { useState } from 'react';
-import Button from './ui/Button';
+import { useState, useEffect } from 'react';
 
 export default function AuthButton({ user }: { user: User | null }) {
     const t = useTranslations('Navigation');
     const router = useRouter();
     const supabase = createClient();
     const [loading, setLoading] = useState(false);
+    const [currentUser, setCurrentUser] = useState<User | null>(user);
+
+    // Sync with server state if it changes
+    useEffect(() => {
+        setCurrentUser(user);
+    }, [user]);
+
+    // Listen for client-side auth changes
+    useEffect(() => {
+        const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+            if (event === 'SIGNED_IN') {
+                setCurrentUser(session?.user ?? null);
+                router.refresh();
+            } else if (event === 'SIGNED_OUT') {
+                setCurrentUser(null);
+                router.refresh();
+            }
+        });
+
+        return () => {
+            subscription.unsubscribe();
+        };
+    }, [supabase, router]);
 
     const handleLogout = async () => {
         setLoading(true);
         await supabase.auth.signOut();
-        router.refresh();
         setLoading(false);
     };
 
-    if (user) {
+    if (currentUser) {
         return (
             <div className="flex items-center gap-4">
                 <Link
