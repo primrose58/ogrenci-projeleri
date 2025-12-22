@@ -6,7 +6,13 @@
     "goToDashboard": "Go to Dashboard",
     "exploreProjects": "Explore Projects",
     "welcome": "Welcome to the best platform for sharing student projects.",
-    "bannerTag": "Community Driven Platform"
+    "bannerTag": "Community Driven Platform",
+    "latestProjects": "Latest Projects",
+    "discoverSubTitle": "Discover what students are building right now."
+  },
+  "Footer": {
+    "copyright": "© 2024 Student Project Showcase. All rights reserved.",
+    "designedBy": "Designed with ❤️ by AntiGravity"
   },
   "HowItWorks": {
     "title": "How It Works",

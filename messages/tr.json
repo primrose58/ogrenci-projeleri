@@ -61,6 +61,7 @@
         "myProjects": "Projelerim",
         "community": "Topluluğu Keşfet",
         "noProjects": "Henüz hiç proje yüklemedin.",
-        "uploadFirst": "İlk Projeni Yükle"
+        "uploadFirst": "İlk Projeni Yükle",
+        "noProjectsYet": "Henüz hiç proje paylaşılmadı. İlk sen ol!"
     }
 }

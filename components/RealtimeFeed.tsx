@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 import ProjectCard from "./ProjectCard";
 import { createClient } from "@/lib/supabase/client";
 import { Project } from '@/types/project';
@@ -87,8 +88,10 @@ export default function RealtimeFeed({
         return () => { supabase.removeChannel(channel); }
     }, [userId]);
 
+    const t = useTranslations('Dashboard');
+
     if (projects.length === 0) {
-        return <div className="text-gray-400 text-center w-full col-span-3 py-10">No projects shared yet. Be the first!</div>;
+        return <div className="text-gray-400 text-center w-full col-span-3 py-10">{t('noProjectsYet')}</div>;
     }
 
     return (

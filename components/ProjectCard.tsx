@@ -44,6 +44,14 @@ export default function ProjectCard({ project, layout = 'grid', isOwner = false 
                                 fill
                                 className="object-cover"
                             />
+                        ) : (project.demo_url || project.repo_url) ? (
+                            <Image
+                                src={`https://api.microlink.io/?url=${encodeURIComponent(project.demo_url || project.repo_url || '')}&screenshot=true&meta=false&embed=screenshot.url`}
+                                alt={project.title}
+                                fill
+                                className="object-cover"
+                                unoptimized
+                            />
                         ) : (
                             <div className="w-full h-full bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center">
                                 <span className="text-2xl">🚀</span>
@@ -101,6 +109,14 @@ export default function ProjectCard({ project, layout = 'grid', isOwner = false 
                             alt={project.title}
                             fill
                             className="object-cover transition-transform duration-500 group-hover:scale-110"
+                        />
+                    ) : (project.demo_url || project.repo_url) ? (
+                        <Image
+                            src={`https://api.microlink.io/?url=${encodeURIComponent(project.demo_url || project.repo_url || '')}&screenshot=true&meta=false&embed=screenshot.url`}
+                            alt={project.title}
+                            fill
+                            className="object-cover transition-transform duration-500 group-hover:scale-110"
+                            unoptimized
                         />
                     ) : (
                         <div className="w-full h-full bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center">
