@@ -6,6 +6,7 @@ import Button from "@/components/ui/Button";
 import Image from "next/image";
 import { createClient } from "@/lib/supabase/client";
 import { notFound } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 export default function ProjectDetailPage({ params }: { params: Promise<{ id: string }> }) {
     const { id } = use(params);
@@ -43,11 +44,13 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
     if (loading) return <div className="min-h-screen text-white flex items-center justify-center">Loading...</div>;
     if (!project) return <div className="min-h-screen text-white flex items-center justify-center">Project not found.</div>;
 
+    const t = useTranslations('ProjectDetail');
+
     return (
         <div className="min-h-screen pt-20 px-4 md:px-20 pb-10 max-w-7xl mx-auto">
             {/* Back Button */}
             <Link href="/" className="inline-flex items-center text-gray-400 hover:text-white mb-8 transition-colors">
-                ← Back to Projects
+                ← {t('backToProjects')}
             </Link>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
@@ -61,6 +64,15 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
                             className="object-cover"
                             priority
                         />
+                    ) : (project.demo_url || project.repo_url) ? (
+                        <Image
+                            src={`https://api.microlink.io/?url=${encodeURIComponent(project.demo_url || project.repo_url || '')}&screenshot=true&meta=false&embed=screenshot.url`}
+                            alt={project.title}
+                            fill
+                            className="object-cover"
+                            priority
+                            unoptimized
+                        />
                     ) : (
                         <div className="w-full h-full bg-gray-800 flex items-center justify-center text-4xl">🚀</div>
                     )}
@@ -73,7 +85,7 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
                             {project.title}
                         </h1>
                         <div className="flex items-center gap-2 mt-4 text-gray-400 text-sm">
-                            <span>By {project.user.full_name}</span>
+                            <span>{t('by')} {project.user.full_name}</span>
                             <span>•</span>
                             <span>{new Date(project.created_at).toLocaleDateString()}</span>
                         </div>
@@ -94,12 +106,12 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
                     <div className="flex flex-col sm:flex-row gap-4 mt-4">
                         {project.demo_url && (
                             <a href={project.demo_url} target="_blank" rel="noopener noreferrer" className="flex-1">
-                                <Button className="w-full h-12 text-lg">Live Demo 🚀</Button>
+                                <Button className="w-full h-12 text-lg">{t('liveDemo')}</Button>
                             </a>
                         )}
                         {project.repo_url && (
                             <a href={project.repo_url} target="_blank" rel="noopener noreferrer" className="flex-1">
-                                <Button variant="secondary" className="w-full h-12 text-lg">View Code 💻</Button>
+                                <Button variant="secondary" className="w-full h-12 text-lg">{t('viewCode')}</Button>
                             </a>
                         )}
                     </div>
