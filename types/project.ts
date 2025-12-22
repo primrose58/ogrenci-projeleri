@@ -11,5 +11,7 @@ export interface Project {
     demo_url?: string;
     user: {
         full_name: string;
+        student_number: string;
+        department?: string;
     };
 }

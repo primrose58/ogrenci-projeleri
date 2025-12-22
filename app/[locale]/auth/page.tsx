@@ -18,7 +18,8 @@ export default function AuthPage() {
         email: '',
         password: '',
         name: '',
-        studentId: ''
+        studentId: '',
+        department: ''
     });
 
     const supabase = createClient();
@@ -44,7 +45,8 @@ export default function AuthPage() {
                         emailRedirectTo: `${location.origin}/auth/callback`,
                         data: {
                             full_name: formData.name,
-                            student_number: formData.studentId
+                            student_number: formData.studentId,
+                            department: formData.department
                         }
                     }
                 });
@@ -100,40 +102,51 @@ export default function AuthPage() {
                                     required
                                 />
                             </>
+                                    onChange={(e) => setFormData({ ...formData, studentId: e.target.value })}
+                        required
+                                />
+                        <Input
+                            label={t('department')}
+                            placeholder="Computer Engineering"
+                            value={formData.department}
+                            onChange={(e) => setFormData({ ...formData, department: e.target.value })}
+                            required
+                        />
+                    </>
                         )}
-                        <Input
-                            label={t('email')}
-                            type="email"
-                            placeholder="example@student.edu"
-                            value={formData.email}
-                            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                            required
-                        />
-                        <Input
-                            label={t('password')}
-                            type="password"
-                            placeholder="••••••••"
-                            value={formData.password}
-                            onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                            required
-                        />
+                    <Input
+                        label={t('email')}
+                        type="email"
+                        placeholder="example@student.edu"
+                        value={formData.email}
+                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                        required
+                    />
+                    <Input
+                        label={t('password')}
+                        type="password"
+                        placeholder="••••••••"
+                        value={formData.password}
+                        onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                        required
+                    />
 
-                        <Button type="submit" isLoading={loading} className="mt-2">
-                            {isLogin ? t('submitLogin') : t('submitSignup')}
-                        </Button>
-                    </form>
+                    <Button type="submit" isLoading={loading} className="mt-2">
+                        {isLogin ? t('submitLogin') : t('submitSignup')}
+                    </Button>
+                </form>
 
-                    <div className="flex items-center gap-2 text-sm text-gray-400">
-                        <span>{isLogin ? t('noAccount') : t('haveAccount')}</span>
-                        <button
-                            onClick={() => setIsLogin(!isLogin)}
-                            className="text-white hover:text-blue-400 hover:underline transition-colors font-medium"
-                        >
-                            {isLogin ? t('signup') : t('login')}
-                        </button>
-                    </div>
+                <div className="flex items-center gap-2 text-sm text-gray-400">
+                    <span>{isLogin ? t('noAccount') : t('haveAccount')}</span>
+                    <button
+                        onClick={() => setIsLogin(!isLogin)}
+                        className="text-white hover:text-blue-400 hover:underline transition-colors font-medium"
+                    >
+                        {isLogin ? t('signup') : t('login')}
+                    </button>
                 </div>
             </div>
         </div>
+        </div >
     );
 }

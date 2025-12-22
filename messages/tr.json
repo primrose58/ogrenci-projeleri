@@ -23,6 +23,7 @@
         "email": "E-posta",
         "password": "Şifre",
         "name": "Ad Soyad",
+        "department": "Bölüm",
         "idNumber": "Öğrenci Numarası (Kullanıcı Adı)",
         "submitLogin": "Giriş Yap",
         "submitSignup": "Hesap Oluştur",

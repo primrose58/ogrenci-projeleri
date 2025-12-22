@@ -23,6 +23,7 @@
     "email": "Email",
     "password": "Password",
     "name": "Full Name",
+    "department": "Department",
     "idNumber": "Student Number (Username)",
     "submitLogin": "Sign In",
     "submitSignup": "Create Account",

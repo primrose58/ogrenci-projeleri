@@ -7,6 +7,8 @@ import RealtimeFeed from '@/components/RealtimeFeed';
 import { Project } from '@/types/project';
 import { User } from '@supabase/supabase-js';
 
+import { LayoutGrid, List } from 'lucide-react';
+
 export default function DashboardClient({
     user,
     myProjects,
@@ -16,19 +18,48 @@ export default function DashboardClient({
     myProjects: Project[],
     allProjects: Project[]
 }) {
-    const t = useTranslations('Dashboard'); // We'll need to add this
+    const t = useTranslations('Dashboard');
     const [activeTab, setActiveTab] = useState<'my' | 'all'>('my');
+    const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+
+    const userInfo = user.user_metadata || {};
 
     return (
         <div className="w-full max-w-7xl mx-auto p-4 pt-8">
             <div className="flex flex-col gap-6">
-                <div className="flex flex-col gap-2">
-                    <h1 className="text-3xl font-bold text-white">
-                        {t('welcome', { name: user.user_metadata.full_name || user.email })}
-                    </h1>
-                    <p className="text-gray-400">
-                        {t('subTitle')}
-                    </p>
+                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4">
+                    <div className="flex flex-col gap-2">
+                        <h1 className="text-3xl font-bold text-white">
+                            {t('welcome', { name: userInfo.full_name || user.email })}
+                        </h1>
+                        <div className="flex items-center gap-3 text-gray-400">
+                            <span className="bg-white/10 px-2 py-1 rounded text-sm">{userInfo.student_number}</span>
+                            {userInfo.department && (
+                                <span className="bg-purple-500/20 text-purple-300 px-2 py-1 rounded text-sm border border-purple-500/20">
+                                    {userInfo.department}
+                                </span>
+                            )}
+                        </div>
+                        <p className="text-gray-400 mt-1">
+                            {t('subTitle')}
+                        </p>
+                    </div>
+
+                    {/* View Toggle */}
+                    <div className="flex bg-white/5 p-1 rounded-lg border border-white/10">
+                        <button
+                            onClick={() => setViewMode('grid')}
+                            className={`p-2 rounded-md transition-all ${viewMode === 'grid' ? 'bg-white/10 text-white' : 'text-gray-400 hover:text-white'}`}
+                        >
+                            <LayoutGrid size={20} />
+                        </button>
+                        <button
+                            onClick={() => setViewMode('list')}
+                            className={`p-2 rounded-md transition-all ${viewMode === 'list' ? 'bg-white/10 text-white' : 'text-gray-400 hover:text-white'}`}
+                        >
+                            <List size={20} />
+                        </button>
+                    </div>
                 </div>
 
                 {/* Tabs */}
@@ -67,11 +98,11 @@ export default function DashboardClient({
                                     </Link>
                                 </div>
                             ) : (
-                                <RealtimeFeed serverProjects={myProjects} userId={user.id} />
+                                <RealtimeFeed serverProjects={myProjects} userId={user.id} viewMode={viewMode} currentUserId={user.id} />
                             )}
                         </>
                     ) : (
-                        <RealtimeFeed serverProjects={allProjects} />
+                        <RealtimeFeed serverProjects={allProjects} viewMode={viewMode} currentUserId={user.id} />
                     )}
                 </div>
             </div>

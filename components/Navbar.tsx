@@ -30,7 +30,7 @@ export default function Navbar({ user }: { user: User | null }) {
                     <div className="hidden md:flex items-center gap-8">
                         <div className="flex gap-6 text-sm font-medium">
                             <Link href="/" className="text-gray-300 hover:text-white transition-colors">{t('home')}</Link>
-                            <Link href="/projects" className="text-gray-300 hover:text-white transition-colors">{t('projects')}</Link>
+                            <Link href={user ? "/dashboard" : "/projects"} className="text-gray-300 hover:text-white transition-colors">{t('projects')}</Link>
                         </div>
 
                         <div className="flex items-center gap-4 pl-6 border-l border-white/10">
@@ -41,6 +41,7 @@ export default function Navbar({ user }: { user: User | null }) {
                                     </span>
                                     <span className="text-xs text-gray-400">
                                         {user.user_metadata.student_number}
+                                        {user.user_metadata.department && ` • ${user.user_metadata.department}`}
                                     </span>
                                 </div>
                             )}
@@ -80,7 +81,7 @@ export default function Navbar({ user }: { user: User | null }) {
                                 {t('home')}
                             </Link>
                             <Link
-                                href="/projects"
+                                href={user ? "/dashboard" : "/projects"}
                                 onClick={() => setIsMenuOpen(false)}
                                 className="block px-3 py-2 text-base font-medium text-gray-300 hover:text-white hover:bg-white/10 rounded-md"
                             >
