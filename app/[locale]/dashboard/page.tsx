@@ -11,12 +11,19 @@ export default async function DashboardPage() {
         redirect('/auth');
     }
 
+    // Fetch User Profile Data for Edit Form
+    const { data: userProfile } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('id', user.id)
+        .single();
+
     // Fetch My Projects
     const { data: myProjects } = await supabase
         .from('projects')
         .select(`
             *,
-            user:profiles(full_name, student_number, department)
+            user:profiles(full_name, student_number, department, linkedin_url, github_url, website_url, instagram_url)
         `)
         .eq('user_id', user.id)
         .order('created_at', { ascending: false });
@@ -26,7 +33,7 @@ export default async function DashboardPage() {
         .from('projects')
         .select(`
             *,
-            user:profiles(full_name, student_number, department)
+            user:profiles(full_name, student_number, department, linkedin_url, github_url, website_url, instagram_url)
         `)
         .order('created_at', { ascending: false });
 
@@ -34,12 +41,13 @@ export default async function DashboardPage() {
         ...p,
         tags: p.tags || [],
         collaborators: p.collaborators || [],
-        user: p.user || { full_name: 'Unknown' }
+        user: p.user || { full_name: 'Unknown', student_number: '' }
     });
 
     return (
         <DashboardClient
             user={user}
+            userProfile={userProfile}
             myProjects={myProjects?.map(mapProject) || []}
             allProjects={allProjects?.map(mapProject) || []}
         />

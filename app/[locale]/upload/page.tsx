@@ -23,7 +23,14 @@ export default function UploadPage() {
         repoLink: '',
         demoLink: '',
         tags: '',
-        collaborators: [] as { full_name: string; student_number: string; department: string }[]
+        collaborators: [] as {
+            full_name: string;
+            student_number: string;
+            department: string;
+            github_url?: string;
+            linkedin_url?: string;
+            instagram_url?: string;
+        }[]
     });
 
     const [imageFile, setImageFile] = useState<File | null>(null);
@@ -151,54 +158,97 @@ export default function UploadPage() {
                         <div className="flex flex-col gap-3">
                             <label className="text-sm font-medium text-gray-400">{t('collaborators')}</label>
                             {formData.collaborators.map((collab, index) => (
-                                <div key={index} className="flex flex-col md:flex-row gap-2 items-start">
-                                    <Input
-                                        placeholder="Ad Soyad"
-                                        value={collab.full_name}
-                                        onChange={(e) => {
-                                            const newCollabs = [...formData.collaborators];
-                                            newCollabs[index].full_name = e.target.value;
-                                            setFormData({ ...formData, collaborators: newCollabs });
-                                        }}
-                                        containerClassName="flex-1 w-full"
-                                    />
-                                    <Input
-                                        placeholder="Öğrenci No"
-                                        value={collab.student_number}
-                                        onChange={(e) => {
-                                            const newCollabs = [...formData.collaborators];
-                                            newCollabs[index].student_number = e.target.value;
-                                            setFormData({ ...formData, collaborators: newCollabs });
-                                        }}
-                                        containerClassName="w-full md:w-32"
-                                    />
-                                    <Input
-                                        placeholder="Bölüm"
-                                        value={collab.department}
-                                        onChange={(e) => {
-                                            const newCollabs = [...formData.collaborators];
-                                            newCollabs[index].department = e.target.value;
-                                            setFormData({ ...formData, collaborators: newCollabs });
-                                        }}
-                                        containerClassName="w-full md:w-40"
-                                    />
-                                    <button
-                                        type="button"
-                                        onClick={() => {
-                                            const newCollabs = formData.collaborators.filter((_, i) => i !== index);
-                                            setFormData({ ...formData, collaborators: newCollabs });
-                                        }}
-                                        className="p-3 bg-red-500/10 text-red-400 hover:bg-red-500 hover:text-white rounded-lg transition-colors mt-0.5"
-                                    >
-                                        <X size={20} />
-                                    </button>
+                                <div key={index} className="p-4 bg-white/5 rounded-lg border border-white/10 flex flex-col gap-3">
+                                    <div className="flex flex-col md:flex-row gap-2 items-start">
+                                        <Input
+                                            placeholder="Ad Soyad"
+                                            value={collab.full_name}
+                                            onChange={(e) => {
+                                                const newCollabs = [...formData.collaborators];
+                                                newCollabs[index].full_name = e.target.value;
+                                                setFormData({ ...formData, collaborators: newCollabs });
+                                            }}
+                                            containerClassName="flex-1 w-full"
+                                        />
+                                        <Input
+                                            placeholder="Öğrenci No"
+                                            value={collab.student_number}
+                                            onChange={(e) => {
+                                                const newCollabs = [...formData.collaborators];
+                                                newCollabs[index].student_number = e.target.value;
+                                                setFormData({ ...formData, collaborators: newCollabs });
+                                            }}
+                                            containerClassName="w-full md:w-32"
+                                        />
+                                        <Input
+                                            placeholder="Bölüm"
+                                            value={collab.department}
+                                            onChange={(e) => {
+                                                const newCollabs = [...formData.collaborators];
+                                                newCollabs[index].department = e.target.value;
+                                                setFormData({ ...formData, collaborators: newCollabs });
+                                            }}
+                                            containerClassName="w-full md:w-40"
+                                        />
+                                        <button
+                                            type="button"
+                                            onClick={() => {
+                                                const newCollabs = formData.collaborators.filter((_, i) => i !== index);
+                                                setFormData({ ...formData, collaborators: newCollabs });
+                                            }}
+                                            className="p-3 bg-red-500/10 text-red-400 hover:bg-red-500 hover:text-white rounded-lg transition-colors mt-0.5"
+                                        >
+                                            <X size={20} />
+                                        </button>
+                                    </div>
+
+                                    {/* Social Links for Collaborator */}
+                                    <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
+                                        <Input
+                                            placeholder="GitHub (opsiyonel)"
+                                            value={collab.github_url || ''}
+                                            onChange={(e) => {
+                                                const newCollabs = [...formData.collaborators];
+                                                newCollabs[index].github_url = e.target.value;
+                                                setFormData({ ...formData, collaborators: newCollabs });
+                                            }}
+                                            containerClassName="text-xs"
+                                        />
+                                        <Input
+                                            placeholder="LinkedIn (opsiyonel)"
+                                            value={collab.linkedin_url || ''}
+                                            onChange={(e) => {
+                                                const newCollabs = [...formData.collaborators];
+                                                newCollabs[index].linkedin_url = e.target.value;
+                                                setFormData({ ...formData, collaborators: newCollabs });
+                                            }}
+                                            containerClassName="text-xs"
+                                        />
+                                        <Input
+                                            placeholder="Instagram (opsiyonel)"
+                                            value={collab.instagram_url || ''}
+                                            onChange={(e) => {
+                                                const newCollabs = [...formData.collaborators];
+                                                newCollabs[index].instagram_url = e.target.value;
+                                                setFormData({ ...formData, collaborators: newCollabs });
+                                            }}
+                                            containerClassName="text-xs"
+                                        />
+                                    </div>
                                 </div>
                             ))}
                             <button
                                 type="button"
                                 onClick={() => setFormData({
                                     ...formData,
-                                    collaborators: [...formData.collaborators, { full_name: '', student_number: '', department: '' }]
+                                    collaborators: [...formData.collaborators, {
+                                        full_name: '',
+                                        student_number: '',
+                                        department: '',
+                                        github_url: '',
+                                        linkedin_url: '',
+                                        instagram_url: ''
+                                    }]
                                 })}
                                 className="self-start text-sm text-purple-400 hover:text-purple-300 font-medium flex items-center gap-1"
                             >

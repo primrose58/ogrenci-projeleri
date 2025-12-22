@@ -7,6 +7,7 @@ import Image from "next/image";
 import { createClient } from "@/lib/supabase/client";
 import { notFound } from "next/navigation";
 import { useTranslations } from "next-intl";
+import { Github, Linkedin, Globe, Instagram, Users } from 'lucide-react';
 
 export default function ProjectDetailPage({ params }: { params: Promise<{ id: string }> }) {
     const { id } = use(params);
@@ -20,7 +21,7 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
                 .from('projects')
                 .select(`
                 *,
-                user:profiles(full_name, student_number, department)
+                user:profiles(full_name, student_number, department, linkedin_url, github_url, website_url, instagram_url)
             `)
                 .eq('id', id)
                 .single();
@@ -94,6 +95,30 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
                                 {project.user.student_number}
                                 {project.user.department && ` - ${project.user.department}`}
                             </div>
+
+                            {/* User Social Links */}
+                            <div className="flex gap-3 mt-2">
+                                {project.user.github_url && (
+                                    <a href={project.user.github_url} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors">
+                                        <Github size={20} />
+                                    </a>
+                                )}
+                                {project.user.linkedin_url && (
+                                    <a href={project.user.linkedin_url} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-blue-400 transition-colors">
+                                        <Linkedin size={20} />
+                                    </a>
+                                )}
+                                {project.user.website_url && (
+                                    <a href={project.user.website_url} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-green-400 transition-colors">
+                                        <Globe size={20} />
+                                    </a>
+                                )}
+                                {project.user.instagram_url && (
+                                    <a href={project.user.instagram_url} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-pink-400 transition-colors">
+                                        <Instagram size={20} />
+                                    </a>
+                                )}
+                            </div>
                         </div>
                     </div>
 
@@ -121,6 +146,53 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
                             </a>
                         )}
                     </div>
+
+                    {/* Collaborators Section */}
+                    {project.collaborators && project.collaborators.length > 0 && (
+                        <div className="flex flex-col gap-3 p-4 bg-white/5 rounded-xl border border-white/10 mt-6">
+                            <h3 className="text-lg font-semibold text-white flex items-center gap-2">
+                                <Users size={20} />
+                                {t('collaborators', { defaultValue: 'Projeye Katkıda Bulunanlar' })}
+                            </h3>
+                            <div className="flex flex-col gap-3">
+                                {project.collaborators.map((collab: any, index: number) => (
+                                    <div key={index} className="flex items-center gap-3 p-2 rounded-lg hover:bg-white/5 transition-colors">
+                                        <div className="w-10 h-10 rounded-full bg-blue-500/20 text-blue-300 flex items-center justify-center text-lg font-bold border border-blue-500/20">
+                                            {collab.full_name?.charAt(0) || '?'}
+                                        </div>
+                                        <div className="flex flex-col flex-1">
+                                            <span className="text-base font-medium text-gray-200">
+                                                {collab.full_name}
+                                            </span>
+                                            <div className="flex flex-col text-xs text-gray-500">
+                                                <span>{collab.student_number}</span>
+                                                <span>{collab.department}</span>
+                                            </div>
+
+                                            {/* Collaborator Social Links */}
+                                            <div className="flex gap-2 mt-1">
+                                                {collab.github_url && (
+                                                    <a href={collab.github_url} target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-white transition-colors">
+                                                        <Github size={16} />
+                                                    </a>
+                                                )}
+                                                {collab.linkedin_url && (
+                                                    <a href={collab.linkedin_url} target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-blue-400 transition-colors">
+                                                        <Linkedin size={16} />
+                                                    </a>
+                                                )}
+                                                {collab.instagram_url && (
+                                                    <a href={collab.instagram_url} target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-pink-400 transition-colors">
+                                                        <Instagram size={16} />
+                                                    </a>
+                                                )}
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    )}
                 </div>
             </div>
         </div>

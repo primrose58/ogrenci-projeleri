@@ -7,6 +7,12 @@ create table public.profiles (
   full_name text null,
   avatar_url text null,
   updated_at timestamp with time zone null,
+  student_number text null,
+  department text null,
+  linkedin_url text null,
+  github_url text null,
+  website_url text null,
+  instagram_url text null,
   
   primary key (id)
 );
@@ -67,8 +73,14 @@ language plpgsql
 security definer set search_path = public
 as $$
 begin
-  insert into public.profiles (id, full_name, avatar_url)
-  values (new.id, new.raw_user_meta_data->>'full_name', new.raw_user_meta_data->>'avatar_url');
+  insert into public.profiles (id, full_name, avatar_url, student_number, department)
+  values (
+    new.id, 
+    new.raw_user_meta_data->>'full_name', 
+    new.raw_user_meta_data->>'avatar_url',
+    new.raw_user_meta_data->>'student_number',
+    new.raw_user_meta_data->>'department'
+  );
   return new;
 end;
 $$;
