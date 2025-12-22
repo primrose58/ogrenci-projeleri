@@ -1,3 +1,5 @@
+"use client";
+
 import { Link, useRouter } from "@/i18n/routing";
 import Image from "next/image";
 import { Project } from '@/types/project';
