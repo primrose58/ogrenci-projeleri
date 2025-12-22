@@ -69,5 +69,9 @@
         "noProjects": "Henüz hiç proje yüklemedin.",
         "uploadFirst": "İlk Projeni Yükle",
         "noProjectsYet": "Henüz hiç proje paylaşılmadı. İlk sen ol!"
+    },
+    "ProjectsPage": {
+        "title": "Tüm Projeler",
+        "subTitle": "Topluluğumuz tarafından geliştirilen harika projelere göz atın."
     }
 }
