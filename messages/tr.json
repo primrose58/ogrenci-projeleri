@@ -1,6 +1,6 @@
 {
     "HomePage": {
-        "title": "Öğrenci Proje Vitrini",
+        "title": "Öğrenci Proje Ağı",
         "subTitle": "Keşfet, İncele ve İlham Al.",
         "getStarted": "Başla",
         "goToDashboard": "Panele Git",
@@ -11,7 +11,7 @@
         "discoverSubTitle": "Öğrencilerin şu an neler geliştirdiğini keşfedin."
     },
     "Footer": {
-        "copyright": "© 2024 Öğrenci Proje Vitrini. Tüm hakları saklıdır.",
+        "copyright": "© 2024 Öğrenci Proje Ağı. Tüm hakları saklıdır.",
         "designedBy": "AntiGravity tarafından ❤️ ile tasarlandı"
     },
     "HowItWorks": {
@@ -48,7 +48,17 @@
         "submit": "Projeyi Paylaş",
         "image": "Proje Görseli",
         "dropImage": "Görsel yüklemek için tıklayın veya sürükleyin",
-        "success": "Proje başarıyla yüklendi!"
+        "success": "Proje başarıyla yüklendi!",
+        "placeholderTitle": "Harika Projem",
+        "placeholderTags": "React, Next.js, AI",
+        "placeholderDesc": "Bize projenden bahset...",
+        "placeholderRepo": "https://github.com/kullanici/proje",
+        "placeholderDemo": "https://projem.vercel.app",
+        "placeholderName": "Ad Soyad",
+        "placeholderStudentId": "Öğrenci No",
+        "placeholderDept": "Bölüm",
+        "addLink": "Link Ekle",
+        "addCollaborator": "+ Arkadaş Ekle"
     },
     "Navigation": {
         "home": "Ana Sayfa",

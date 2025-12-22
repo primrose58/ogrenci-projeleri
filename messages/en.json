@@ -1,6 +1,6 @@
 {
   "HomePage": {
-    "title": "Student Project Showcase",
+    "title": "Student Project Network",
     "subTitle": "Discover, Review, and Inspire.",
     "getStarted": "Get Started",
     "goToDashboard": "Go to Dashboard",
@@ -11,7 +11,7 @@
     "discoverSubTitle": "Discover what students are building right now."
   },
   "Footer": {
-    "copyright": "© 2024 Student Project Showcase. All rights reserved.",
+    "copyright": "© 2024 Student Project Network. All rights reserved.",
     "designedBy": "Designed with ❤️ by AntiGravity"
   },
   "HowItWorks": {
@@ -48,7 +48,17 @@
     "submit": "Share Project",
     "image": "Project Thumbnail",
     "dropImage": "Click or drag to upload image",
-    "success": "Project uploaded successfully!"
+    "success": "Project uploaded successfully!",
+    "placeholderTitle": "My Awesome Project",
+    "placeholderTags": "React, Next.js, AI",
+    "placeholderDesc": "Tell us about your project...",
+    "placeholderRepo": "https://github.com/username/project",
+    "placeholderDemo": "https://my-project.vercel.app",
+    "placeholderName": "Full Name",
+    "placeholderStudentId": "Student No",
+    "placeholderDept": "Department",
+    "addLink": "Add Link",
+    "addCollaborator": "+ Add Collaborator"
   },
   "Navigation": {
     "home": "Home",

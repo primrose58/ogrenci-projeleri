@@ -190,7 +190,7 @@ export default function UploadPage() {
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <Input
                                 label={t('projectTitle')}
-                                placeholder="My Awesome Project"
+                                placeholder={t('placeholderTitle')}
                                 value={formData.title}
                                 onChange={(e) => setFormData({ ...formData, title: e.target.value })}
                                 required
@@ -199,7 +199,7 @@ export default function UploadPage() {
                             <div className="relative">
                                 <Input
                                     label={t('tags')}
-                                    placeholder="React, Next.js, AI"
+                                    placeholder={t('placeholderTags')}
                                     value={formData.tags}
                                     onChange={(e) => {
                                         const value = e.target.value;
@@ -255,19 +255,19 @@ export default function UploadPage() {
                                 <div key={index} className="p-4 bg-white/5 rounded-lg border border-white/10 flex flex-col gap-3">
                                     <div className="flex flex-col md:flex-row gap-2 items-start">
                                         <Input
-                                            placeholder="Ad Soyad"
+                                            placeholder={t('placeholderName')}
                                             value={collab.full_name}
                                             onChange={(e) => updateCollaborator(index, 'full_name', e.target.value)}
                                             containerClassName="flex-1 w-full"
                                         />
                                         <Input
-                                            placeholder="Öğrenci No"
+                                            placeholder={t('placeholderStudentId')}
                                             value={collab.student_number}
                                             onChange={(e) => updateCollaborator(index, 'student_number', e.target.value)}
                                             containerClassName="w-full md:w-32"
                                         />
                                         <Input
-                                            placeholder="Bölüm"
+                                            placeholder={t('placeholderDept')}
                                             value={collab.department}
                                             onChange={(e) => updateCollaborator(index, 'department', e.target.value)}
                                             containerClassName="w-full md:w-40"
@@ -317,7 +317,7 @@ export default function UploadPage() {
                                                 className="text-xs text-purple-400 hover:text-purple-300 font-medium self-start flex items-center gap-1"
                                             >
                                                 <LinkIcon size={12} />
-                                                Link Ekle
+                                                {t('addLink')}
                                             </button>
                                         </div>
                                     </div>
@@ -336,14 +336,14 @@ export default function UploadPage() {
                                 })}
                                 className="self-start text-sm text-purple-400 hover:text-purple-300 font-medium flex items-center gap-1"
                             >
-                                + Arkadaş Ekle
+                                {t('addCollaborator')}
                             </button>
                         </div>
 
 
                         <Textarea
                             label={t('description')}
-                            placeholder="Tell us about your project..."
+                            placeholder={t('placeholderDesc')}
                             value={formData.description}
                             onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                             required
@@ -352,13 +352,13 @@ export default function UploadPage() {
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <Input
                                 label={t('repoLink')}
-                                placeholder="https://github.com/..."
+                                placeholder={t('placeholderRepo')}
                                 value={formData.repoLink}
                                 onChange={(e) => setFormData({ ...formData, repoLink: e.target.value })}
                             />
                             <Input
                                 label={t('demoLink')}
-                                placeholder="https://my-app.vercel.app"
+                                placeholder={t('placeholderDemo')}
                                 value={formData.demoLink}
                                 onChange={(e) => setFormData({ ...formData, demoLink: e.target.value })}
                             />

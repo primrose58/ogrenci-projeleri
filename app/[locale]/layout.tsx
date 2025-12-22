@@ -19,7 +19,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "Student Project Showcase",
+  title: "Öğrenci Proje Ağı | Student Project Network",
   description: "Share your projects with the world.",
 };
 
