@@ -13,7 +13,7 @@ export const getSocialPlatform = (url: string) => {
     }
 
     if (lowerUrl.includes('github.com')) {
-        return { icon: <Github size={18} />, label: 'GitHub', color: 'text-white' };
+        return { icon: <Github size={18} />, label: 'GitHub', color: 'text-gray-900 dark:text-white' };
     }
 
     if (lowerUrl.includes('linkedin.com')) {
