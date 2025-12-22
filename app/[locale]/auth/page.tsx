@@ -8,6 +8,7 @@ import Input from "@/components/ui/Input";
 import { useRouter } from "@/i18n/routing";
 import SearchableSelect from "@/components/ui/SearchableSelect";
 import { departments } from "@/data/departments";
+import { toast } from "sonner";
 
 export default function AuthPage() {
     const t = useTranslations('Auth');
@@ -33,12 +34,24 @@ export default function AuthPage() {
 
         try {
             if (isLogin) {
-                const { error } = await supabase.auth.signInWithPassword({
+                const { data, error } = await supabase.auth.signInWithPassword({
                     email: formData.email,
                     password: formData.password
                 });
+
                 if (error) throw error;
-                router.push('/');
+
+                // Check if user exists but email is not confirmed (Supabase handles this usually via error, but custom flows might need it)
+                // Actually, if 'email_confirm' is on, signIn returns error if not confirmed or session is null.
+                if (data.session) {
+                    toast.success(t('loginSuccess') || "Giriş başarılı! Hoş geldin.");
+                    router.refresh(); // Refresh to update server components like Navbar
+                    router.push('/');
+                } else {
+                    // This creates a smoother UX if session isn't immediately available or requires verification
+                    toast.error("Lütfen email adresinizi onaylayın.");
+                }
+
             } else {
                 const { error } = await supabase.auth.signUp({
                     email: formData.email,
@@ -52,15 +65,23 @@ export default function AuthPage() {
                         }
                     }
                 });
+
                 if (error) throw error;
-                // Show success message or redirect
-                router.push('/');
+
+                toast.success("Hesap oluşturuldu! Lütfen giriş yapmadan önce email adresinize gelen onay linkine tıklayın.", {
+                    duration: 6000,
+                });
+
+                // Optionally verify if we want to switch to login mode automatically
+                setIsLogin(true);
             }
         } catch (err: unknown) {
             if (err instanceof Error) {
                 setError(err.message);
+                toast.error(err.message);
             } else {
                 setError('An unknown error occurred');
+                toast.error('Beklenmedik bir hata oluştu');
             }
         } finally {
             setLoading(false);

@@ -5,6 +5,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import Navbar from "@/components/Navbar";
 import "../globals.css";
 import { createClient } from '@/lib/supabase/server';
+import { Toaster } from 'sonner';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -50,6 +51,7 @@ export default async function LocaleLayout({
           <div className="flex-1">
             {children}
           </div>
+          <Toaster position="top-center" richColors />
         </NextIntlClientProvider>
       </body>
     </html>
