@@ -118,19 +118,19 @@ export default function AuthPage() {
 
     return (
         <div className="flex items-center justify-center min-h-[80vh] w-full p-4">
-            <div className="relative w-full max-w-md p-8 bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl overflow-hidden">
+            <div className="relative w-full max-w-md p-8 bg-white/80 dark:bg-white/5 backdrop-blur-xl border border-gray-200 dark:border-white/10 rounded-2xl shadow-2xl dark:shadow-none overflow-hidden transition-colors duration-300">
                 {/* Decorative elements */}
                 <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-purple-500 to-blue-500" />
                 <div className="absolute -top-10 -right-10 w-24 h-24 bg-blue-500/20 rounded-full blur-xl" />
                 <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-purple-500/20 rounded-full blur-xl" />
 
                 <div className="relative z-10 flex flex-col items-center gap-6">
-                    <h1 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400">
+                    <h1 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-400">
                         {isLogin ? t('login') : t('signup')}
                     </h1>
 
                     {error && (
-                        <div className="w-full p-3 text-sm text-red-200 bg-red-500/10 border border-red-500/20 rounded-lg">
+                        <div className="w-full p-3 text-sm text-red-600 dark:text-red-200 bg-red-100 dark:bg-red-500/10 border border-red-200 dark:border-red-500/20 rounded-lg">
                             {error}
                         </div>
                     )}
@@ -152,9 +152,9 @@ export default function AuthPage() {
                                         id="studentCheck"
                                         checked={isStudent}
                                         onChange={(e) => setIsStudent(e.target.checked)}
-                                        className="w-4 h-4 rounded border-gray-600 bg-gray-700 text-blue-500 focus:ring-blue-500"
+                                        className="w-4 h-4 rounded border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-700 text-blue-500 focus:ring-blue-500"
                                     />
-                                    <label htmlFor="studentCheck" className="text-sm text-gray-300 select-none cursor-pointer">
+                                    <label htmlFor="studentCheck" className="text-sm text-gray-700 dark:text-gray-300 select-none cursor-pointer">
                                         {t('areYouStudent')}
                                     </label>
                                 </div>
@@ -168,9 +168,9 @@ export default function AuthPage() {
                                                 id="lostEmailCheck"
                                                 checked={hasLostStudentEmail}
                                                 onChange={(e) => setHasLostStudentEmail(e.target.checked)}
-                                                className="w-3 h-3 rounded border-gray-600 bg-gray-700 text-purple-500 focus:ring-purple-500"
+                                                className="w-3 h-3 rounded border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-700 text-purple-500 focus:ring-purple-500"
                                             />
-                                            <label htmlFor="lostEmailCheck" className="text-xs text-gray-400 select-none cursor-pointer hover:text-gray-300">
+                                            <label htmlFor="lostEmailCheck" className="text-xs text-gray-600 dark:text-gray-400 select-none cursor-pointer hover:text-gray-900 dark:hover:text-gray-300">
                                                 {t('lostStudentEmail')}
                                             </label>
                                         </div>
@@ -233,11 +233,11 @@ export default function AuthPage() {
                         </Button>
                     </form>
 
-                    <div className="flex items-center gap-2 text-sm text-gray-400">
+                    <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
                         <span>{isLogin ? t('noAccount') : t('haveAccount')}</span>
                         <button
                             onClick={() => setIsLogin(!isLogin)}
-                            className="text-white hover:text-blue-400 hover:underline transition-colors font-medium"
+                            className="text-blue-600 dark:text-white hover:text-blue-700 dark:hover:text-blue-400 hover:underline transition-colors font-medium"
                         >
                             {isLogin ? t('signup') : t('login')}
                         </button>

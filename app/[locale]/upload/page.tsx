@@ -175,15 +175,15 @@ export default function UploadPage() {
 
     return (
         <div className="flex items-center justify-center min-h-[90vh] w-full p-4 pt-20">
-            <div className="relative w-full max-w-2xl p-8 bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl overflow-hidden">
+            <div className="relative w-full max-w-2xl p-8 bg-white dark:bg-white/5 backdrop-blur-xl border border-gray-200 dark:border-white/10 rounded-2xl shadow-xl dark:shadow-2xl overflow-hidden transition-colors">
 
                 <div className="relative z-10 flex flex-col items-center gap-6">
-                    <h1 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-400">
+                    <h1 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-pink-600 dark:from-purple-400 dark:to-pink-400">
                         {t('title')}
                     </h1>
 
                     {error && (
-                        <div className="w-full p-3 text-sm text-red-200 bg-red-500/10 border border-red-500/20 rounded-lg">
+                        <div className="w-full p-3 text-sm text-red-600 dark:text-red-200 bg-red-100 dark:bg-red-500/10 border border-red-200 dark:border-red-500/20 rounded-lg">
                             {error}
                         </div>
                     )}
@@ -227,7 +227,7 @@ export default function UploadPage() {
                                     }}
                                 />
                                 {showTagSuggestions && tagSuggestions.length > 0 && (
-                                    <div className="absolute z-50 w-full mt-1 bg-[#1a1b26] border border-white/10 rounded-lg shadow-xl max-h-48 overflow-y-auto">
+                                    <div className="absolute z-50 w-full mt-1 bg-white dark:bg-[#1a1b26] border border-gray-200 dark:border-white/10 rounded-lg shadow-xl max-h-48 overflow-y-auto">
                                         {tagSuggestions.map((tech, i) => (
                                             <button
                                                 key={i}
@@ -241,7 +241,7 @@ export default function UploadPage() {
                                                     setFormData({ ...formData, tags: newValue });
                                                     setShowTagSuggestions(false);
                                                 }}
-                                                className="w-full text-left px-4 py-2 text-sm text-gray-300 hover:bg-purple-500/20 hover:text-purple-300 transition-colors"
+                                                className="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-purple-500/20 hover:text-purple-600 dark:hover:text-purple-300 transition-colors"
                                             >
                                                 {tech}
                                             </button>
@@ -252,9 +252,9 @@ export default function UploadPage() {
                         </div>
 
                         <div className="flex flex-col gap-3">
-                            <label className="text-sm font-medium text-gray-400">{t('collaborators')}</label>
+                            <label className="text-sm font-medium text-gray-700 dark:text-gray-400">{t('collaborators')}</label>
                             {formData.collaborators.map((collab, index) => (
-                                <div key={index} className="p-4 bg-white/5 rounded-lg border border-white/10 flex flex-col gap-3">
+                                <div key={index} className="p-4 bg-gray-50 dark:bg-white/5 rounded-lg border border-gray-200 dark:border-white/10 flex flex-col gap-3">
                                     <div className="flex flex-col md:flex-row gap-2 items-start">
                                         <Input
                                             placeholder={t('placeholderName')}
@@ -280,7 +280,7 @@ export default function UploadPage() {
                                                 const newCollabs = formData.collaborators.filter((_, i) => i !== index);
                                                 setFormData({ ...formData, collaborators: newCollabs });
                                             }}
-                                            className="p-3 bg-red-500/10 text-red-400 hover:bg-red-500 hover:text-white rounded-lg transition-colors mt-0.5"
+                                            className="p-3 bg-red-100 dark:bg-red-500/10 text-red-500 dark:text-red-400 hover:bg-red-500 hover:text-white rounded-lg transition-colors mt-0.5"
                                         >
                                             <X size={20} />
                                         </button>
@@ -301,13 +301,13 @@ export default function UploadPage() {
                                                             value={link}
                                                             onChange={(e) => updateCollaboratorLink(index, linkIdx, e.target.value)}
                                                             placeholder="https://..."
-                                                            className="w-full bg-white/5 border border-white/10 rounded-lg py-1.5 pl-9 pr-2 text-xs text-white focus:ring-1 focus:ring-purple-500 outline-none placeholder-gray-600"
+                                                            className="w-full bg-white border border-gray-300 dark:bg-white/5 dark:border-white/10 rounded-lg py-1.5 pl-9 pr-2 text-xs text-gray-900 dark:text-white focus:ring-1 focus:ring-purple-500 outline-none placeholder-gray-400 dark:placeholder-gray-600"
                                                         />
                                                     </div>
                                                     <button
                                                         type="button"
                                                         onClick={() => removeCollaboratorLink(index, linkIdx)}
-                                                        className="text-gray-400 hover:text-red-400 p-1"
+                                                        className="text-gray-400 hover:text-red-500 p-1"
                                                     >
                                                         <X size={14} />
                                                     </button>
@@ -316,7 +316,7 @@ export default function UploadPage() {
                                             <button
                                                 type="button"
                                                 onClick={() => addCollaboratorLink(index)}
-                                                className="text-xs text-purple-400 hover:text-purple-300 font-medium self-start flex items-center gap-1"
+                                                className="text-xs text-purple-600 dark:text-purple-400 hover:text-purple-500 dark:hover:text-purple-300 font-medium self-start flex items-center gap-1"
                                             >
                                                 <LinkIcon size={12} />
                                                 {t('addLink')}
@@ -336,7 +336,7 @@ export default function UploadPage() {
                                         social_links: ['']
                                     }]
                                 })}
-                                className="self-start text-sm text-purple-400 hover:text-purple-300 font-medium flex items-center gap-1"
+                                className="self-start text-sm text-purple-600 dark:text-purple-400 hover:text-purple-500 dark:hover:text-purple-300 font-medium flex items-center gap-1"
                             >
                                 {t('addCollaborator')}
                             </button>
@@ -368,7 +368,7 @@ export default function UploadPage() {
 
                         {/* Image Upload Area */}
                         <div>
-                            <label className="block text-sm font-medium text-gray-400 mb-1">{t('image')}</label>
+                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-400 mb-1">{t('image')}</label>
                             <input
                                 type="file"
                                 ref={fileInputRef}
@@ -380,13 +380,13 @@ export default function UploadPage() {
                             {!imagePreview ? (
                                 <div
                                     onClick={() => fileInputRef.current?.click()}
-                                    className="w-full h-32 border-2 border-dashed border-white/20 rounded-lg flex flex-col items-center justify-center text-gray-400 hover:border-white/40 hover:bg-white/5 transition-all cursor-pointer gap-2"
+                                    className="w-full h-32 border-2 border-dashed border-gray-300 dark:border-white/20 rounded-lg flex flex-col items-center justify-center text-gray-500 dark:text-gray-400 hover:border-gray-400 dark:hover:border-white/40 hover:bg-gray-50 dark:hover:bg-white/5 transition-all cursor-pointer gap-2"
                                 >
                                     <UploadCloud size={32} />
                                     <span>{t('dropImage')}</span>
                                 </div>
                             ) : (
-                                <div className="relative w-full h-48 rounded-lg overflow-hidden border border-white/20 group">
+                                <div className="relative w-full h-48 rounded-lg overflow-hidden border border-gray-200 dark:border-white/20 group">
                                     <Image
                                         src={imagePreview}
                                         alt="Preview"

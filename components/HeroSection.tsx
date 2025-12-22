@@ -31,8 +31,8 @@ export default function HeroSection({ user }: { user: User | null }) {
     return (
         <section className="relative min-h-[80vh] flex flex-col items-center justify-center text-center p-4 overflow-hidden">
             {/* Dynamic Background */}
-            <div className="absolute inset-0 bg-gradient-to-b from-purple-900/20 via-black to-black z-0" />
-            <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 z-0 mix-blend-overlay"></div>
+            <div className="absolute inset-0 bg-gradient-to-b from-purple-50/50 via-white to-white dark:from-purple-900/20 dark:via-black dark:to-black z-0 transition-colors duration-500" />
+            <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10 dark:opacity-20 z-0 mix-blend-overlay"></div>
 
             {/* Floating Elements Animation */}
             <motion.div
@@ -71,7 +71,7 @@ export default function HeroSection({ user }: { user: User | null }) {
                 animate="visible"
                 className="relative z-10 max-w-5xl flex flex-col items-center gap-8"
             >
-                <motion.div variants={itemVariants} className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-sm md:text-base text-purple-300 backdrop-blur-sm">
+                <motion.div variants={itemVariants} className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 text-sm md:text-base text-purple-600 dark:text-purple-300 backdrop-blur-sm">
                     <Sparkles size={16} />
                     <span>{t('bannerTag')}</span>
                 </motion.div>
@@ -80,28 +80,28 @@ export default function HeroSection({ user }: { user: User | null }) {
                     variants={itemVariants}
                     className="text-6xl md:text-8xl font-black tracking-tight"
                 >
-                    <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 drop-shadow-2xl">
+                    <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 dark:from-blue-400 dark:via-purple-400 dark:to-pink-400 drop-shadow-sm dark:drop-shadow-2xl">
                         {t('title')}
                     </span>
                 </motion.h1>
 
                 <motion.p
                     variants={itemVariants}
-                    className="text-xl md:text-2xl text-gray-300 max-w-2xl font-light leading-relaxed"
+                    className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 max-w-2xl font-light leading-relaxed"
                 >
                     {t('subTitle')}
                 </motion.p>
 
                 <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-4 mt-4">
                     <Link href={user ? "/dashboard" : "/auth"}>
-                        <button className="group relative px-8 py-4 bg-white text-black font-bold rounded-full text-lg flex items-center gap-2 hover:bg-gray-100 transition-all shadow-[0_0_40px_-10px_rgba(255,255,255,0.3)] hover:shadow-[0_0_60px_-10px_rgba(255,255,255,0.5)]">
+                        <button className="group relative px-8 py-4 bg-gray-900 text-white hover:bg-black dark:bg-white dark:text-black dark:hover:bg-gray-100 font-bold rounded-full text-lg flex items-center gap-2 transition-all shadow-lg hover:shadow-xl dark:shadow-[0_0_40px_-10px_rgba(255,255,255,0.3)]">
                             {user ? t('goToDashboard') : t('getStarted')}
                             <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                         </button>
                     </Link>
                     {!user && (
                         <Link href="/projects">
-                            <button className="px-8 py-4 bg-white/5 text-white font-medium rounded-full text-lg border border-white/10 hover:bg-white/10 transition-all backdrop-blur-sm">
+                            <button className="px-8 py-4 bg-gray-100 text-gray-900 hover:bg-gray-200 dark:bg-white/5 dark:text-white dark:hover:bg-white/10 font-medium rounded-full text-lg border border-gray-200 dark:border-white/10 transition-all backdrop-blur-sm">
                                 {t('exploreProjects')}
                             </button>
                         </Link>

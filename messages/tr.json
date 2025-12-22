@@ -94,7 +94,8 @@
     },
     "ProjectDetail": {
         "backToProjects": "Projelere Dön",
-        "by": "{name} tarafından",
+        "by": "<user>{name}</user> tarafından",
+        "studentNumber": "Öğrenci No",
         "liveDemo": "Canlı Demo",
         "viewCode": "Kodları İncele",
         "collaborators": "Projeye Katkıda Bulunanlar"

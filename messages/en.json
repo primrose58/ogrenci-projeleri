@@ -93,7 +93,8 @@
   },
   "ProjectDetail": {
     "backToProjects": "Back to Projects",
-    "by": "by {name}",
+    "by": "by <user>{name}</user>",
+    "studentNumber": "Student No",
     "liveDemo": "Live Demo",
     "viewCode": "View Code",
     "collaborators": "Collaborators"

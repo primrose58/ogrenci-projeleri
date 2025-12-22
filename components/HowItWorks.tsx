@@ -31,19 +31,19 @@ export default function HowItWorks() {
     return (
         <section className="py-24 px-4 max-w-7xl mx-auto">
             <div className="text-center mb-16">
-                <h2 className="text-3xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-500">
+                <h2 className="text-3xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-500">
                     {t('title')}
                 </h2>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 {steps.map((step, index) => (
-                    <div key={index} className={`relative p-8 rounded-2xl border border-white/5 bg-gradient-to-br ${step.color} backdrop-blur-sm hover:-translate-y-2 transition-transform duration-300`}>
-                        <div className="w-16 h-16 rounded-xl bg-white/5 flex items-center justify-center mb-6 border border-white/10">
+                    <div key={index} className={`relative p-8 rounded-2xl border border-gray-200 dark:border-white/5 bg-white dark:bg-transparent bg-gradient-to-br ${step.color} backdrop-blur-sm hover:-translate-y-2 transition-transform duration-300 shadow-sm dark:shadow-none`}>
+                        <div className="w-16 h-16 rounded-xl bg-gray-100 dark:bg-white/5 flex items-center justify-center mb-6 border border-gray-200 dark:border-white/10">
                             {step.icon}
                         </div>
-                        <h3 className="text-xl font-bold text-white mb-3">{step.title}</h3>
-                        <p className="text-gray-400 leading-relaxed">{step.desc}</p>
+                        <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">{step.title}</h3>
+                        <p className="text-gray-600 dark:text-gray-400 leading-relaxed">{step.desc}</p>
                     </div>
                 ))}
             </div>

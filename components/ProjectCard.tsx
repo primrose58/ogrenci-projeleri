@@ -34,7 +34,7 @@ export default function ProjectCard({ project, layout = 'grid', isOwner = false 
     if (layout === 'list') {
         return (
             <Link href={`/project/${project.id}`} className="group relative block w-full">
-                <div className="relative w-full bg-white/5 backdrop-blur-md rounded-xl overflow-hidden border border-white/10 transition-all duration-300 group-hover:bg-white/10 flex items-center p-4 gap-6">
+                <div className="relative w-full bg-white dark:bg-white/5 backdrop-blur-md rounded-xl overflow-hidden border border-gray-200 dark:border-white/10 transition-all duration-300 group-hover:bg-gray-50 dark:group-hover:bg-white/10 flex items-center p-4 gap-6">
                     {/* Thumbnail - Smaller */}
                     <div className="relative h-24 w-40 flex-shrink-0 overflow-hidden rounded-lg">
                         {project.thumbnail_url ? (
@@ -53,7 +53,7 @@ export default function ProjectCard({ project, layout = 'grid', isOwner = false 
                                 unoptimized
                             />
                         ) : (
-                            <div className="w-full h-full bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center">
+                            <div className="w-full h-full bg-gradient-to-br from-gray-200 to-gray-300 dark:from-gray-800 dark:to-gray-900 flex items-center justify-center">
                                 <span className="text-2xl">🚀</span>
                             </div>
                         )}
@@ -63,10 +63,10 @@ export default function ProjectCard({ project, layout = 'grid', isOwner = false 
                     <div className="flex-1 min-w-0">
                         <div className="flex justify-between items-start">
                             <div>
-                                <h3 className="text-lg font-bold text-white group-hover:text-blue-400 transition-colors truncate">
+                                <h3 className="text-lg font-bold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors truncate">
                                     {project.title}
                                 </h3>
-                                <p className="text-sm text-gray-400 line-clamp-1 mt-1">
+                                <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-1 mt-1">
                                     {project.description}
                                 </p>
                             </div>
@@ -81,10 +81,10 @@ export default function ProjectCard({ project, layout = 'grid', isOwner = false 
                             )}
                         </div>
 
-                        <div className="flex items-center gap-4 mt-3 text-xs text-gray-500">
+                        <div className="flex items-center gap-4 mt-3 text-xs text-gray-500 dark:text-gray-500">
                             <div className="flex gap-2">
                                 {project.tags.slice(0, 3).map((tag, i) => (
-                                    <span key={i} className="px-2 py-0.5 rounded-full bg-white/10 text-gray-300 border border-white/5">
+                                    <span key={i} className="px-2 py-0.5 rounded-full bg-gray-100 dark:bg-white/10 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-white/5">
                                         {tag}
                                     </span>
                                 ))}
@@ -99,7 +99,7 @@ export default function ProjectCard({ project, layout = 'grid', isOwner = false 
 
     return (
         <Link href={`/project/${project.id}`} className="group relative block h-full">
-            <div className="relative h-full bg-white/5 backdrop-blur-md rounded-xl overflow-hidden border border-white/10 transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-2xl group-hover:shadow-purple-500/20 flex flex-col">
+            <div className="relative h-full bg-white dark:bg-white/5 backdrop-blur-md rounded-xl overflow-hidden border border-gray-200 dark:border-white/10 transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-xl dark:group-hover:shadow-2xl dark:group-hover:shadow-purple-500/20 flex flex-col">
 
                 {/* Thumbnail */}
                 <div className="relative h-48 w-full overflow-hidden">
@@ -119,11 +119,11 @@ export default function ProjectCard({ project, layout = 'grid', isOwner = false 
                             unoptimized
                         />
                     ) : (
-                        <div className="w-full h-full bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center">
+                        <div className="w-full h-full bg-gradient-to-br from-gray-200 to-gray-300 dark:from-gray-800 dark:to-gray-900 flex items-center justify-center">
                             <span className="text-4xl">🚀</span>
                         </div>
                     )}
-                    <div className="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-colors" />
+                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 dark:group-hover:bg-black/0 transition-colors" />
 
                     {isOwner && (
                         <button
@@ -139,26 +139,26 @@ export default function ProjectCard({ project, layout = 'grid', isOwner = false 
                 {/* Content */}
                 <div className="p-5 flex flex-col gap-3 flex-1">
                     <div className="flex justify-between items-start">
-                        <h3 className="text-xl font-bold text-white group-hover:text-blue-400 transition-colors line-clamp-1">
+                        <h3 className="text-xl font-bold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors line-clamp-1">
                             {project.title}
                         </h3>
                     </div>
 
-                    <p className="text-sm text-gray-400 line-clamp-2 flex-1">
+                    <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-2 flex-1">
                         {project.description}
                     </p>
 
                     {/* Tags */}
                     <div className="flex flex-wrap gap-2 mt-2">
                         {project.tags.slice(0, 3).map((tag, i) => (
-                            <span key={i} className="text-xs px-2 py-1 rounded-full bg-white/10 text-gray-300 border border-white/5">
+                            <span key={i} className="text-xs px-2 py-1 rounded-full bg-gray-100 dark:bg-white/10 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-white/5">
                                 {tag}
                             </span>
                         ))}
                     </div>
 
                     {/* Footer */}
-                    <div className="mt-4 pt-4 border-t border-white/5 flex justify-between items-center text-xs text-gray-500">
+                    <div className="mt-4 pt-4 border-t border-gray-100 dark:border-white/5 flex justify-between items-center text-xs text-gray-500">
                         <span>By {project.user.full_name}</span>
                         <span>{new Date(project.created_at).toLocaleDateString()}</span>
                     </div>

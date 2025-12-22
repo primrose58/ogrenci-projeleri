@@ -8,6 +8,8 @@ import { createClient } from '@/lib/supabase/server';
 import { Toaster } from 'sonner';
 import AuthListener from "@/components/AuthListener";
 
+import { ThemeProvider } from "@/components/ThemeProvider";
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -45,16 +47,23 @@ export default async function LocaleLayout({
   const { data: { user } } = await supabase.auth.getUser();
 
   return (
-    <html lang={locale}>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-black text-white min-h-screen flex flex-col`}>
-        <NextIntlClientProvider messages={messages}>
-          <Navbar user={user} />
-          <div className="flex-1">
-            {children}
-          </div>
-          <Toaster position="top-center" richColors />
-          <AuthListener />
-        </NextIntlClientProvider>
+    <html lang={locale} suppressHydrationWarning>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col transition-colors duration-300`}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <NextIntlClientProvider messages={messages}>
+            <Navbar user={user} />
+            <div className="flex-1">
+              {children}
+            </div>
+            <Toaster position="top-center" richColors />
+            <AuthListener />
+          </NextIntlClientProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

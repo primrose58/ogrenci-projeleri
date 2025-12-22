@@ -108,7 +108,7 @@ export default function RealtimeFeed({
     });
 
     if (projects.length === 0) {
-        return <div className="text-gray-400 text-center w-full col-span-3 py-10">{t('noProjectsYet')}</div>;
+        return <div className="text-gray-600 dark:text-gray-400 text-center w-full col-span-3 py-10">{t('noProjectsYet')}</div>;
     }
 
     return (
@@ -118,7 +118,7 @@ export default function RealtimeFeed({
                 <input
                     type="text"
                     placeholder="Proje adı, öğrenci adı veya numara ile ara..."
-                    className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-purple-500/50 transition-colors"
+                    className="w-full bg-gray-50 border border-gray-200 text-gray-900 placeholder-gray-500 rounded-lg px-4 py-3 dark:bg-white/5 dark:border-white/10 dark:text-white dark:placeholder-gray-500 focus:outline-none focus:border-purple-500 transition-colors"
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                 />
@@ -139,7 +139,7 @@ export default function RealtimeFeed({
             </div>
 
             {filteredProjects.length === 0 && searchTerm && (
-                <div className="text-center text-gray-500 py-10">
+                <div className="text-center text-gray-600 dark:text-gray-500 py-10">
                     Arama sonucu bulunamadı.
                 </div>
             )}

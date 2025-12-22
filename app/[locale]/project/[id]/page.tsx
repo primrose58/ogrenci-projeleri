@@ -107,29 +107,29 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
         }
     };
 
-    if (loading) return <div className="min-h-screen pt-20 flex items-center justify-center text-white"><span className="animate-pulse">Loading project...</span></div>;
+    if (loading) return <div className="min-h-screen pt-20 flex items-center justify-center text-gray-900 dark:text-white"><span className="animate-pulse">Loading project...</span></div>;
 
     // Show detailed error if fetch failed
     if (fetchError) return (
-        <div className="min-h-screen pt-20 flex flex-col items-center justify-center text-white gap-4">
-            <h2 className="text-xl font-bold text-red-500">Error Loading Project</h2>
-            <code className="bg-black/50 p-2 rounded text-red-300">{fetchError}</code>
-            <Link href="/" className="px-4 py-2 bg-white/10 rounded hover:bg-white/20">Go Back</Link>
+        <div className="min-h-screen pt-20 flex flex-col items-center justify-center text-gray-900 dark:text-white gap-4">
+            <h2 className="text-xl font-bold text-red-600 dark:text-red-500">Error Loading Project</h2>
+            <code className="bg-gray-100 dark:bg-black/50 p-2 rounded text-red-500 dark:text-red-300 border border-gray-200 dark:border-transparent">{fetchError}</code>
+            <Link href="/" className="px-4 py-2 bg-gray-200 dark:bg-white/10 rounded hover:bg-gray-300 dark:hover:bg-white/20 transition-colors">Go Back</Link>
         </div>
     );
 
-    if (!project) return <div className="min-h-screen pt-20 flex items-center justify-center text-white">Project not found.</div>;
+    if (!project) return <div className="min-h-screen pt-20 flex items-center justify-center text-gray-900 dark:text-white">Project not found.</div>;
 
     return (
         <div className="min-h-screen pt-20 px-4 md:px-20 pb-10 max-w-7xl mx-auto">
             {/* Back Button */}
-            <Link href="/" className="inline-flex items-center text-gray-400 hover:text-white mb-8 transition-colors">
+            <Link href="/projects" className="inline-flex items-center text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white mb-8 transition-colors">
                 ← {t('backToProjects')}
             </Link>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
                 {/* Left: Image */}
-                <div className="relative h-[400px] w-full rounded-2xl overflow-hidden border border-white/10 shadow-2xl bg-black/40">
+                <div className="relative h-[400px] w-full rounded-2xl overflow-hidden border border-gray-200 dark:border-white/10 shadow-xl dark:shadow-2xl bg-gray-100 dark:bg-black/40">
                     {project.thumbnail_url ? (
                         <Image
                             src={project.thumbnail_url}
@@ -149,7 +149,7 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
                             unoptimized
                         />
                     ) : (
-                        <div className="w-full h-full flex flex-col items-center justify-center text-gray-500 gap-2">
+                        <div className="w-full h-full flex flex-col items-center justify-center text-gray-400 dark:text-gray-500 gap-2">
                             <span className="text-4xl">🚀</span>
                             <span className="text-sm">No Preview</span>
                         </div>
@@ -159,18 +159,23 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
                 {/* Right: Details */}
                 <div className="flex flex-col gap-6">
                     <div>
-                        <h1 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400">
+                        <h1 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-400">
                             {project.title}
                         </h1>
                         <div className="flex flex-col gap-1 mt-4">
-                            <div className="flex items-center gap-2 text-gray-400 text-sm">
-                                <span><span className="text-white font-medium">{t('by', { name: project.user.full_name })}</span></span>
+                            <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400 text-sm">
+                                <span>
+                                    {t.rich('by', {
+                                        name: project.user.full_name,
+                                        user: (chunks) => <span className="text-gray-900 dark:text-white font-medium">{chunks}</span>
+                                    })}
+                                </span>
                                 <span>•</span>
                                 <span>{formatDate(project.created_at)}</span>
                             </div>
-                            <div className="text-sm text-gray-500">
-                                {project.user.student_number}
-                                {project.user.department && ` - ${project.user.department}`}
+                            <div className="text-sm text-gray-500 flex flex-col">
+                                <span>{t('studentNumber', { defaultValue: 'Öğrenci No' })}: {project.user.student_number}</span>
+                                <span>{project.user.department}</span>
                             </div>
 
                             {/* User Social Links */}
@@ -188,13 +193,13 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
 
                     <div className="flex flex-wrap gap-2">
                         {project.tags.map((tag: string) => (
-                            <span key={tag} className="px-3 py-1 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20 text-sm">
+                            <span key={tag} className="px-3 py-1 rounded-full bg-blue-100 text-blue-700 border border-blue-200 dark:bg-blue-500/10 dark:text-blue-400 dark:border-blue-500/20 text-sm">
                                 {tag}
                             </span>
                         ))}
                     </div>
 
-                    <p className="text-gray-300 leading-relaxed text-lg whitespace-pre-wrap">
+                    <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-lg whitespace-pre-wrap">
                         {project.description}
                     </p>
 
@@ -213,19 +218,19 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
 
                     {/* Collaborators Section */}
                     {project.collaborators && project.collaborators.length > 0 && (
-                        <div className="flex flex-col gap-3 p-4 bg-white/5 rounded-xl border border-white/10 mt-6">
-                            <h3 className="text-lg font-semibold text-white flex items-center gap-2">
+                        <div className="flex flex-col gap-3 p-4 bg-gray-50 dark:bg-white/5 rounded-xl border border-gray-200 dark:border-white/10 mt-6">
+                            <h3 className="text-lg font-semibold text-gray-900 dark:text-white flex items-center gap-2">
                                 <Users size={20} />
                                 {t('collaborators', { defaultValue: 'Projeye Katkıda Bulunanlar' })}
                             </h3>
                             <div className="flex flex-col gap-3">
                                 {project.collaborators.map((collab: any, index: number) => (
-                                    <div key={index} className="flex items-center gap-3 p-2 rounded-lg hover:bg-white/5 transition-colors">
-                                        <div className="w-10 h-10 rounded-full bg-blue-500/20 text-blue-300 flex items-center justify-center text-lg font-bold border border-blue-500/20">
+                                    <div key={index} className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-white/5 transition-colors">
+                                        <div className="w-10 h-10 rounded-full bg-blue-100 text-blue-600 border-blue-200 dark:bg-blue-500/20 dark:text-blue-300 flex items-center justify-center text-lg font-bold dark:border-blue-500/20 shadow-sm dark:shadow-none">
                                             {collab.full_name?.charAt(0) || '?'}
                                         </div>
                                         <div className="flex flex-col flex-1">
-                                            <span className="text-base font-medium text-gray-200">
+                                            <span className="text-base font-medium text-gray-900 dark:text-gray-200">
                                                 {collab.full_name}
                                             </span>
                                             <div className="flex flex-col text-xs text-gray-500">
