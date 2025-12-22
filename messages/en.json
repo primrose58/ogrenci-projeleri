@@ -73,7 +73,8 @@
     "projects": "Projects",
     "upload": "Upload Project",
     "login": "Login",
-    "logout": "Logout"
+    "logout": "Logout",
+    "goToProfile": "Go to Profile"
   },
   "Common": {
     "loading": "Loading...",

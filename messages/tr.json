@@ -73,7 +73,8 @@
         "projects": "Projeler",
         "upload": "Proje Yükle",
         "login": "Giriş",
-        "logout": "Çıkış Yap"
+        "logout": "Çıkış Yap",
+        "goToProfile": "Profile Git"
     },
     "Common": {
         "loading": "Yükleniyor...",

@@ -45,9 +45,14 @@ export default function Navbar({ user }: { user: User | null }) {
                         <div className="flex items-center gap-4 pl-6 border-l border-gray-200 dark:border-white/10">
                             {user && (
                                 <div className="hidden lg:flex flex-col items-end">
-                                    <span className="text-sm font-semibold text-gray-900 dark:text-white">
-                                        {user.user_metadata.full_name}
-                                    </span>
+                                    <div className="flex items-center gap-2">
+                                        <span className="text-sm font-semibold text-gray-900 dark:text-white">
+                                            {user.user_metadata.full_name}
+                                        </span>
+                                        <Link href={`/profile/${user.id}`} className="text-[10px] uppercase tracking-wide font-bold text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 transition-colors">
+                                            {t('goToProfile')} ›
+                                        </Link>
+                                    </div>
                                     <span className="text-xs font-semibold text-gray-700 dark:text-gray-400">
                                         {user.user_metadata.student_number}
                                         {user.user_metadata.department && ` • ${user.user_metadata.department}`}
