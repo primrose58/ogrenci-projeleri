@@ -35,7 +35,10 @@
     "submitSignup": "Create Account",
     "haveAccount": "Already have an account?",
     "noAccount": "Don't have an account?",
-    "or": "OR"
+    "or": "OR",
+    "areYouStudent": "I am a student",
+    "phoneNumber": "Phone Number",
+    "invalidCredentials": "Invalid login credentials or user not found."
   },
   "Upload": {
     "title": "Upload Project",

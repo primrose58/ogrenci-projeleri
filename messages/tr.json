@@ -35,7 +35,10 @@
         "submitSignup": "Hesap Oluştur",
         "haveAccount": "Zaten hesabın var mı?",
         "noAccount": "Hesabın yok mu?",
-        "or": "VEYA"
+        "or": "VEYA",
+        "areYouStudent": "Öğrenciyim",
+        "phoneNumber": "Telefon Numarası",
+        "invalidCredentials": "Giriş bilgileri hatalı veya kullanıcı bulunamadı."
     },
     "Upload": {
         "title": "Proje Yükle",

@@ -22,8 +22,11 @@ export default function AuthPage() {
         password: '',
         name: '',
         studentId: '',
-        department: ''
+        department: '',
+        phoneNumber: ''
     });
+
+    const [isStudent, setIsStudent] = useState(true);
 
     const supabase = createClient();
 
@@ -60,8 +63,10 @@ export default function AuthPage() {
                         emailRedirectTo: `${location.origin}/auth/callback`,
                         data: {
                             full_name: formData.name,
-                            student_number: formData.studentId,
-                            department: formData.department
+                            student_number: isStudent ? formData.studentId : null,
+                            department: isStudent ? formData.department : null,
+                            phone: !isStudent ? formData.phoneNumber : null,
+                            is_student: isStudent
                         }
                     }
                 });
@@ -77,8 +82,10 @@ export default function AuthPage() {
             }
         } catch (err: unknown) {
             if (err instanceof Error) {
-                setError(err.message);
-                toast.error(err.message);
+                const isInvalidCreds = err.message.includes("Invalid login credentials");
+                const msg = isInvalidCreds ? t('invalidCredentials') : err.message;
+                setError(msg);
+                toast.error(msg);
             } else {
                 setError('An unknown error occurred');
                 toast.error('Beklenmedik bir hata oluştu');
@@ -117,22 +124,49 @@ export default function AuthPage() {
                                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                                     required
                                 />
-                                <Input
-                                    label={t('idNumber')}
-                                    placeholder="2023001"
-                                    value={formData.studentId}
-                                    onChange={(e) => setFormData({ ...formData, studentId: e.target.value })}
-                                    required
-                                />
 
-                                <SearchableSelect
-                                    label={t('department')}
-                                    placeholder={t('department')}
-                                    options={departments}
-                                    value={formData.department}
-                                    onChange={(value) => setFormData({ ...formData, department: value })}
-                                    required
-                                />
+                                <div className="flex items-center gap-2 mb-2">
+                                    <input
+                                        type="checkbox"
+                                        id="studentCheck"
+                                        checked={isStudent}
+                                        onChange={(e) => setIsStudent(e.target.checked)}
+                                        className="w-4 h-4 rounded border-gray-600 bg-gray-700 text-blue-500 focus:ring-blue-500"
+                                    />
+                                    <label htmlFor="studentCheck" className="text-sm text-gray-300 select-none cursor-pointer">
+                                        {t('areYouStudent')}
+                                    </label>
+                                </div>
+
+                                {isStudent ? (
+                                    <>
+                                        <Input
+                                            label={t('idNumber')}
+                                            placeholder="2023001"
+                                            value={formData.studentId}
+                                            onChange={(e) => setFormData({ ...formData, studentId: e.target.value })}
+                                            required={isStudent}
+                                        />
+
+                                        <SearchableSelect
+                                            label={t('department')}
+                                            placeholder={t('department')}
+                                            options={departments}
+                                            value={formData.department}
+                                            onChange={(value) => setFormData({ ...formData, department: value })}
+                                            required={isStudent}
+                                        />
+                                    </>
+                                ) : (
+                                    <Input
+                                        label={t('phoneNumber')}
+                                        type="tel"
+                                        placeholder="555 123 45 67"
+                                        value={formData.phoneNumber}
+                                        onChange={(e) => setFormData({ ...formData, phoneNumber: e.target.value })}
+                                        required={!isStudent}
+                                    />
+                                )}
                             </>
                         )}
                         <Input
