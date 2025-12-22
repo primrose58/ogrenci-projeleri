@@ -13,9 +13,9 @@ export default function ProjectCard({ project }: ProjectCardProps) {
 
                 {/* Thumbnail */}
                 <div className="relative h-48 w-full overflow-hidden">
-                    {project.thumbnail_url ? (
+                    {project.image_url ? (
                         <Image
-                            src={project.thumbnail_url}
+                            src={project.image_url}
                             alt={project.title}
                             fill
                             className="object-cover transition-transform duration-500 group-hover:scale-110"
