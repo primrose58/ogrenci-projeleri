@@ -6,6 +6,7 @@ import Navbar from "@/components/Navbar";
 import "../globals.css";
 import { createClient } from '@/lib/supabase/server';
 import { Toaster } from 'sonner';
+import AuthListener from "@/components/AuthListener";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -52,6 +53,7 @@ export default async function LocaleLayout({
             {children}
           </div>
           <Toaster position="top-center" richColors />
+          <AuthListener />
         </NextIntlClientProvider>
       </body>
     </html>
