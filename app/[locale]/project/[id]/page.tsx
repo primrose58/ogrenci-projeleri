@@ -38,7 +38,7 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
             setLoading(false);
         };
 
-        fetchProjects();
+        fetchProject();
     }, [id]);
 
     if (loading) return <div className="min-h-screen text-white flex items-center justify-center">Loading...</div>;
