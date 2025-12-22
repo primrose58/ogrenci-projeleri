@@ -61,6 +61,7 @@
         "addCollaborator": "+ Arkadaş Ekle"
     },
     "Navigation": {
+        "brand": "Öğrenci Proje Ağı",
         "home": "Ana Sayfa",
         "guide": "Rehber",
         "projects": "Projeler",

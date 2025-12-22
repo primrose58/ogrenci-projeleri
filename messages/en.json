@@ -61,6 +61,7 @@
     "addCollaborator": "+ Add Collaborator"
   },
   "Navigation": {
+    "brand": "Student Project Network",
     "home": "Home",
     "guide": "Guide",
     "projects": "Projects",

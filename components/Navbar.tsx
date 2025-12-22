@@ -6,7 +6,7 @@ import { Link } from '@/i18n/routing';
 import LanguageSwitcher from './LanguageSwitcher';
 import AuthButton from './AuthButton';
 import { User } from '@supabase/supabase-js';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Network } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export default function Navbar({ user }: { user: User | null }) {
@@ -21,8 +21,14 @@ export default function Navbar({ user }: { user: User | null }) {
                 <div className="flex justify-between items-center h-16">
                     {/* Logo */}
                     <div className="flex-shrink-0 flex items-center">
-                        <Link href="/" className="text-xl font-bold tracking-tight text-white hover:text-white/80 transition-colors">
-                            StudentProjects
+                        <Link href="/" className="flex items-center gap-3 group">
+                            <div className="p-2 bg-gradient-to-br from-purple-600 to-blue-600 rounded-lg group-hover:shadow-[0_0_20px_rgba(124,58,237,0.5)] transition-all duration-300">
+                                <Network size={24} className="text-white" />
+                            </div>
+                            <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400 group-hover:from-purple-400 group-hover:to-pink-400 transition-all duration-300 hidden sm:block">
+                                {t('brand')}
+                            </span>
+                            <span className="text-xl font-bold text-white sm:hidden">SPN</span>
                         </Link>
                     </div>
 
