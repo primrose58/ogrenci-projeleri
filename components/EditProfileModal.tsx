@@ -1,6 +1,5 @@
-"use client";
-
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { createClient } from '@/lib/supabase/client';
 import Input from '@/components/ui/Input';
 import { SocialIcon } from '@/lib/utils/social';
@@ -25,6 +24,15 @@ export default function EditProfileModal({ isOpen, onClose, user, initialProfile
     const router = useRouter();
     const [isSaving, setIsSaving] = useState(false);
     const [profileForm, setProfileForm] = useState(initialProfile);
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+        // Reset form when modal opens
+        if (isOpen) {
+            setProfileForm(initialProfile);
+        }
+    }, [isOpen, initialProfile]);
 
     // Helpers
     const addSocialLink = () => {
@@ -60,7 +68,7 @@ export default function EditProfileModal({ isOpen, onClose, user, initialProfile
                     full_name: profileForm.full_name,
                     avatar_url: profileForm.avatar_url,
                     social_links: profileForm.social_links.filter(l => l.trim() !== ''),
-                    birth_date: profileForm.birth_date,
+                    birth_date: profileForm.birth_date || null, // Handle empty string as null
                     updated_at: new Date().toISOString()
                 })
                 .eq('id', user.id);
@@ -84,20 +92,20 @@ export default function EditProfileModal({ isOpen, onClose, user, initialProfile
             onClose();
         } catch (error) {
             console.error('Error updating profile:', error);
-            toast.error('Profil güncellenirken bir hata oluştu veya yetkiniz yok.');
+            toast.error('Profil güncellenirken bir hata oluştu veya yetkiniz yok. (Veritabanı kolonunu kontrol edin)');
         } finally {
             setIsSaving(false);
         }
     };
 
-    if (!isOpen) return null;
+    if (!isOpen || !mounted) return null;
 
-    return (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
-            <div className="bg-white dark:bg-[#1A1A1A] border border-gray-200 dark:border-white/10 rounded-2xl w-full max-w-md p-6 relative shadow-xl max-h-[90vh] overflow-y-auto transition-colors">
+    return createPortal(
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
+            <div className="bg-white dark:bg-[#1A1A1A] border border-gray-200 dark:border-white/10 rounded-2xl w-full max-w-md p-6 relative shadow-2xl max-h-[90vh] overflow-y-auto transition-colors animate-in zoom-in-95 duration-200">
                 <button
                     onClick={onClose}
-                    className="absolute top-4 right-4 text-gray-400 hover:text-black dark:hover:text-white transition-colors"
+                    className="absolute top-4 right-4 text-gray-400 hover:text-black dark:hover:text-white transition-colors z-10"
                 >
                     <X size={20} />
                 </button>
@@ -260,6 +268,7 @@ export default function EditProfileModal({ isOpen, onClose, user, initialProfile
                     </button>
                 </form>
             </div>
-        </div>
+        </div>,
+        document.body
     );
 }
