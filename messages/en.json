@@ -89,7 +89,14 @@
   },
   "ProjectsPage": {
     "title": "All Projects",
-    "subTitle": "Browse through the amazing projects built by our community."
+    "subTitle": "Check out the amazing projects built by our community."
+  },
+  "ProjectDetail": {
+    "backToProjects": "Back to Projects",
+    "by": "by {name}",
+    "liveDemo": "Live Demo",
+    "viewCode": "View Code",
+    "collaborators": "Collaborators"
   },
   "Guide": {
     "title": "Detailed Project Guide",

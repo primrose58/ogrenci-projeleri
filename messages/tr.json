@@ -92,6 +92,13 @@
         "title": "Tüm Projeler",
         "subTitle": "Topluluğumuz tarafından geliştirilen harika projelere göz atın."
     },
+    "ProjectDetail": {
+        "backToProjects": "Projelere Dön",
+        "by": "{name} tarafından",
+        "liveDemo": "Canlı Demo",
+        "viewCode": "Kodları İncele",
+        "collaborators": "Projeye Katkıda Bulunanlar"
+    },
     "Guide": {
         "title": "Detaylı Proje Rehberi",
         "subTitle": "A'dan Z'ye projenizi nasıl geliştirip yayınlayacağınızı öğrenin.",

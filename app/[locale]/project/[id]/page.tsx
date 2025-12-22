@@ -56,6 +56,8 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
                 }
 
                 // Nuclear-proof data normalization
+                const rawUser = Array.isArray(data.user) ? data.user[0] : data.user;
+
                 const safeProject = {
                     id: data.id,
                     title: data.title || "Untitled Project",
@@ -71,11 +73,11 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
                         department: c.department || "",
                         social_links: Array.isArray(c.social_links) ? c.social_links : []
                     })) : [],
-                    user: data.user ? {
-                        full_name: data.user.full_name || 'Unknown User',
-                        student_number: data.user.student_number || '',
-                        department: data.user.department || '',
-                        social_links: Array.isArray(data.user.social_links) ? data.user.social_links : []
+                    user: rawUser ? {
+                        full_name: rawUser.full_name || 'Unknown User',
+                        student_number: rawUser.student_number || '',
+                        department: rawUser.department || '',
+                        social_links: Array.isArray(rawUser.social_links) ? rawUser.social_links : []
                     } : {
                         full_name: 'Unknown User',
                         student_number: '',
@@ -162,7 +164,7 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
                         </h1>
                         <div className="flex flex-col gap-1 mt-4">
                             <div className="flex items-center gap-2 text-gray-400 text-sm">
-                                <span>{t('by')} <span className="text-white font-medium">{project.user.full_name}</span></span>
+                                <span><span className="text-white font-medium">{t('by', { name: project.user.full_name })}</span></span>
                                 <span>•</span>
                                 <span>{formatDate(project.created_at)}</span>
                             </div>
