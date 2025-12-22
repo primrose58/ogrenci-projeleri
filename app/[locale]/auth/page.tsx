@@ -6,6 +6,8 @@ import { createClient } from "@/lib/supabase/client";
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
 import { useRouter } from "@/i18n/routing";
+import SearchableSelect from "@/components/ui/SearchableSelect";
+import { departments } from "@/data/departments";
 
 export default function AuthPage() {
     const t = useTranslations('Auth');
@@ -101,11 +103,17 @@ export default function AuthPage() {
                                     onChange={(e) => setFormData({ ...formData, studentId: e.target.value })}
                                     required
                                 />
-                                <Input
+                                import SearchableSelect from "@/components/ui/SearchableSelect";
+                                import {departments} from "@/data/departments";
+
+                                // ... inside component ...
+
+                                <SearchableSelect
                                     label={t('department')}
-                                    placeholder="Computer Engineering"
+                                    placeholder={t('department')}
+                                    options={departments}
                                     value={formData.department}
-                                    onChange={(e) => setFormData({ ...formData, department: e.target.value })}
+                                    onChange={(value) => setFormData({ ...formData, department: value })}
                                     required
                                 />
                             </>

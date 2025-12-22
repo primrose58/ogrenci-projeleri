@@ -1,0 +1,85 @@
+export const departments = [
+    // Mühendislik Fakültesi
+    "Bilgisayar Mühendisliği",
+    "Elektrik-Elektronik Mühendisliği",
+    "Makine Mühendisliği",
+    "İnşaat Mühendisliği",
+    "Endüstri Mühendisliği",
+    "Kimya Mühendisliği",
+    "Çevre Mühendisliği",
+    "Gıda Mühendisliği",
+    "Jeoloji Mühendisliği",
+    "Maden Mühendisliği",
+    "Harita Mühendisliği",
+    "Metalurji ve Malzeme Mühendisliği",
+    "Nanoteknoloji Mühendisliği",
+
+    // Eğitim Fakültesi
+    "İngilizce Öğretmenliği",
+    "Sınıf Öğretmenliği",
+    "Okul Öncesi Öğretmenliği",
+    "Türkçe Öğretmenliği",
+    "Sosyal Bilgiler Öğretmenliği",
+    "Fen Bilgisi Öğretmenliği",
+    "Matematik Öğretmenliği",
+    "Rehberlik ve Psikolojik Danışmanlık",
+    "Müzik Öğretmenliği",
+    "Resim-İş Öğretmenliği",
+
+    // Tıp & Sağlık
+    "Tıp Fakültesi",
+    "Diş Hekimliği",
+    "Eczacılık",
+    "Hemşirelik",
+    "Ebelik",
+    "Fizyoterapi ve Rehabilitasyon",
+    "Beslenme ve Diyetetik",
+    "Sağlık Yönetimi",
+
+    // Fen Fakültesi
+    "Matematik",
+    "Fizik",
+    "Kimya",
+    "Biyoloji",
+    "Moleküler Biyoloji ve Genetik",
+    "İstatistik",
+    "Biyokimya",
+
+    // Edebiyat Fakültesi
+    "Türk Dili ve Edebiyatı",
+    "Tarih",
+    "Sosyoloji",
+    "Psikoloji",
+    "Felsefe",
+    "Sanat Tarihi",
+    "İngiliz Dili ve Edebiyatı",
+    "Alman Dili ve Edebiyatı",
+    "Fransız Dili ve Edebiyatı",
+    "Mütercim-Tercümanlık",
+    "Antropoloji",
+
+    // İktisadi ve İdari Bilimler
+    "İşletme",
+    "İktisat",
+    "Maliye",
+    "Çalışma Ekonomisi ve Endüstri İlişkileri",
+    "Kamu Yönetimi",
+    "Uluslararası İlişkiler",
+    "Bankacılık ve Finans",
+    "Yönetim Bilişim Sistemleri",
+
+    // Diğer Fakülteler
+    "İlahiyat",
+    "İletişim Bilimleri",
+    "Radyo, Televizyon ve Sinema",
+    "Halkla İlişkiler ve Tanıtım",
+    "Gazetecilik",
+    "Mimarlık",
+    "Şehir ve Bölge Planlama",
+    "İç Mimarlık",
+    "Güzel Sanatlar",
+    "Spor Bilimleri",
+    "Turizm İşletmeciliği",
+    "Gastronomi ve Mutfak Sanatları",
+    "Veterinerlik"
+].sort((a, b) => a.localeCompare(b, 'tr'));
