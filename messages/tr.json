@@ -38,7 +38,8 @@
         "or": "VEYA",
         "areYouStudent": "Öğrenciyim",
         "phoneNumber": "Telefon Numarası",
-        "invalidCredentials": "Giriş bilgileri hatalı veya kullanıcı bulunamadı."
+        "invalidCredentials": "Giriş bilgileri hatalı veya kullanıcı bulunamadı.",
+        "eduEmailRequired": "Öğrenci kaydı için lütfen okul e-posta adresinizi (.edu / .edu.tr) kullanın."
     },
     "Upload": {
         "title": "Proje Yükle",

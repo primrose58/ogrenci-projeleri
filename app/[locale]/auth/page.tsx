@@ -37,6 +37,7 @@ export default function AuthPage() {
 
         try {
             if (isLogin) {
+                // Login Logic...
                 const { data, error } = await supabase.auth.signInWithPassword({
                     email: formData.email,
                     password: formData.password
@@ -56,6 +57,11 @@ export default function AuthPage() {
                 }
 
             } else {
+                // Student Email Validation
+                if (isStudent && !formData.email.includes('edu')) {
+                    throw new Error(t('eduEmailRequired') || "Öğrenci kaydı için lütfen okul e-posta adresinizi (.edu veya .edu.tr) kullanın.");
+                }
+
                 const { error } = await supabase.auth.signUp({
                     email: formData.email,
                     password: formData.password,

@@ -38,7 +38,8 @@
     "or": "OR",
     "areYouStudent": "I am a student",
     "phoneNumber": "Phone Number",
-    "invalidCredentials": "Invalid login credentials or user not found."
+    "invalidCredentials": "Invalid login credentials or user not found.",
+    "eduEmailRequired": "Please use your school email address (.edu / .edu.tr) for student registration."
   },
   "Upload": {
     "title": "Upload Project",
