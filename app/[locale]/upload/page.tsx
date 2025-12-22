@@ -91,7 +91,7 @@ export default function UploadPage() {
                 description: formData.description,
                 repo_url: formData.repoLink,
                 demo_url: formData.demoLink,
-                image_url: imageUrl,
+                thumbnail_url: imageUrl,
                 tags: formData.tags ? formData.tags.split(',').map(t => t.trim()).filter(Boolean) : [],
                 collaborators: formData.collaborators ? formData.collaborators.split(',').map(c => c.trim()).filter(Boolean) : [],
                 user_id: user.id

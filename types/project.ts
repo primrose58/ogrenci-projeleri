@@ -2,7 +2,7 @@ export interface Project {
     id: string;
     title: string;
     description: string;
-    image_url?: string;
+    thumbnail_url?: string;
     user_id: string;
     created_at: string;
     tags: string[];

@@ -37,9 +37,9 @@ export default function ProjectCard({ project, layout = 'grid', isOwner = false 
                 <div className="relative w-full bg-white/5 backdrop-blur-md rounded-xl overflow-hidden border border-white/10 transition-all duration-300 group-hover:bg-white/10 flex items-center p-4 gap-6">
                     {/* Thumbnail - Smaller */}
                     <div className="relative h-24 w-40 flex-shrink-0 overflow-hidden rounded-lg">
-                        {project.image_url ? (
+                        {project.thumbnail_url ? (
                             <Image
-                                src={project.image_url}
+                                src={project.thumbnail_url}
                                 alt={project.title}
                                 fill
                                 className="object-cover"
@@ -103,9 +103,9 @@ export default function ProjectCard({ project, layout = 'grid', isOwner = false 
 
                 {/* Thumbnail */}
                 <div className="relative h-48 w-full overflow-hidden">
-                    {project.image_url ? (
+                    {project.thumbnail_url ? (
                         <Image
-                            src={project.image_url}
+                            src={project.thumbnail_url}
                             alt={project.title}
                             fill
                             className="object-cover transition-transform duration-500 group-hover:scale-110"
