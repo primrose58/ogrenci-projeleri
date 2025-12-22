@@ -16,7 +16,7 @@ export default async function DashboardPage() {
         .from('projects')
         .select(`
             *,
-            user:profiles(full_name)
+            user:profiles(full_name, student_number, department)
         `)
         .eq('user_id', user.id)
         .order('created_at', { ascending: false });
@@ -26,7 +26,7 @@ export default async function DashboardPage() {
         .from('projects')
         .select(`
             *,
-            user:profiles(full_name)
+            user:profiles(full_name, student_number, department)
         `)
         .order('created_at', { ascending: false });
 

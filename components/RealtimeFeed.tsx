@@ -20,6 +20,8 @@ export default function RealtimeFeed({
     const [projects, setProjects] = useState<Project[]>(serverProjects || []);
     const supabase = createClient();
 
+    const [searchTerm, setSearchTerm] = useState('');
+
     useEffect(() => {
         // 1. Fetch initial projects
         const fetchProjects = async () => {
@@ -27,7 +29,7 @@ export default function RealtimeFeed({
                 .from('projects')
                 .select(`
                 *,
-                user:profiles(full_name)
+                user:profiles(full_name, student_number, department)
             `)
                 .order('created_at', { ascending: false });
 
@@ -38,12 +40,13 @@ export default function RealtimeFeed({
             const { data } = await query;
 
             if (data) {
-                // Supabase returns tags as array if defined in schema, but type assertion helps safety
                 const mappedData = data.map((p: any) => ({
                     ...p,
-                    tags: p.tags || [], // Ensure tags is always array
+                    tags: p.tags || [],
                     user: p.user || { full_name: 'Unknown' }
                 }));
+                // Only set projects if serverside data wasn't provided or we want to refresh
+                // For simplicity, we update to ensure client consistency
                 setProjects(mappedData);
             }
         };
@@ -58,10 +61,9 @@ export default function RealtimeFeed({
                     return;
                 }
 
-                // Fetch the full project data including user profile for the new item
                 const { data } = await supabase
                     .from('projects')
-                    .select('*, user:profiles(full_name)')
+                    .select('*, user:profiles(full_name, student_number, department)')
                     .eq('id', payload.new.id)
                     .single();
 
@@ -69,12 +71,11 @@ export default function RealtimeFeed({
                     const newProject: Project = {
                         ...data,
                         tags: data.tags || [],
-                        collaborators: data.collaborators || [], // Handle collaborators
+                        collaborators: data.collaborators || [],
                         user: data.user || { full_name: 'Unknown' }
                     } as Project;
 
                     if (payload.eventType === 'INSERT') {
-                        // Only add if it matches filter (client side check simple)
                         if (!userId || newProject.user_id === userId) {
                             setProjects(current => [newProject, ...current]);
                         }
@@ -90,23 +91,53 @@ export default function RealtimeFeed({
 
     const t = useTranslations('Dashboard');
 
+    const filteredProjects = projects.filter(project => {
+        const term = searchTerm.toLowerCase();
+        return (
+            project.title.toLowerCase().includes(term) ||
+            project.description.toLowerCase().includes(term) ||
+            project.user.full_name.toLowerCase().includes(term) ||
+            (project.user.student_number && project.user.student_number.toLowerCase().includes(term)) ||
+            (project.user.department && project.user.department.toLowerCase().includes(term))
+        );
+    });
+
     if (projects.length === 0) {
         return <div className="text-gray-400 text-center w-full col-span-3 py-10">{t('noProjectsYet')}</div>;
     }
 
     return (
-        <div className={`w-full ${viewMode === 'grid'
-            ? 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-fr'
-            : 'flex flex-col gap-4'
-            }`}>
-            {projects.map((project) => (
-                <ProjectCard
-                    key={project.id}
-                    project={project}
-                    layout={viewMode}
-                    isOwner={currentUserId === project.user_id}
+        <div className="flex flex-col gap-6 w-full">
+            {/* Search Input */}
+            <div className="relative">
+                <input
+                    type="text"
+                    placeholder="Proje adı, öğrenci adı veya numara ile ara..."
+                    className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-purple-500/50 transition-colors"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
                 />
-            ))}
+            </div>
+
+            <div className={`w-full ${viewMode === 'grid'
+                ? 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-fr'
+                : 'flex flex-col gap-4'
+                }`}>
+                {filteredProjects.map((project) => (
+                    <ProjectCard
+                        key={project.id}
+                        project={project}
+                        layout={viewMode}
+                        isOwner={currentUserId === project.user_id}
+                    />
+                ))}
+            </div>
+
+            {filteredProjects.length === 0 && searchTerm && (
+                <div className="text-center text-gray-500 py-10">
+                    Arama sonucu bulunamadı.
+                </div>
+            )}
         </div>
     );
 }

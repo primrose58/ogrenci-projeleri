@@ -20,7 +20,7 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
                 .from('projects')
                 .select(`
                 *,
-                user:profiles(full_name)
+                user:profiles(full_name, student_number, department)
             `)
                 .eq('id', id)
                 .single();
@@ -38,7 +38,7 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
             setLoading(false);
         };
 
-        fetchProject();
+        fetchProjects();
     }, [id]);
 
     if (loading) return <div className="min-h-screen text-white flex items-center justify-center">Loading...</div>;
@@ -84,10 +84,16 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
                         <h1 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400">
                             {project.title}
                         </h1>
-                        <div className="flex items-center gap-2 mt-4 text-gray-400 text-sm">
-                            <span>{t('by')} {project.user.full_name}</span>
-                            <span>•</span>
-                            <span>{new Date(project.created_at).toLocaleDateString()}</span>
+                        <div className="flex flex-col gap-1 mt-4">
+                            <div className="flex items-center gap-2 text-gray-400 text-sm">
+                                <span>{t('by')} <span className="text-white font-medium">{project.user.full_name}</span></span>
+                                <span>•</span>
+                                <span>{new Date(project.created_at).toLocaleDateString()}</span>
+                            </div>
+                            <div className="text-sm text-gray-500">
+                                {project.user.student_number}
+                                {project.user.department && ` - ${project.user.department}`}
+                            </div>
                         </div>
                     </div>
 
