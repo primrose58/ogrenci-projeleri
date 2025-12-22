@@ -37,18 +37,18 @@ export default function Navbar({ user }: { user: User | null }) {
                     {/* Desktop Menu */}
                     <div className="hidden md:flex items-center gap-8">
                         <div className="flex gap-6 text-sm font-medium">
-                            <Link href="/" className="text-gray-600 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors">{t('home')}</Link>
-                            <Link href="/guide" className="text-gray-600 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors">{t('guide')}</Link>
-                            <Link href={user ? "/dashboard" : "/projects"} className="text-gray-600 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors">{t('projects')}</Link>
+                            <Link href="/" className="text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors">{t('home')}</Link>
+                            <Link href="/guide" className="text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors">{t('guide')}</Link>
+                            <Link href={user ? "/dashboard" : "/projects"} className="text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors">{t('projects')}</Link>
                         </div>
 
                         <div className="flex items-center gap-4 pl-6 border-l border-gray-200 dark:border-white/10">
                             {user && (
                                 <div className="hidden lg:flex flex-col items-end">
-                                    <span className="text-sm font-medium text-gray-900 dark:text-white">
+                                    <span className="text-sm font-semibold text-gray-900 dark:text-white">
                                         {user.user_metadata.full_name}
                                     </span>
-                                    <span className="text-xs text-gray-500 dark:text-gray-400">
+                                    <span className="text-xs font-semibold text-gray-700 dark:text-gray-400">
                                         {user.user_metadata.student_number}
                                         {user.user_metadata.department && ` • ${user.user_metadata.department}`}
                                     </span>

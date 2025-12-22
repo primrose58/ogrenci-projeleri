@@ -16,7 +16,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({ className, va
         content = <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-gray-900 rounded-md group-hover:bg-opacity-0 w-full flex justify-center items-center gap-2">{isLoading ? "Loading..." : children}</span>;
     } else if (variant === 'secondary') {
         // similar to primary but different colors
-        variantStyles = "bg-white text-black hover:bg-gray-200 w-full py-2.5 px-5";
+        variantStyles = "bg-white text-gray-900 border border-gray-200 hover:bg-gray-50 hover:border-gray-300 dark:bg-transparent dark:text-white dark:border-white/20 dark:hover:bg-white/10 shadow-sm w-full py-2.5 px-5";
     }
 
     return (

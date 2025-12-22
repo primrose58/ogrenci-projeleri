@@ -53,7 +53,7 @@ export default function AuthButton({ user }: { user: User | null }) {
                 <button
                     onClick={handleLogout}
                     disabled={loading}
-                    className="text-sm font-medium text-gray-400 hover:text-white transition-colors"
+                    className="text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors"
                 >
                     {loading ? '...' : t('logout')}
                 </button>

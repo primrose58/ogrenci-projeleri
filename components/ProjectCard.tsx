@@ -82,14 +82,26 @@ export default function ProjectCard({ project, layout = 'grid', isOwner = false 
                         </div>
 
                         <div className="flex items-center gap-4 mt-3 text-xs text-gray-500 dark:text-gray-500">
-                            <div className="flex gap-2">
-                                {project.tags.slice(0, 3).map((tag, i) => (
-                                    <span key={i} className="px-2 py-0.5 rounded-full bg-gray-100 dark:bg-white/10 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-white/5">
+                            <div className="mt-2 flex items-center gap-4 text-xs text-gray-500 dark:text-gray-400">
+                                <div className="flex items-center gap-2">
+                                    <div className="w-5 h-5 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center text-[10px] font-bold text-blue-600 dark:text-blue-400">
+                                        {project.user.full_name?.charAt(0) || '?'}
+                                    </div>
+                                    <span className="font-medium text-gray-700 dark:text-gray-300">{project.user.full_name}</span>
+                                </div>
+                                <span>•</span>
+                                <span>{project.user.student_number}</span>
+                                <span>•</span>
+                                <span>{new Date(project.created_at).toLocaleDateString()}</span>
+                            </div>
+
+                            <div className="flex gap-2 mt-3">
+                                {project.tags.map((tag) => (
+                                    <span key={tag} className="px-2 py-0.5 rounded-full bg-gray-100 text-gray-600 dark:bg-white/10 dark:text-gray-400 text-xs border border-gray-200 dark:border-white/5">
                                         {tag}
                                     </span>
                                 ))}
                             </div>
-                            <span className="ml-auto">{new Date(project.created_at).toLocaleDateString()}</span>
                         </div>
                     </div>
                 </div>

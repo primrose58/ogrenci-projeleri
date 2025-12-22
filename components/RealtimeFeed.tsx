@@ -5,21 +5,24 @@ import { useTranslations } from "next-intl";
 import ProjectCard from "./ProjectCard";
 import { createClient } from "@/lib/supabase/client";
 import { Project } from '@/types/project';
+import { LayoutGrid, List } from "lucide-react";
+import { motion } from "framer-motion";
 
 export default function RealtimeFeed({
     serverProjects,
     userId,
-    viewMode = 'grid',
-    currentUserId
+    currentUserId,
+    viewMode: initialViewMode = 'grid'
 }: {
     serverProjects?: Project[],
     userId?: string,
-    viewMode?: 'grid' | 'list',
-    currentUserId?: string
+    currentUserId?: string,
+    viewMode?: 'grid' | 'list'
 }) {
+    // Internal state for view mode
+    const [internalViewMode, setInternalViewMode] = useState<'grid' | 'list'>(initialViewMode);
     const [projects, setProjects] = useState<Project[]>(serverProjects || []);
     const supabase = createClient();
-
     const [searchTerm, setSearchTerm] = useState('');
 
     useEffect(() => {
@@ -113,18 +116,50 @@ export default function RealtimeFeed({
 
     return (
         <div className="flex flex-col gap-6 w-full">
-            {/* Search Input */}
-            <div className="relative">
-                <input
-                    type="text"
-                    placeholder="Proje adı, öğrenci adı veya numara ile ara..."
-                    className="w-full bg-gray-50 border border-gray-200 text-gray-900 placeholder-gray-500 rounded-lg px-4 py-3 dark:bg-white/5 dark:border-white/10 dark:text-white dark:placeholder-gray-500 focus:outline-none focus:border-purple-500 transition-colors"
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                />
+            {/* Search and Toggle Header */}
+            <div className="flex flex-col md:flex-row gap-4 justify-between items-center">
+                {/* Search Input */}
+                <div className="relative w-full md:max-w-xl">
+                    <input
+                        type="text"
+                        placeholder="Proje adı, öğrenci adı veya numara ile ara..."
+                        className="w-full bg-white border border-gray-200 text-gray-900 placeholder-gray-600 rounded-lg px-4 py-3 dark:bg-white/5 dark:border-white/10 dark:text-white dark:placeholder-gray-500 focus:outline-none focus:border-purple-500 transition-colors shadow-sm"
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                    />
+                </div>
+
+                {/* View Toggle with Sliding Animation */}
+                <div className="relative flex items-center bg-gray-100 dark:bg-white/5 rounded-lg border border-gray-200 dark:border-white/10 p-1">
+                    {/* Sliding Background Pill */}
+                    <motion.div
+                        className="absolute top-1 bottom-1 w-[calc(50%-4px)] bg-white dark:bg-white/10 rounded-md shadow-sm z-0"
+                        animate={{
+                            left: internalViewMode === 'grid' ? '4px' : 'calc(50% + 0px)'
+                        }}
+                        transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                    />
+
+                    <button
+                        onClick={() => setInternalViewMode('grid')}
+                        className={`relative z-10 w-10 p-2 rounded-md flex items-center justify-center transition-colors duration-200 ${internalViewMode === 'grid'
+                            ? 'text-purple-600 dark:text-white'
+                            : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200'}`}
+                    >
+                        <LayoutGrid size={20} />
+                    </button>
+                    <button
+                        onClick={() => setInternalViewMode('list')}
+                        className={`relative z-10 w-10 p-2 rounded-md flex items-center justify-center transition-colors duration-200 ${internalViewMode === 'list'
+                            ? 'text-purple-600 dark:text-white'
+                            : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200'}`}
+                    >
+                        <List size={20} />
+                    </button>
+                </div>
             </div>
 
-            <div className={`w-full ${viewMode === 'grid'
+            <div className={`w-full ${internalViewMode === 'grid'
                 ? 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-fr'
                 : 'flex flex-col gap-4'
                 }`}>
@@ -132,7 +167,7 @@ export default function RealtimeFeed({
                     <ProjectCard
                         key={project.id}
                         project={project}
-                        layout={viewMode}
+                        layout={internalViewMode}
                         isOwner={currentUserId === project.user_id}
                     />
                 ))}

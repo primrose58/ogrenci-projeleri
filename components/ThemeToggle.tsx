@@ -3,6 +3,7 @@
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 import { Sun, Moon } from "lucide-react";
+import { motion } from "framer-motion";
 
 export default function ThemeToggle() {
     const { theme, setTheme } = useTheme();
@@ -29,19 +30,21 @@ export default function ThemeToggle() {
             aria-label="Toggle Theme"
         >
             {/* Sliding Pill */}
-            <div
-                className={`absolute left-1 w-6 h-6 rounded-full shadow-sm transform transition-transform duration-300 flex items-center justify-center
-                ${theme === 'dark'
-                        ? 'translate-x-8 bg-black text-white'
-                        : 'translate-x-0 bg-white text-yellow-500'
-                    }`}
+            <motion.div
+                className="absolute left-1 w-6 h-6 rounded-full shadow-sm flex items-center justify-center"
+                animate={{
+                    x: theme === 'dark' ? 32 : 0,
+                    backgroundColor: theme === 'dark' ? '#000000' : '#ffffff',
+                    color: theme === 'dark' ? '#ffffff' : '#eab308'
+                }}
+                transition={{ type: "spring", stiffness: 300, damping: 25 }}
             >
                 {theme === 'dark' ? (
                     <Moon size={14} />
                 ) : (
                     <Sun size={14} />
                 )}
-            </div>
+            </motion.div>
 
             {/* Background Icons (Visual cues) */}
             <div className="w-full flex justify-between px-2">

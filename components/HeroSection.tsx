@@ -82,13 +82,14 @@ export default function HeroSection({ user }: { user: User | null }) {
                     <span>{t('bannerTag')}</span>
                 </motion.div>
 
+                {/* Main Title */}
                 <motion.h1
-                    variants={itemVariants}
-                    className="text-6xl md:text-8xl font-black tracking-tight"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8 }}
+                    className="text-5xl md:text-7xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-gray-900 via-purple-800 to-gray-600 dark:from-white dark:via-purple-200 dark:to-gray-400 drop-shadow-sm"
                 >
-                    <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 dark:from-blue-400 dark:via-purple-400 dark:to-pink-400 drop-shadow-sm dark:drop-shadow-2xl">
-                        {t('title')}
-                    </span>
+                    {t('title')}
                 </motion.h1>
 
                 <motion.p
