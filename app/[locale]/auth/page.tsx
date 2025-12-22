@@ -26,7 +26,11 @@ export default function AuthPage() {
         phoneNumber: ''
     });
 
+
+
+    // UI toggles
     const [isStudent, setIsStudent] = useState(true);
+    const [hasLostStudentEmail, setHasLostStudentEmail] = useState(false);
 
     const supabase = createClient();
 
@@ -58,12 +62,20 @@ export default function AuthPage() {
 
             } else {
                 // Student Email Validation
-                if (isStudent && !formData.email.includes('edu')) {
+                // Only enforce checking for 'edu' if they HAVEN'T checked "lost phone/email" option
+                if (isStudent && !hasLostStudentEmail && !formData.email.includes('edu')) {
                     throw new Error(t('eduEmailRequired') || "Öğrenci kaydı için lütfen okul e-posta adresinizi (.edu veya .edu.tr) kullanın.");
                 }
 
-                // Auto-extract student ID from email (everything before @)
-                const derivedStudentId = formData.email.split('@')[0];
+                // If lost email, use manual ID. If not lost, extract from email.
+                let derivedStudentId = null;
+                if (isStudent) {
+                    if (hasLostStudentEmail) {
+                        derivedStudentId = formData.studentId;
+                    } else {
+                        derivedStudentId = formData.email.split('@')[0];
+                    }
+                }
 
                 const { error } = await supabase.auth.signUp({
                     email: formData.email,
@@ -149,7 +161,34 @@ export default function AuthPage() {
 
                                 {isStudent ? (
                                     <>
-                                        {/* Student ID is auto-extracted from email */}
+                                        {/* "Lost Student Email" Toggle */}
+                                        <div className="flex items-center gap-2 mb-2 ml-1">
+                                            <input
+                                                type="checkbox"
+                                                id="lostEmailCheck"
+                                                checked={hasLostStudentEmail}
+                                                onChange={(e) => setHasLostStudentEmail(e.target.checked)}
+                                                className="w-3 h-3 rounded border-gray-600 bg-gray-700 text-purple-500 focus:ring-purple-500"
+                                            />
+                                            <label htmlFor="lostEmailCheck" className="text-xs text-gray-400 select-none cursor-pointer hover:text-gray-300">
+                                                {t('lostStudentEmail')}
+                                            </label>
+                                        </div>
+
+                                        {/* Show ID input ONLY if email is lost */}
+                                        {hasLostStudentEmail ? (
+                                            <Input
+                                                label={t('idNumber')}
+                                                placeholder="2023..."
+                                                value={formData.studentId}
+                                                onChange={(e) => setFormData({ ...formData, studentId: e.target.value })}
+                                                required={isStudent && hasLostStudentEmail}
+                                            />
+                                        ) : (
+                                            <p className="text-xs text-gray-500 mb-2 italic">
+                                                * {t('idNumber')} {t('email')}'den otomatik alınır.
+                                            </p>
+                                        )}
 
                                         <SearchableSelect
                                             label={t('department')}
