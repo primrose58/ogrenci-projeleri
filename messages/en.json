@@ -3,7 +3,19 @@
     "title": "Student Project Showcase",
     "subTitle": "Discover, Review, and Inspire.",
     "getStarted": "Get Started",
-    "welcome": "Welcome to the best platform for sharing student projects."
+    "goToDashboard": "Go to Dashboard",
+    "exploreProjects": "Explore Projects",
+    "welcome": "Welcome to the best platform for sharing student projects.",
+    "bannerTag": "Community Driven Platform"
+  },
+  "HowItWorks": {
+    "title": "How It Works",
+    "step1Title": "Upload Project",
+    "step1Desc": "Share your code, demo link, and story with the world.",
+    "step2Title": "Get Feedback",
+    "step2Desc": "Connect with other students and get valuable insights.",
+    "step3Title": "Join Community",
+    "step3Desc": "Participate in events, challenges and grow your network."
   },
   "Auth": {
     "login": "Log In",
@@ -41,5 +53,12 @@
   "Common": {
     "loading": "Loading...",
     "error": "Something went wrong."
+  },
+  "Dashboard": {
+    "welcome": "Welcome back, {name}",
+    "subTitle": "Manage your projects and explore what others are building.",
+    "myProjects": "My Projects",
+    "community": "Explore Community",
+    "noProjects": "You haven't uploaded any projects yet."
   }
 }

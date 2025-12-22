@@ -3,7 +3,19 @@
         "title": "Öğrenci Proje Vitrini",
         "subTitle": "Keşfet, İncele ve İlham Al.",
         "getStarted": "Başla",
-        "welcome": "Öğrenci projelerini paylaşmak için en iyi platforma hoş geldiniz."
+        "goToDashboard": "Panele Git",
+        "exploreProjects": "Projeleri Keşfet",
+        "welcome": "Öğrenci projelerini paylaşmak için en iyi platforma hoş geldiniz.",
+        "bannerTag": "Topluluk Odaklı Platform"
+    },
+    "HowItWorks": {
+        "title": "Nasıl Çalışır?",
+        "step1Title": "Projeni Yükle",
+        "step1Desc": "Kodunu, demo linkini ve hikayeni dünyayla paylaş.",
+        "step2Title": "Geri Bildirim Al",
+        "step2Desc": "Diğer öğrencilerle bağlantı kur ve değerli yorumlar al.",
+        "step3Title": "Topluluğa Katıl",
+        "step3Desc": "Etkinliklere katıl, kendini geliştir ve ağını büyüt."
     },
     "Auth": {
         "login": "Giriş Yap",
@@ -41,5 +53,12 @@
     "Common": {
         "loading": "Yükleniyor...",
         "error": "Bir şeyler ters gitti."
+    },
+    "Dashboard": {
+        "welcome": "Hoş geldin, {name}",
+        "subTitle": "Projelerini yönet ve diğerlerinin neler yaptığını keşfet.",
+        "myProjects": "Projelerim",
+        "community": "Topluluğu Keşfet",
+        "noProjects": "Henüz hiç proje yüklemedin."
     }
 }
