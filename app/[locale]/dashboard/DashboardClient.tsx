@@ -3,20 +3,8 @@
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
 import RealtimeFeed from '@/components/RealtimeFeed';
-import { Project } from '@/types/project'; // We might need to define this type shared
+import { Project } from '@/types/project';
 import { User } from '@supabase/supabase-js';
-
-// Re-defining for now if not shared
-type ProjectType = {
-    id: string;
-    title: string;
-    description: string;
-    image_url?: string;
-    user_id: string;
-    created_at: string;
-    tags: string[];
-    collaborators: string[];
-};
 
 export default function DashboardClient({
     user,
@@ -24,8 +12,8 @@ export default function DashboardClient({
     allProjects
 }: {
     user: User,
-    myProjects: ProjectType[],
-    allProjects: ProjectType[]
+    myProjects: Project[],
+    allProjects: Project[]
 }) {
     const t = useTranslations('Dashboard'); // We'll need to add this
     const [activeTab, setActiveTab] = useState<'my' | 'all'>('my');

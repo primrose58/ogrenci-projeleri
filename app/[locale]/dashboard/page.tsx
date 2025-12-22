@@ -14,21 +14,34 @@ export default async function DashboardPage() {
     // Fetch My Projects
     const { data: myProjects } = await supabase
         .from('projects')
-        .select('*')
+        .select(`
+            *,
+            user:profiles(full_name)
+        `)
         .eq('user_id', user.id)
         .order('created_at', { ascending: false });
 
     // Fetch All Projects
     const { data: allProjects } = await supabase
         .from('projects')
-        .select('*')
+        .select(`
+            *,
+            user:profiles(full_name)
+        `)
         .order('created_at', { ascending: false });
+
+    const mapProject = (p: any): Project => ({
+        ...p,
+        tags: p.tags || [],
+        collaborators: p.collaborators || [],
+        user: p.user || { full_name: 'Unknown' }
+    });
 
     return (
         <DashboardClient
             user={user}
-            myProjects={myProjects || []}
-            allProjects={allProjects || []}
+            myProjects={myProjects?.map(mapProject) || []}
+            allProjects={allProjects?.map(mapProject) || []}
         />
     );
 }

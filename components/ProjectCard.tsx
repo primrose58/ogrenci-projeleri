@@ -1,17 +1,6 @@
 import { Link } from "@/i18n/routing";
 import Image from "next/image";
-
-interface Project {
-    id: string;
-    title: string;
-    description: string;
-    thumbnail_url?: string;
-    tags: string[];
-    user: {
-        full_name: string;
-    };
-    created_at: string;
-}
+import { Project } from '@/types/project';
 
 interface ProjectCardProps {
     project: Project;
