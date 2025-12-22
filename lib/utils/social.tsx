@@ -2,6 +2,9 @@ import { Github, Linkedin, Globe, Instagram, Mail, Twitter, Facebook, Youtube, L
 import React from 'react';
 
 export const getSocialPlatform = (url: string) => {
+    if (!url || typeof url !== 'string') {
+        return { icon: <Globe size={18} />, label: 'Website', color: 'text-gray-400' };
+    }
     const lowerUrl = url.toLowerCase();
 
     // Check for email (mailto:)

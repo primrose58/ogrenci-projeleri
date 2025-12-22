@@ -34,8 +34,12 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
 
             setProject({
                 ...data,
-                tags: data.tags || [],
-                user: data.user || { full_name: 'Unknown' }
+                tags: Array.isArray(data.tags) ? data.tags : [],
+                collaborators: Array.isArray(data.collaborators) ? data.collaborators : [],
+                user: data.user ? {
+                    ...data.user,
+                    social_links: Array.isArray(data.user.social_links) ? data.user.social_links : []
+                } : { full_name: 'Unknown', social_links: [] }
             });
             setLoading(false);
         };
