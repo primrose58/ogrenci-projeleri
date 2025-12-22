@@ -35,7 +35,7 @@ export default function AuthPage() {
                     password: formData.password
                 });
                 if (error) throw error;
-                router.push('/dashboard');
+                router.push('/');
             } else {
                 const { error } = await supabase.auth.signUp({
                     email: formData.email,
@@ -49,7 +49,7 @@ export default function AuthPage() {
                 });
                 if (error) throw error;
                 // Show success message or redirect
-                router.push('/dashboard');
+                router.push('/');
             }
         } catch (err: unknown) {
             if (err instanceof Error) {
