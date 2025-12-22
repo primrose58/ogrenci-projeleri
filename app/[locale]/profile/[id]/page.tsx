@@ -6,10 +6,10 @@ import ProjectCard from "@/components/ProjectCard";
 import { SocialIcon } from "@/lib/utils/social";
 import { Mail, GraduationCap, Hash, LayoutGrid, Calendar } from "lucide-react";
 
-export default async function ProfilePage({ params }: { params: { id: string } }) {
+export default async function ProfilePage({ params }: { params: Promise<{ id: string }> }) {
     const supabase = await createClient();
     const t = await getTranslations('Profile');
-    const { id } = params;
+    const { id } = await params;
 
     // 1. Fetch User Profile
     const { data: profile, error: profileError } = await supabase
