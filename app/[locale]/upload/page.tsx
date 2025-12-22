@@ -36,25 +36,29 @@ export default function UploadPage() {
             if (!user) throw new Error("User not authenticated");
 
             // Insert project data
-            const { error } = await supabase.from('projects').insert({
+            const { error: insertError } = await supabase.from('projects').insert({
                 title: formData.title,
                 description: formData.description,
                 repo_url: formData.repoLink,
                 demo_url: formData.demoLink,
-                tags: formData.tags ? formData.tags.split(',').map(t => t.trim()) : [],
-                collaborators: formData.collaborators ? formData.collaborators.split(',').map(c => c.trim()) : [],
+                tags: formData.tags ? formData.tags.split(',').map(t => t.trim()).filter(Boolean) : [],
+                collaborators: formData.collaborators ? formData.collaborators.split(',').map(c => c.trim()).filter(Boolean) : [],
                 user_id: user.id
             });
 
-            if (error) throw error;
+            if (insertError) throw insertError;
 
             alert(t('success'));
-            router.push('/');
-        } catch (err: unknown) {
+            router.push('/dashboard'); // Redirect to dashboard to see new project
+            router.refresh();
+        } catch (err: any) {
+            console.error('Upload Error:', err);
             if (err instanceof Error) {
                 setError(err.message);
+            } else if (typeof err === 'object' && err !== null && 'message' in err) {
+                setError((err as any).message);
             } else {
-                setError('An unknown error occurred');
+                setError('An unknown error occurred: ' + JSON.stringify(err));
             }
         } finally {
             setLoading(false);
