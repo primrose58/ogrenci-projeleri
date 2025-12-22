@@ -34,7 +34,9 @@
     "home": "Home",
     "projects": "Projects",
     "upload": "Upload Project",
-    "login": "Login"
+    "upload": "Upload Project",
+    "login": "Login",
+    "logout": "Logout"
   },
   "Common": {
     "loading": "Loading...",

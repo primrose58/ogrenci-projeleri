@@ -10,13 +10,22 @@ export default async function middleware(request: NextRequest) {
     const response = await updateSession(request);
 
     // 2. Run i18n middleware
-    // We need to pass the response from supabase to preserve cookies
-    // But next-intl expects to handle the request itself.
-    // So we just return the intlMiddleware response BUT we might lose supabase cookies if not careful.
-    // Actually, updateSession returns a response with cookies set.
-    // A common pattern is to let Supabase middleware run first, then intl.
+    const intlResponse = intlMiddleware(request);
 
-    return intlMiddleware(request);
+    // 3. Merge cookies from Supabase response to Intl response
+    // ensuring we don't lose the updated session
+    response.headers.forEach((value, key) => {
+        if (key === 'x-middleware-request-cookie' || key === 'set-cookie') {
+            intlResponse.headers.append(key, value);
+        }
+    });
+
+    // Also copy cookies from the supabaseResponse object itself if any were set via .cookies.set()
+    response.cookies.getAll().forEach((cookie) => {
+        intlResponse.cookies.set(cookie);
+    });
+
+    return intlResponse;
 }
 
 export const config = {

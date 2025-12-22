@@ -34,7 +34,9 @@
         "home": "Ana Sayfa",
         "projects": "Projeler",
         "upload": "Proje Yükle",
-        "login": "Giriş"
+        "upload": "Proje Yükle",
+        "login": "Giriş",
+        "logout": "Çıkış Yap"
     },
     "Common": {
         "loading": "Yükleniyor...",

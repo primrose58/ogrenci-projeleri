@@ -1,8 +1,10 @@
 import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/routing';
 import LanguageSwitcher from './LanguageSwitcher';
+import AuthButton from './AuthButton';
+import { User } from '@supabase/supabase-js';
 
-export default function Navbar() {
+export default function Navbar({ user }: { user: User | null }) {
     const t = useTranslations('Navigation');
 
     return (
@@ -16,9 +18,7 @@ export default function Navbar() {
                     <Link href="/projects" className="hover:text-white/80 transition-colors">{t('projects')}</Link>
                 </div>
                 <div className="flex items-center gap-4">
-                    <Link href="/auth" className="text-sm font-medium hover:text-white/80 transition-colors">
-                        {t('login')}
-                    </Link>
+                    <AuthButton user={user} />
                     <LanguageSwitcher />
                 </div>
             </div>
