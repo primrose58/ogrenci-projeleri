@@ -42,7 +42,8 @@ export default function DashboardClient({
     const initialProfile = {
         full_name: userProfile?.full_name || user.user_metadata?.full_name || '',
         avatar_url: avatarUrl || '',
-        social_links: socialLinks
+        social_links: socialLinks,
+        birth_date: userProfile?.birth_date || user.user_metadata?.birth_date
     };
 
     return (

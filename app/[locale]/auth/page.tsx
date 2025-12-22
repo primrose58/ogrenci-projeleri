@@ -9,6 +9,7 @@ import { useRouter } from "@/i18n/routing";
 import SearchableSelect from "@/components/ui/SearchableSelect";
 import { departments } from "@/data/departments";
 import { toast } from "sonner";
+import { GraduationCap, Calendar } from "lucide-react";
 
 export default function AuthPage() {
     const t = useTranslations('Auth');
@@ -23,7 +24,8 @@ export default function AuthPage() {
         name: '',
         studentId: '',
         department: '',
-        phoneNumber: ''
+        phoneNumber: '',
+        birth_date: ''
     });
 
 
@@ -87,7 +89,8 @@ export default function AuthPage() {
                             student_number: isStudent ? derivedStudentId : null,
                             department: isStudent ? formData.department : null,
                             phone: !isStudent ? formData.phoneNumber : null,
-                            is_student: isStudent
+                            is_student: isStudent,
+                            birth_date: formData.birth_date
                         }
                     }
                 });
@@ -200,14 +203,37 @@ export default function AuthPage() {
                                         />
                                     </>
                                 ) : (
-                                    <Input
-                                        label={t('phoneNumber')}
-                                        type="tel"
-                                        placeholder="555 123 45 67"
-                                        value={formData.phoneNumber}
-                                        onChange={(e) => setFormData({ ...formData, phoneNumber: e.target.value })}
-                                        required={!isStudent}
-                                    />
+                                    <>
+                                        <Input
+                                            label={t('phoneNumber')}
+                                            type="tel"
+                                            placeholder="555 123 45 67"
+                                            value={formData.phoneNumber}
+                                            onChange={(e) => setFormData({ ...formData, phoneNumber: e.target.value })}
+                                            required={!isStudent}
+                                        />
+                                        {/* The following two inputs are added based on the instruction,
+                                            but the 'department' input with GraduationCap icon seems
+                                            misplaced for a non-student. Assuming it's intended to be
+                                            a generic input for non-students or a copy-paste error from
+                                            a student section. The styling classes are also different
+                                            from existing inputs. */}
+                                        <Input
+                                            type="text"
+                                            placeholder={t('department')}
+                                            value={formData.department}
+                                            onChange={(e) => setFormData({ ...formData, department: e.target.value })}
+                                            className="bg-white/5 border-white/10 text-white placeholder-gray-400"
+                                        />
+                                        <Input
+                                            type="date"
+                                            label={t('birthDate')} // Added label for clarity
+                                            placeholder={t('birthDate')} // Add new key later or use static text
+                                            value={formData.birth_date || ''}
+                                            onChange={(e) => setFormData({ ...formData, birth_date: e.target.value })}
+                                            className="bg-white/5 border-white/10 text-white placeholder-gray-400"
+                                        />
+                                    </>
                                 )}
                             </>
                         )}

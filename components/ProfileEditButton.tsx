@@ -16,7 +16,8 @@ export default function ProfileEditButton({ user, profile }: ProfileEditButtonPr
     const initialProfile = {
         full_name: profile.full_name || '',
         avatar_url: profile.avatar_url || '',
-        social_links: Array.isArray(profile.social_links) ? profile.social_links : []
+        social_links: Array.isArray(profile.social_links) ? profile.social_links : [],
+        birth_date: profile.birth_date
     };
 
     return (

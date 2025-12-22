@@ -127,11 +127,25 @@ export default async function ProfilePage({ params }: { params: Promise<{ id: st
                                 </div>
                             )}
 
-                            {/* Joined Date (Optional, if we have it easily, otherwise skip or mock) */}
-                            {/* <div className="flex items-center gap-2 px-3 py-1.5 bg-gray-100 dark:bg-white/5 rounded-full border border-gray-200 dark:border-white/5">
-                                <Calendar size={16} className="text-green-500" />
-                                <span className="text-sm font-medium">Joined 2024</span>
-                            </div> */}
+                            {/* Age Display */}
+                            {profile.birth_date && (
+                                <div className="flex items-center gap-2 px-3 py-1.5 bg-gray-100 dark:bg-white/5 rounded-full border border-gray-200 dark:border-white/5">
+                                    <Calendar size={16} className="text-pink-500" />
+                                    <span className="text-sm font-medium">
+                                        {/* Simple Age Calculation */}
+                                        {(() => {
+                                            const today = new Date();
+                                            const birthDate = new Date(profile.birth_date);
+                                            let age = today.getFullYear() - birthDate.getFullYear();
+                                            const m = today.getMonth() - birthDate.getMonth();
+                                            if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+                                                age--;
+                                            }
+                                            return age;
+                                        })()} {t('age') || 'Yaş'}
+                                    </span>
+                                </div>
+                            )}
                         </div>
 
                         {/* Social Links */}

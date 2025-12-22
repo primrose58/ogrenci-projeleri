@@ -11,6 +11,7 @@ create table public.profiles (
   department text null,
   linkedin_url text null,
   social_links jsonb default '[]'::jsonb,
+  birth_date date null,
   
   primary key (id)
 );
@@ -71,13 +72,14 @@ language plpgsql
 security definer set search_path = public
 as $$
 begin
-  insert into public.profiles (id, full_name, avatar_url, student_number, department)
+  insert into public.profiles (id, full_name, avatar_url, student_number, department, birth_date)
   values (
     new.id, 
     new.raw_user_meta_data->>'full_name', 
     new.raw_user_meta_data->>'avatar_url',
     new.raw_user_meta_data->>'student_number',
-    new.raw_user_meta_data->>'department'
+    new.raw_user_meta_data->>'department',
+    (new.raw_user_meta_data->>'birth_date')::date
   );
   return new;
 end;

@@ -11,11 +11,12 @@ import { useRouter } from '@/i18n/routing';
 interface EditProfileModalProps {
     isOpen: boolean;
     onClose: () => void;
-    user: any; // User object or similar structure with id
+    user: any;
     initialProfile: {
         full_name: string;
         avatar_url: string;
         social_links: string[];
+        birth_date?: string;
     };
     onSuccess?: () => void;
 }
@@ -59,6 +60,7 @@ export default function EditProfileModal({ isOpen, onClose, user, initialProfile
                     full_name: profileForm.full_name,
                     avatar_url: profileForm.avatar_url,
                     social_links: profileForm.social_links.filter(l => l.trim() !== ''),
+                    birth_date: profileForm.birth_date,
                     updated_at: new Date().toISOString()
                 })
                 .eq('id', user.id);
@@ -69,7 +71,8 @@ export default function EditProfileModal({ isOpen, onClose, user, initialProfile
             const { error: authError } = await supabase.auth.updateUser({
                 data: {
                     full_name: profileForm.full_name,
-                    avatar_url: profileForm.avatar_url
+                    avatar_url: profileForm.avatar_url,
+                    birth_date: profileForm.birth_date
                 }
             });
 
@@ -90,11 +93,11 @@ export default function EditProfileModal({ isOpen, onClose, user, initialProfile
     if (!isOpen) return null;
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
-            <div className="bg-[#1A1A1A] border border-white/10 rounded-2xl w-full max-w-md p-6 relative shadow-xl max-h-[90vh] overflow-y-auto">
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
+            <div className="bg-white dark:bg-[#1A1A1A] border border-gray-200 dark:border-white/10 rounded-2xl w-full max-w-md p-6 relative shadow-xl max-h-[90vh] overflow-y-auto transition-colors">
                 <button
                     onClick={onClose}
-                    className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors"
+                    className="absolute top-4 right-4 text-gray-400 hover:text-black dark:hover:text-white transition-colors"
                 >
                     <X size={20} />
                 </button>
@@ -200,8 +203,15 @@ export default function EditProfileModal({ isOpen, onClose, user, initialProfile
                         placeholder="Adınız Soyadınız"
                     />
 
+                    <Input
+                        label="Doğum Tarihi"
+                        type="date"
+                        value={profileForm.birth_date || ''}
+                        onChange={(e) => setProfileForm(prev => ({ ...prev, birth_date: e.target.value }))}
+                    />
+
                     <div className="flex flex-col gap-2">
-                        <label className="text-sm font-medium text-gray-400">Sosyal Medya Linkleri</label>
+                        <label className="text-sm font-medium text-gray-700 dark:text-gray-400">Sosyal Medya Linkleri</label>
                         <p className="text-xs text-gray-500 mb-2">
                             Instagram, GitHub, LinkedIn profil linklerinizi veya E-posta adresinizi ekleyebilirsiniz.
                         </p>
@@ -218,13 +228,13 @@ export default function EditProfileModal({ isOpen, onClose, user, initialProfile
                                             value={link}
                                             onChange={(e) => updateSocialLink(index, e.target.value)}
                                             placeholder="https://..."
-                                            className="w-full bg-white/5 border border-white/10 rounded-lg py-2 pl-9 pr-3 text-sm text-white focus:ring-2 focus:ring-purple-500 outline-none placeholder-gray-600"
+                                            className="w-full bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-lg py-2 pl-9 pr-3 text-sm text-gray-900 dark:text-white focus:ring-2 focus:ring-purple-500 outline-none placeholder-gray-400 dark:placeholder-gray-600 transition-colors"
                                         />
                                     </div>
                                     <button
                                         type="button"
                                         onClick={() => removeSocialLink(index)}
-                                        className="p-2 bg-white/5 hover:bg-red-500/20 text-gray-400 hover:text-red-400 rounded-lg transition-colors"
+                                        className="p-2 bg-gray-100 dark:bg-white/5 hover:bg-red-500/20 text-gray-400 hover:text-red-500 dark:hover:text-red-400 rounded-lg transition-colors"
                                     >
                                         <X size={18} />
                                     </button>
@@ -234,7 +244,7 @@ export default function EditProfileModal({ isOpen, onClose, user, initialProfile
                             <button
                                 type="button"
                                 onClick={addSocialLink}
-                                className="text-sm text-purple-400 hover:text-purple-300 font-medium flex items-center gap-1 mt-1"
+                                className="text-sm text-purple-600 dark:text-purple-400 hover:text-purple-500 dark:hover:text-purple-300 font-medium flex items-center gap-1 mt-1"
                             >
                                 + Link Ekle
                             </button>
