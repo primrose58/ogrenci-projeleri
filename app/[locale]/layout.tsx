@@ -1,6 +1,25 @@
+import { NextIntlClientProvider } from 'next-intl';
+import { getMessages } from 'next-intl/server';
+import { notFound } from 'next/navigation';
+import { Geist, Geist_Mono } from "next/font/google";
+import Navbar from "@/components/Navbar";
+import "../globals.css";
 import { createClient } from '@/lib/supabase/server';
 
-// ... (imports)
+const geistSans = Geist({
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
+});
+
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
+
+export const metadata = {
+  title: "Student Project Showcase",
+  description: "Share your projects with the world.",
+};
 
 export default async function LocaleLayout({
   children,
