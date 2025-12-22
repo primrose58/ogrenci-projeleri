@@ -4,7 +4,8 @@ import { notFound } from "next/navigation";
 import Image from "next/image";
 import ProjectCard from "@/components/ProjectCard";
 import { SocialIcon } from "@/lib/utils/social";
-import { Mail, GraduationCap, Hash, LayoutGrid, Calendar } from "lucide-react";
+import { Mail, GraduationCap, Hash, LayoutGrid, Calendar, Edit2 } from "lucide-react";
+import { Link } from "@/i18n/routing";
 
 export default async function ProfilePage({ params }: { params: Promise<{ id: string }> }) {
     const supabase = await createClient();
@@ -20,8 +21,15 @@ export default async function ProfilePage({ params }: { params: Promise<{ id: st
     // Initialize data containers
     let profile = null;
     let projects = [];
+    let isOwner = false;
 
     try {
+        // Check current user for ownership
+        const { data: { user } } = await supabase.auth.getUser();
+        if (user && user.id === id) {
+            isOwner = true;
+        }
+
         // 1. Fetch User Profile
         const { data: profileVal, error: profileError } = await supabase
             .from('profiles')
@@ -35,6 +43,7 @@ export default async function ProfilePage({ params }: { params: Promise<{ id: st
     } catch (e) {
         console.error("Supabase Profile Fetch Error:", e);
     }
+
 
     if (!profile) {
         return notFound();
@@ -86,9 +95,20 @@ export default async function ProfilePage({ params }: { params: Promise<{ id: st
 
                     {/* Info */}
                     <div className="flex-1">
-                        <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-2">
-                            {profile.full_name}
-                        </h1>
+                        <div className="flex items-center gap-4 mb-2">
+                            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">
+                                {profile.full_name}
+                            </h1>
+                            {isOwner && (
+                                <Link
+                                    href="/dashboard"
+                                    className="flex items-center gap-2 px-3 py-1.5 bg-blue-500/10 text-blue-600 dark:text-blue-400 rounded-full text-sm font-medium hover:bg-blue-500/20 transition-colors"
+                                >
+                                    <Edit2 size={16} />
+                                    <span>Düzenle</span>
+                                </Link>
+                            )}
+                        </div>
 
                         <div className="flex flex-wrap items-center justify-center md:justify-start gap-4 text-gray-600 dark:text-gray-300 mt-4">
                             {/* Student Number */}
