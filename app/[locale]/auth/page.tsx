@@ -103,10 +103,6 @@ export default function AuthPage() {
                                     onChange={(e) => setFormData({ ...formData, studentId: e.target.value })}
                                     required
                                 />
-                                import SearchableSelect from "@/components/ui/SearchableSelect";
-                                import {departments} from "@/data/departments";
-
-                                // ... inside component ...
 
                                 <SearchableSelect
                                     label={t('department')}
