@@ -60,6 +60,7 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
 
                 const safeProject = {
                     id: data.id,
+                    user_id: data.user_id, // Ensure user_id is passed for linking
                     title: data.title || "Untitled Project",
                     description: data.description || "",
                     thumbnail_url: data.thumbnail_url, // Allow null, handled in UI
