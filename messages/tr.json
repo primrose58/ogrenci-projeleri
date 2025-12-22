@@ -6,7 +6,13 @@
         "goToDashboard": "Panele Git",
         "exploreProjects": "Projeleri Keşfet",
         "welcome": "Öğrenci projelerini paylaşmak için en iyi platforma hoş geldiniz.",
-        "bannerTag": "Topluluk Odaklı Platform"
+        "bannerTag": "Topluluk Odaklı Platform",
+        "latestProjects": "Son Projeler",
+        "discoverSubTitle": "Öğrencilerin şu an neler geliştirdiğini keşfedin."
+    },
+    "Footer": {
+        "copyright": "© 2024 Öğrenci Proje Vitrini. Tüm hakları saklıdır.",
+        "designedBy": "AntiGravity tarafından ❤️ ile tasarlandı"
     },
     "HowItWorks": {
         "title": "Nasıl Çalışır?",
