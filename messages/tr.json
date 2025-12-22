@@ -1,0 +1,42 @@
+{
+    "HomePage": {
+        "title": "Öğrenci Proje Vitrini",
+        "subTitle": "Keşfet, İncele ve İlham Al.",
+        "getStarted": "Başla",
+        "welcome": "Öğrenci projelerini paylaşmak için en iyi platforma hoş geldiniz."
+    },
+    "Auth": {
+        "login": "Giriş Yap",
+        "signup": "Kayıt Ol",
+        "email": "E-posta",
+        "password": "Şifre",
+        "name": "Ad Soyad",
+        "submitLogin": "Giriş Yap",
+        "submitSignup": "Hesap Oluştur",
+        "haveAccount": "Zaten hesabın var mı?",
+        "noAccount": "Hesabın yok mu?",
+        "or": "VEYA"
+    },
+    "Upload": {
+        "title": "Proje Yükle",
+        "projectTitle": "Proje Başlığı",
+        "description": "Açıklama",
+        "repoLink": "GitHub/Kaynak Linki",
+        "demoLink": "Canlı Demo Linki",
+        "tags": "Teknolojiler (virgül ile ayırın)",
+        "submit": "Projeyi Paylaş",
+        "image": "Proje Görseli",
+        "dropImage": "Görsel yüklemek için tıklayın veya sürükleyin",
+        "success": "Proje başarıyla yüklendi!"
+    },
+    "Navigation": {
+        "home": "Ana Sayfa",
+        "projects": "Projeler",
+        "upload": "Proje Yükle",
+        "login": "Giriş"
+    },
+    "Common": {
+        "loading": "Yükleniyor...",
+        "error": "Bir şeyler ters gitti."
+    }
+}

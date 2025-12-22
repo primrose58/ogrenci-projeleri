@@ -1,0 +1,42 @@
+{
+  "HomePage": {
+    "title": "Student Project Showcase",
+    "subTitle": "Discover, Review, and Inspire.",
+    "getStarted": "Get Started",
+    "welcome": "Welcome to the best platform for sharing student projects."
+  },
+  "Auth": {
+    "login": "Log In",
+    "signup": "Sign Up",
+    "email": "Email",
+    "password": "Password",
+    "name": "Full Name",
+    "submitLogin": "Sign In",
+    "submitSignup": "Create Account",
+    "haveAccount": "Already have an account?",
+    "noAccount": "Don't have an account?",
+    "or": "OR"
+  },
+  "Upload": {
+    "title": "Upload Project",
+    "projectTitle": "Project Title",
+    "description": "Description",
+    "repoLink": "GitHub/Source Link",
+    "demoLink": "Live Demo Link",
+    "tags": "Technologies (comma separated)",
+    "submit": "Share Project",
+    "image": "Project Thumbnail",
+    "dropImage": "Click or drag to upload image",
+    "success": "Project uploaded successfully!"
+  },
+  "Navigation": {
+    "home": "Home",
+    "projects": "Projects",
+    "upload": "Upload Project",
+    "login": "Login"
+  },
+  "Common": {
+    "loading": "Loading...",
+    "error": "Something went wrong."
+  }
+}
