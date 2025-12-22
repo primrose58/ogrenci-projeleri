@@ -34,7 +34,7 @@ export default function ProjectCard({ project, layout = 'grid', isOwner = false 
     if (layout === 'list') {
         return (
             <Link href={`/project/${project.id}`} className="group relative block w-full">
-                <div className="relative w-full bg-white dark:bg-white/5 backdrop-blur-md rounded-xl overflow-hidden border border-gray-200 dark:border-white/10 transition-all duration-300 group-hover:bg-gray-50 dark:group-hover:bg-white/10 flex items-center p-4 gap-6">
+                <div className="relative w-full bg-white dark:bg-white/5 backdrop-blur-md rounded-xl overflow-hidden border border-gray-200 dark:border-white/10 shadow-sm hover:shadow-md dark:shadow-none transition-all duration-300 group-hover:bg-gray-50 dark:group-hover:bg-white/10 flex items-center p-4 gap-6">
                     {/* Thumbnail - Smaller */}
                     <div className="relative h-24 w-40 flex-shrink-0 overflow-hidden rounded-lg">
                         {project.thumbnail_url ? (
@@ -99,7 +99,7 @@ export default function ProjectCard({ project, layout = 'grid', isOwner = false 
 
     return (
         <Link href={`/project/${project.id}`} className="group relative block h-full">
-            <div className="relative h-full bg-white dark:bg-white/5 backdrop-blur-md rounded-xl overflow-hidden border border-gray-200 dark:border-white/10 transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-xl dark:group-hover:shadow-2xl dark:group-hover:shadow-purple-500/20 flex flex-col">
+            <div className="relative h-full bg-white dark:bg-white/5 backdrop-blur-md rounded-xl overflow-hidden border border-gray-200 dark:border-white/10 shadow-sm hover:shadow-xl dark:shadow-none transition-all duration-300 group-hover:-translate-y-1 dark:group-hover:shadow-2xl dark:group-hover:shadow-purple-500/20 flex flex-col">
 
                 {/* Thumbnail */}
                 <div className="relative h-48 w-full overflow-hidden">
