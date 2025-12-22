@@ -30,6 +30,7 @@ export default function Navbar({ user }: { user: User | null }) {
                     <div className="hidden md:flex items-center gap-8">
                         <div className="flex gap-6 text-sm font-medium">
                             <Link href="/" className="text-gray-300 hover:text-white transition-colors">{t('home')}</Link>
+                            <Link href="/guide" className="text-gray-300 hover:text-white transition-colors">{t('guide')}</Link>
                             <Link href={user ? "/dashboard" : "/projects"} className="text-gray-300 hover:text-white transition-colors">{t('projects')}</Link>
                         </div>
 
@@ -79,6 +80,13 @@ export default function Navbar({ user }: { user: User | null }) {
                                 className="block px-3 py-2 text-base font-medium text-gray-300 hover:text-white hover:bg-white/10 rounded-md"
                             >
                                 {t('home')}
+                            </Link>
+                            <Link
+                                href="/guide"
+                                onClick={() => setIsMenuOpen(false)}
+                                className="block px-3 py-2 text-base font-medium text-gray-300 hover:text-white hover:bg-white/10 rounded-md"
+                            >
+                                {t('guide')}
                             </Link>
                             <Link
                                 href={user ? "/dashboard" : "/projects"}

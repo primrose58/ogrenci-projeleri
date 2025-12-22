@@ -62,6 +62,7 @@
     },
     "Navigation": {
         "home": "Ana Sayfa",
+        "guide": "Rehber",
         "projects": "Projeler",
         "upload": "Proje Yükle",
         "login": "Giriş",
@@ -83,5 +84,21 @@
     "ProjectsPage": {
         "title": "Tüm Projeler",
         "subTitle": "Topluluğumuz tarafından geliştirilen harika projelere göz atın."
+    },
+    "Guide": {
+        "title": "Proje Yükleme Rehberi",
+        "subTitle": "Projelerini dünyayla paylaşmak için izlemen gereken adımlar.",
+        "step1": "1. GitHub Hesabı ve Kod Yükleme",
+        "step1Desc": "Projelerini güvenle saklamak ve paylaşmak için.",
+        "step1Content": "Öncelikle github.com adresinden ücretsiz bir hesap oluştur. Ardından 'New Repository' diyerek projen için bir depo aç. Kodlarını sürükle-bırak yöntemiyle veya terminal kullanarak bu depoya yükle.",
+        "step2": "2. Projeni Canlıya Al (Deployment)",
+        "step2Desc": "Sitenin herkes tarafından erişilebilir olması için.",
+        "step2Content": "Vercel.com veya Netlify.com adresine GitHub hesabınla giriş yap. 'Add New Project' diyerek GitHub'daki projeni seç. 'Deploy' butonuna bastığında siten dakikalar içinde yayına girecek ve sana bir link verecek.",
+        "step3": "3. Platforma Yükle",
+        "step3Desc": "Projeni okuldaki diğer arkadaşlarında paylaş.",
+        "step3Content": "Sitemizdeki 'Proje Yükle' sayfasına git. Proje ismini, açıklamasını, arkadaşlarını ve proje linklerini (GitHub ve Canlı Demo) gir. Görselini de ekledikten sonra 'Projeyi Paylaş'a bas!",
+        "openGithub": "GitHub'ı Aç",
+        "openVercel": "Vercel'i Aç",
+        "goToUpload": "Yükleme Sayfasına Git"
     }
 }

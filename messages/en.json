@@ -62,6 +62,7 @@
   },
   "Navigation": {
     "home": "Home",
+    "guide": "Guide",
     "projects": "Projects",
     "upload": "Upload Project",
     "login": "Login",
@@ -82,5 +83,21 @@
   "ProjectsPage": {
     "title": "All Projects",
     "subTitle": "Browse through the amazing projects built by our community."
+  },
+  "Guide": {
+    "title": "Project Upload Guide",
+    "subTitle": "Steps you need to follow to share your projects with the world.",
+    "step1": "1. GitHub Account & Code Upload",
+    "step1Desc": "To safely store and share your projects.",
+    "step1Content": "First, create a free account at github.com. Then create a 'New Repository' for your project. Upload your codes to this repository using drag-and-drop or terminal.",
+    "step2": "2. Deploy Your Project",
+    "step2Desc": "Make your site accessible to everyone.",
+    "step2Content": "Log in to Vercel.com or Netlify.com with your GitHub account. Select 'Add New Project' and choose your project from GitHub. When you click 'Deploy', your site will be live in minutes.",
+    "step3": "3. Upload to Platform",
+    "step3Desc": "Share your project with other students.",
+    "step3Content": "Go to the 'Upload Project' page on our site. Enter project name, description, collaborators and project links (GitHub and Live Demo). Add your image and click 'Share Project'!",
+    "openGithub": "Open GitHub",
+    "openVercel": "Open Vercel",
+    "goToUpload": "Go to Upload Page"
   }
 }
