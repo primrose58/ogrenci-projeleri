@@ -6,7 +6,11 @@ export interface Project {
     user_id: string;
     created_at: string;
     tags: string[];
-    collaborators: string[];
+    collaborators: {
+        full_name: string;
+        student_number?: string;
+        department?: string;
+    }[];
     repo_url?: string;
     demo_url?: string;
     user: {

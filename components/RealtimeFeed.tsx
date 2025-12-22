@@ -98,7 +98,12 @@ export default function RealtimeFeed({
             project.description.toLowerCase().includes(term) ||
             project.user.full_name.toLowerCase().includes(term) ||
             (project.user.student_number && project.user.student_number.toLowerCase().includes(term)) ||
-            (project.user.department && project.user.department.toLowerCase().includes(term))
+            (project.user.department && project.user.department.toLowerCase().includes(term)) ||
+            (project.collaborators && project.collaborators.some(c =>
+                c.full_name.toLowerCase().includes(term) ||
+                (c.student_number && c.student_number.toLowerCase().includes(term)) ||
+                (c.department && c.department.toLowerCase().includes(term))
+            ))
         );
     });
 

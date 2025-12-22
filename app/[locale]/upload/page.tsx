@@ -23,7 +23,7 @@ export default function UploadPage() {
         repoLink: '',
         demoLink: '',
         tags: '',
-        collaborators: ''
+        collaborators: [] as { full_name: string; student_number: string; department: string }[]
     });
 
     const [imageFile, setImageFile] = useState<File | null>(null);
@@ -93,7 +93,7 @@ export default function UploadPage() {
                 demo_url: formData.demoLink,
                 thumbnail_url: imageUrl,
                 tags: formData.tags ? formData.tags.split(',').map(t => t.trim()).filter(Boolean) : [],
-                collaborators: formData.collaborators ? formData.collaborators.split(',').map(c => c.trim()).filter(Boolean) : [],
+                collaborators: formData.collaborators.filter(c => c.full_name.trim() !== ''),
                 user_id: user.id
             });
 
@@ -148,12 +148,63 @@ export default function UploadPage() {
                             />
                         </div>
 
-                        <Input
-                            label={t('collaborators')}
-                            placeholder="Ahmet Yılmaz, Ayşe Demir..."
-                            value={formData.collaborators}
-                            onChange={(e) => setFormData({ ...formData, collaborators: e.target.value })}
-                        />
+                        <div className="flex flex-col gap-3">
+                            <label className="text-sm font-medium text-gray-400">{t('collaborators')}</label>
+                            {formData.collaborators.map((collab, index) => (
+                                <div key={index} className="flex flex-col md:flex-row gap-2 items-start">
+                                    <Input
+                                        placeholder="Ad Soyad"
+                                        value={collab.full_name}
+                                        onChange={(e) => {
+                                            const newCollabs = [...formData.collaborators];
+                                            newCollabs[index].full_name = e.target.value;
+                                            setFormData({ ...formData, collaborators: newCollabs });
+                                        }}
+                                        containerClassName="flex-1 w-full"
+                                    />
+                                    <Input
+                                        placeholder="Öğrenci No"
+                                        value={collab.student_number}
+                                        onChange={(e) => {
+                                            const newCollabs = [...formData.collaborators];
+                                            newCollabs[index].student_number = e.target.value;
+                                            setFormData({ ...formData, collaborators: newCollabs });
+                                        }}
+                                        containerClassName="w-full md:w-32"
+                                    />
+                                    <Input
+                                        placeholder="Bölüm"
+                                        value={collab.department}
+                                        onChange={(e) => {
+                                            const newCollabs = [...formData.collaborators];
+                                            newCollabs[index].department = e.target.value;
+                                            setFormData({ ...formData, collaborators: newCollabs });
+                                        }}
+                                        containerClassName="w-full md:w-40"
+                                    />
+                                    <button
+                                        type="button"
+                                        onClick={() => {
+                                            const newCollabs = formData.collaborators.filter((_, i) => i !== index);
+                                            setFormData({ ...formData, collaborators: newCollabs });
+                                        }}
+                                        className="p-3 bg-red-500/10 text-red-400 hover:bg-red-500 hover:text-white rounded-lg transition-colors mt-0.5"
+                                    >
+                                        <X size={20} />
+                                    </button>
+                                </div>
+                            ))}
+                            <button
+                                type="button"
+                                onClick={() => setFormData({
+                                    ...formData,
+                                    collaborators: [...formData.collaborators, { full_name: '', student_number: '', department: '' }]
+                                })}
+                                className="self-start text-sm text-purple-400 hover:text-purple-300 font-medium flex items-center gap-1"
+                            >
+                                + Arkadaş Ekle
+                            </button>
+                        </div>
 
 
                         <Textarea

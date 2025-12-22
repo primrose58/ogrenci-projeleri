@@ -34,6 +34,7 @@ create table public.projects (
   repo_url text null,
   demo_url text null,
   tags text[] null,
+  collaborators jsonb default '[]'::jsonb,
   user_id uuid not null references public.profiles(id) on delete cascade,
   created_at timestamp with time zone not null default now(),
   updated_at timestamp with time zone not null default now(),
