@@ -70,10 +70,18 @@ export default async function ProfilePage({ params }: { params: Promise<{ id: st
                 <div className="bg-white dark:bg-white/5 backdrop-blur-xl border border-gray-200 dark:border-white/10 rounded-2xl p-8 shadow-sm mb-12 flex flex-col md:flex-row gap-8 items-center md:items-start text-center md:text-left transition-colors duration-300">
 
                     {/* Avatar */}
-                    <div className="w-32 h-32 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center shadow-lg transform hover:scale-105 transition-transform duration-300">
-                        <span className="text-4xl font-bold text-white">
-                            {profile.full_name?.charAt(0).toUpperCase() || '?'}
-                        </span>
+                    <div className="w-32 h-32 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center shadow-lg transform hover:scale-105 transition-transform duration-300 overflow-hidden border-4 border-white dark:border-white/10">
+                        {profile.avatar_url ? (
+                            <img
+                                src={profile.avatar_url}
+                                alt={profile.full_name}
+                                className="w-full h-full object-cover"
+                            />
+                        ) : (
+                            <span className="text-4xl font-bold text-white">
+                                {profile.full_name?.charAt(0).toUpperCase() || '?'}
+                            </span>
+                        )}
                     </div>
 
                     {/* Info */}
@@ -86,7 +94,10 @@ export default async function ProfilePage({ params }: { params: Promise<{ id: st
                             {/* Student Number */}
                             <div className="flex items-center gap-2 px-3 py-1.5 bg-gray-100 dark:bg-white/5 rounded-full border border-gray-200 dark:border-white/5">
                                 <Hash size={16} className="text-purple-500" />
-                                <span className="text-sm font-medium">{profile.student_number}</span>
+                                <span className="text-sm font-medium">
+                                    <span className="opacity-70 mr-1">{t('studentNumber')}:</span>
+                                    {profile.student_number}
+                                </span>
                             </div>
 
                             {/* Department */}

@@ -43,5 +43,17 @@ export const getSocialPlatform = (url: string) => {
 export const SocialIcon = ({ url, size = 18, className = "" }: { url: string, size?: number, className?: string }) => {
     const platform = getSocialPlatform(url);
     // Clone element to apply size and class if needed, or just return as is
-    return React.cloneElement(platform.icon as React.ReactElement<any>, { size, className: `${platform.color} ${className}` });
+    const iconNode = React.cloneElement(platform.icon as React.ReactElement<any>, { size, className: `${platform.color} ${className}` });
+
+    return (
+        <a
+            href={url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:opacity-80 transition-opacity"
+            title={platform.label}
+        >
+            {iconNode}
+        </a>
+    );
 };

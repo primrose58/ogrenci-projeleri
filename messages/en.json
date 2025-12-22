@@ -106,8 +106,10 @@
   "Profile": {
     "projectsTitle": "Projects",
     "noSocialLinks": "No social links added.",
-    "noProjectsTitle": "No projects yet",
-    "noProjectsDesc": "This user hasn't shared any projects yet."
+    "noProjectsTitle": "No Projects Yet",
+    "noProjectsDesc": "This user hasn't shared any projects yet.",
+    "studentNumber": "Student No",
+    "department": "Department"
   },
   "Guide": {
     "title": "Detailed Project Guide",
@@ -130,3 +132,141 @@
     "goToUpload": "Upload Page"
   }
 }
+    "subTitle": "Discover, Review, and Inspire.",
+"getStarted": "Get Started",
+"goToDashboard": "Go to Dashboard",
+"exploreProjects": "Explore Projects",
+"welcome": "Welcome to the best platform for sharing student projects.",
+"bannerTag": "Community Driven Platform",
+"latestProjects": "Latest Projects",
+"discoverSubTitle": "Discover what students are building right now."
+},
+"Footer": {
+"copyright": "© 2024 Student Project Network. All rights reserved.",
+"designedBy": "Designed with ❤️ by AntiGravity"
+},
+"HowItWorks": {
+"title": "How It Works",
+"step1Title": "Upload Project",
+"step1Desc": "Share your code, demo link, and story with the world.",
+"step2Title": "Get Feedback",
+"step2Desc": "Connect with other students and get valuable insights.",
+"step3Title": "Join Community",
+"step3Desc": "Participate in events, challenges and grow your network."
+},
+"Auth": {
+"login": "Log In",
+"signup": "Sign Up",
+"email": "Email",
+"password": "Password",
+"name": "Full Name",
+"department": "Department",
+"idNumber": "Student Number (Username)",
+"submitLogin": "Sign In",
+"submitSignup": "Create Account",
+"haveAccount": "Already have an account?",
+"noAccount": "Don't have an account?",
+"or": "OR",
+"areYouStudent": "I am a student",
+"phoneNumber": "Phone Number",
+"invalidCredentials": "Invalid login credentials or user not found.",
+"lostStudentEmail": "I don't have access to my school email",
+"loginSuccess": "Successfully logged in!",
+"eduEmailRequired": "Please use your school email address (.edu / .edu.tr) for student registration."
+},
+"Upload": {
+"title": "Upload Project",
+"projectTitle": "Project Title",
+"description": "Description",
+"repoLink": "GitHub/Source Link",
+"demoLink": "Live Demo Link",
+"tags": "Technologies (comma separated)",
+"collaborators": "Collaborators (comma separated)",
+"submit": "Share Project",
+"image": "Project Thumbnail",
+"dropImage": "Click or drag to upload image",
+"success": "Project uploaded successfully!",
+"placeholderTitle": "My Awesome Project",
+"placeholderTags": "React, Next.js, AI",
+"placeholderDesc": "Tell us about your project...",
+"placeholderRepo": "https://github.com/username/project",
+"placeholderDemo": "https://my-project.vercel.app",
+"placeholderName": "Full Name",
+"placeholderStudentId": "Student No",
+"placeholderDept": "Department",
+"addLink": "Add Link",
+"addCollaborator": "+ Add Collaborator"
+},
+"Navigation": {
+"brand": "Student Project Network",
+"home": "Home",
+"guide": "Guide",
+"projects": "Projects",
+"upload": "Upload Project",
+"login": "Login",
+"logout": "Logout",
+"goToProfile": "Go to Profile"
+},
+"Common": {
+"loading": "Loading...",
+"error": "Something went wrong."
+},
+"Dashboard": {
+"welcome": "Welcome back, {name}",
+"subTitle": "Manage your projects and explore what others are building.",
+"myProjects": "My Projects",
+"community": "Explore Community",
+"noProjects": "You haven't uploaded any projects yet.",
+"uploadFirst": "Upload Your First Project"
+},
+"ProjectsPage": {
+"title": "All Projects",
+"subTitle": "Check out the amazing projects built by our community."
+},
+"ProjectDetail": {
+"loading": "Loading project details...",
+"backToFeed": "Back to Feed",
+"demo": "Live Demo",
+"code": "View Code",
+"collaborators": "Collaborators",
+"owner": "Project Owner",
+"notFound": "Project not found",
+"by": "by {name}",
+"studentNumber": "Student ID"
+},
+"Profile": {
+"projectsTitle": "Projects",
+"noSocialLinks": "No social links added.",
+"noProjectsTitle": "No projects yet",
+"noProjectsDesc": "This user hasn't shared any projects yet."
+},
+"Guide": {
+"title": "Detailed Project Guide",
+"subTitle": "Learn how to develop and deploy your project from A to Z.",
+"step1": "1. Code & GitHub",
+"step1Desc": "Create your project and upload your code to GitHub.",
+"step1Content": "Create an account on Github.com and open a 'New Repository'. Upload your project codes to this repository via 'git push' commands or direct upload. Make sure your codes are on the 'main' branch.",
+"step2": "2. Database (Supabase)",
+"step2Desc": "Set up a free and powerful database for your project.",
+"step2Content": "Log in to Supabase.com with GitHub and create a 'New Project'. After your project is created, note down the 'URL' and 'ANON KEY' from 'Project Settings > API'. Add these details to your project's .env file to establish the database connection.",
+"step3": "3. Deployment (Vercel)",
+"step3Desc": "Share your site with the world.",
+"step3Content": "Go to Vercel.com and select 'Add New Project' to import your GitHub repo. Don't forget to add the URL and ANON KEY from Supabase to the 'Environment Variables' section! Then click the 'Deploy' button.",
+"step4": "4. Upload to Platform",
+"step4Desc": "Final step: Add your project to the Student Network!",
+"step4Content": "You now have a live link! Go to the 'Upload Project' page on our site. Enter project details, live demo link, and GitHub link. Tag your friends and click the 'Share' button.",
+"openGithub": "Go to GitHub",
+"openSupabase": "Go to Supabase",
+"openVercel": "Go to Vercel",
+"goToUpload": "Upload Page"
+},
+"Profile": {
+"projectsTitle": "Projects",
+"noSocialLinks": "No social links added.",
+"noProjectsTitle": "No Projects Yet",
+"noProjectsDesc": "This user hasn't shared any projects yet.",
+"studentNumber": "Student No",
+"department": "Department"
+}
+}
+```

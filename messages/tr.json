@@ -120,5 +120,13 @@
         "openSupabase": "Supabase'e Git",
         "openVercel": "Vercel'e Git",
         "goToUpload": "Yükleme Sayfası"
+    },
+    "Profile": {
+        "projectsTitle": "Projeler",
+        "noSocialLinks": "Sosyal medya hesabı eklenmemiş.",
+        "noProjectsTitle": "Henüz Proje Yok",
+        "noProjectsDesc": "Bu kullanıcı henüz bir proje paylaşmamış.",
+        "studentNumber": "Öğrenci No",
+        "department": "Bölüm"
     }
 }

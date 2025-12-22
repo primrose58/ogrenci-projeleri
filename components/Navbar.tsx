@@ -45,13 +45,24 @@ export default function Navbar({ user }: { user: User | null }) {
                         <div className="flex items-center gap-4 pl-6 border-l border-gray-200 dark:border-white/10">
                             {user && (
                                 <div className="hidden lg:flex flex-col items-end">
-                                    <div className="flex items-center gap-2">
-                                        <span className="text-sm font-semibold text-gray-900 dark:text-white">
-                                            {user.user_metadata.full_name}
-                                        </span>
-                                        <Link href={`/profile/${user.id}`} className="text-[10px] uppercase tracking-wide font-bold text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 transition-colors">
-                                            {t('goToProfile')} ›
-                                        </Link>
+                                    <div className="flex items-center gap-3">
+                                        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center overflow-hidden shadow-sm">
+                                            {user.user_metadata?.avatar_url ? (
+                                                <img src={user.user_metadata.avatar_url} alt={user.user_metadata.full_name} className="w-full h-full object-cover" />
+                                            ) : (
+                                                <span className="text-white text-xs font-bold">
+                                                    {user.user_metadata.full_name?.charAt(0).toUpperCase()}
+                                                </span>
+                                            )}
+                                        </div>
+                                        <div>
+                                            <span className="text-sm font-semibold text-gray-900 dark:text-white block leading-none">
+                                                {user.user_metadata.full_name}
+                                            </span>
+                                            <Link href={`/profile/${user.id}`} className="text-[10px] uppercase tracking-wide font-bold text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 transition-colors">
+                                                {t('goToProfile')} ›
+                                            </Link>
+                                        </div>
                                     </div>
                                     <span className="text-xs font-semibold text-gray-700 dark:text-gray-400">
                                         {user.user_metadata.student_number}

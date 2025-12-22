@@ -34,6 +34,7 @@ export default function DashboardClient({
     // Initial state from profile or metadata
     const [profileForm, setProfileForm] = useState({
         full_name: userProfile?.full_name || user.user_metadata?.full_name || '',
+        avatar_url: userProfile?.avatar_url || user.user_metadata?.avatar_url || '',
         social_links: (userProfile?.social_links || []) as string[]
     });
 
@@ -51,6 +52,7 @@ export default function DashboardClient({
                 .from('profiles')
                 .update({
                     full_name: profileForm.full_name,
+                    avatar_url: profileForm.avatar_url,
                     social_links: profileForm.social_links.filter(l => l.trim() !== ''),
                     updated_at: new Date().toISOString()
                 })
@@ -60,7 +62,10 @@ export default function DashboardClient({
 
             // 2. Update auth metadata (optional but good for consistency)
             const { error: authError } = await supabase.auth.updateUser({
-                data: { full_name: profileForm.full_name }
+                data: {
+                    full_name: profileForm.full_name,
+                    avatar_url: profileForm.avatar_url
+                }
             });
 
             if (authError) throw authError;
@@ -215,6 +220,65 @@ export default function DashboardClient({
                         <h2 className="text-xl font-bold text-white mb-6">Profili Düzenle</h2>
 
                         <form onSubmit={handleUpdateProfile} className="flex flex-col gap-4">
+                            {/* Avatar Upload */}
+                            <div className="flex flex-col items-center gap-3 mb-2">
+                                <div className="relative w-20 h-20 rounded-full overflow-hidden border-2 border-dashed border-gray-600 group">
+                                    {profileForm.avatar_url ? (
+                                        <img
+                                            src={profileForm.avatar_url}
+                                            alt="Avatar"
+                                            className="w-full h-full object-cover"
+                                        />
+                                    ) : (
+                                        <div className="w-full h-full bg-white/5 flex items-center justify-center text-gray-400">
+                                            <span className="text-2xl">{profileForm.full_name?.charAt(0) || '?'}</span>
+                                        </div>
+                                    )}
+                                    <label className="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer">
+                                        <span className="text-xs text-white">Değiştir</span>
+                                        <input
+                                            type="file"
+                                            accept="image/*"
+                                            className="hidden"
+                                            onChange={async (e) => {
+                                                const file = e.target.files?.[0];
+                                                if (!file) return;
+
+                                                // Optimistic preview
+                                                const objectUrl = URL.createObjectURL(file);
+                                                setProfileForm(prev => ({ ...prev, avatar_url: objectUrl }));
+
+                                                // Upload immediately (or could do on save)
+                                                try {
+                                                    const supabase = createClient();
+                                                    const fileExt = file.name.split('.').pop();
+                                                    const fileName = `${user.id}-${Math.random()}.${fileExt}`;
+                                                    const filePath = `${fileName}`;
+
+                                                    // Upload
+                                                    const { error: uploadError } = await supabase.storage
+                                                        .from('avatars')
+                                                        .upload(filePath, file);
+
+                                                    if (uploadError) throw uploadError;
+
+                                                    // Get Public URL
+                                                    const { data: { publicUrl } } = supabase.storage
+                                                        .from('avatars')
+                                                        .getPublicUrl(filePath);
+
+                                                    setProfileForm(prev => ({ ...prev, avatar_url: publicUrl }));
+                                                } catch (error) {
+                                                    console.error('Avatar upload error:', error);
+                                                    toast.error('Avatar yüklenirken hata oluştu.');
+                                                }
+                                            }}
+                                        />
+                                    </label>
+                                </div>
+                                <span className="text-xs text-gray-500">Profil fotoğrafı yüklemek için tıklayın</span>
+                            </div>
+
                             <Input
                                 label="Ad Soyad"
                                 value={profileForm.full_name}
