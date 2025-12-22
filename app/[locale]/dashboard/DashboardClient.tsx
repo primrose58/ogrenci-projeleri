@@ -108,53 +108,73 @@ export default function DashboardClient({
             <div className="flex flex-col gap-6">
                 <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4">
                     <div className="flex flex-col gap-2">
-                        <div className="flex items-center gap-3">
-                            <h1 className="text-3xl font-bold text-white">
-                                {t('welcome', { name: profileForm.full_name || user.email })}
-                            </h1>
+                        <div className="flex items-center gap-4">
+                            {/* Clickable Avatar Trigger */}
                             <button
                                 onClick={() => setIsEditProfileOpen(true)}
-                                className="p-1.5 bg-white/10 hover:bg-white/20 rounded-full transition-colors text-gray-300 hover:text-white"
-                                title="Profili Düzenle"
+                                className="relative w-16 h-16 rounded-full overflow-hidden border-2 border-white dark:border-white/10 shadow-lg group transition-transform hover:scale-105"
+                                title="Edit Avatar"
                             >
-                                <Edit2 size={16} />
+                                {profileForm.avatar_url ? (
+                                    <img src={profileForm.avatar_url} alt="Profile" className="w-full h-full object-cover" />
+                                ) : (
+                                    <div className="w-full h-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white text-2xl font-bold">
+                                        {profileForm.full_name?.charAt(0) || '?'}
+                                    </div>
+                                )}
+                                <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                    <Edit2 size={16} className="text-white" />
+                                </div>
                             </button>
-                        </div>
-                        <div className="flex flex-wrap items-center gap-3 text-gray-400">
-                            <span className="bg-white/10 px-2 py-1 rounded text-sm">{userInfo.student_number}</span>
-                            {userInfo.department && (
-                                <span className="bg-purple-500/20 text-purple-300 px-2 py-1 rounded text-sm border border-purple-500/20">
-                                    {userInfo.department}
-                                </span>
-                            )}
 
-                            {/* Social Icons Display */}
-                            <div className="flex items-center gap-2 ml-2 border-l border-white/10 pl-3">
-                                {profileForm.social_links.map((link, i) => (
-                                    link.trim() !== '' && (
-                                        <a key={i} href={link.includes('@') && !link.startsWith('mailto:') ? `mailto:${link} ` : link} target="_blank" rel="noopener noreferrer" className="hover:scale-110 transition-transform">
-                                            <SocialIcon url={link} size={18} />
-                                        </a>
-                                    )
-                                ))}
+                            <div>
+                                <div className="flex items-center gap-3">
+                                    <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+                                        {t('welcome', { name: profileForm.full_name || user.email })}
+                                    </h1>
+                                    <button
+                                        onClick={() => setIsEditProfileOpen(true)}
+                                        className="p-1.5 bg-gray-200 dark:bg-white/10 hover:bg-gray-300 dark:hover:bg-white/20 rounded-full transition-colors text-gray-600 dark:text-gray-300 hover:text-black dark:hover:text-white"
+                                        title="Profili Düzenle"
+                                    >
+                                        <Edit2 size={16} />
+                                    </button>
+                                </div>
+                                <div className="flex flex-wrap items-center gap-3 text-gray-600 dark:text-gray-400 mt-1">
+                                    <span className="bg-gray-100 dark:bg-white/10 px-2 py-1 rounded text-sm font-medium">{userInfo.student_number}</span>
+                                    {userInfo.department && (
+                                        <span className="bg-purple-100 dark:bg-purple-500/20 text-purple-600 dark:text-purple-300 px-2 py-1 rounded text-sm border border-purple-200 dark:border-purple-500/20">
+                                            {userInfo.department}
+                                        </span>
+                                    )}
+
+                                    {/* Social Icons Display */}
+                                    <div className="flex items-center gap-2 ml-2 border-l border-gray-300 dark:border-white/10 pl-3">
+                                        {profileForm.social_links.map((link, i) => (
+                                            link.trim() !== '' && (
+                                                <SocialIcon key={i} url={link} size={18} />
+                                            )
+                                        ))}
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <p className="text-gray-400 mt-1">
+                        <p className="text-gray-500 dark:text-gray-400 mt-2 ml-1">
                             {t('subTitle')}
                         </p>
                     </div>
 
                     {/* View Toggle */}
-                    <div className="flex bg-white/5 p-1 rounded-lg border border-white/10">
+                    <div className="flex bg-gray-100 dark:bg-white/5 p-1 rounded-lg border border-gray-200 dark:border-white/10">
                         <button
                             onClick={() => setViewMode('grid')}
-                            className={`p - 2 rounded - md transition - all ${viewMode === 'grid' ? 'bg-white/10 text-white' : 'text-gray-400 hover:text-white'} `}
+                            className={`p-2 rounded-md transition-all ${viewMode === 'grid' ? 'bg-white dark:bg-white/10 text-gray-900 dark:text-white shadow-sm' : 'text-gray-400 hover:text-gray-900 dark:hover:text-white'}`}
                         >
                             <LayoutGrid size={20} />
                         </button>
                         <button
                             onClick={() => setViewMode('list')}
-                            className={`p - 2 rounded - md transition - all ${viewMode === 'list' ? 'bg-white/10 text-white' : 'text-gray-400 hover:text-white'} `}
+                            className={`p-2 rounded-md transition-all ${viewMode === 'list' ? 'bg-white dark:bg-white/10 text-gray-900 dark:text-white shadow-sm' : 'text-gray-400 hover:text-gray-900 dark:hover:text-white'}`}
                         >
                             <List size={20} />
                         </button>
@@ -162,10 +182,10 @@ export default function DashboardClient({
                 </div>
 
                 {/* Tabs */}
-                <div className="flex gap-4 border-b border-white/10">
+                <div className="flex gap-4 border-b border-gray-200 dark:border-white/10">
                     <button
                         onClick={() => setActiveTab('my')}
-                        className={`pb - 3 text - sm font - medium transition - colors relative ${activeTab === 'my' ? 'text-white' : 'text-gray-400 hover:text-white/80'
+                        className={`pb-3 text-sm font-medium transition-colors relative ${activeTab === 'my' ? 'text-gray-900 dark:text-white' : 'text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white/80'
                             } `}
                     >
                         {t('myProjects')}
@@ -175,7 +195,7 @@ export default function DashboardClient({
                     </button>
                     <button
                         onClick={() => setActiveTab('all')}
-                        className={`pb - 3 text - sm font - medium transition - colors relative ${activeTab === 'all' ? 'text-white' : 'text-gray-400 hover:text-white/80'
+                        className={`pb-3 text-sm font-medium transition-colors relative ${activeTab === 'all' ? 'text-gray-900 dark:text-white' : 'text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white/80'
                             } `}
                     >
                         {t('community')}
@@ -217,12 +237,12 @@ export default function DashboardClient({
                             <X size={20} />
                         </button>
 
-                        <h2 className="text-xl font-bold text-white mb-6">Profili Düzenle</h2>
+                        <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-6">Profili Düzenle</h2>
 
                         <form onSubmit={handleUpdateProfile} className="flex flex-col gap-4">
                             {/* Avatar Upload */}
                             <div className="flex flex-col items-center gap-3 mb-2">
-                                <div className="relative w-20 h-20 rounded-full overflow-hidden border-2 border-dashed border-gray-600 group">
+                                <div className="relative w-24 h-24 rounded-full overflow-hidden border-2 border-dashed border-gray-300 dark:border-gray-600 group">
                                     {profileForm.avatar_url ? (
                                         <img
                                             src={profileForm.avatar_url}
@@ -230,12 +250,12 @@ export default function DashboardClient({
                                             className="w-full h-full object-cover"
                                         />
                                     ) : (
-                                        <div className="w-full h-full bg-white/5 flex items-center justify-center text-gray-400">
-                                            <span className="text-2xl">{profileForm.full_name?.charAt(0) || '?'}</span>
+                                        <div className="w-full h-full bg-gray-100 dark:bg-white/5 flex items-center justify-center text-gray-400">
+                                            <span className="text-3xl">{profileForm.full_name?.charAt(0) || '?'}</span>
                                         </div>
                                     )}
                                     <label className="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer">
-                                        <span className="text-xs text-white">Değiştir</span>
+                                        <span className="text-xs text-white font-medium">Değiştir</span>
                                         <input
                                             type="file"
                                             accept="image/*"
@@ -248,21 +268,19 @@ export default function DashboardClient({
                                                 const objectUrl = URL.createObjectURL(file);
                                                 setProfileForm(prev => ({ ...prev, avatar_url: objectUrl }));
 
-                                                // Upload immediately (or could do on save)
+                                                // Upload immediately
                                                 try {
                                                     const supabase = createClient();
                                                     const fileExt = file.name.split('.').pop();
                                                     const fileName = `${user.id}-${Math.random()}.${fileExt}`;
                                                     const filePath = `${fileName}`;
 
-                                                    // Upload
                                                     const { error: uploadError } = await supabase.storage
                                                         .from('avatars')
                                                         .upload(filePath, file);
 
                                                     if (uploadError) throw uploadError;
 
-                                                    // Get Public URL
                                                     const { data: { publicUrl } } = supabase.storage
                                                         .from('avatars')
                                                         .getPublicUrl(filePath);
@@ -276,7 +294,18 @@ export default function DashboardClient({
                                         />
                                     </label>
                                 </div>
-                                <span className="text-xs text-gray-500">Profil fotoğrafı yüklemek için tıklayın</span>
+                                <div className="flex gap-2">
+                                    <span className="text-xs text-gray-500 dark:text-gray-400">Tıklayıp yükleyebilirsiniz</span>
+                                    {profileForm.avatar_url && (
+                                        <button
+                                            type="button"
+                                            onClick={() => setProfileForm(prev => ({ ...prev, avatar_url: '' }))}
+                                            className="text-xs text-red-500 hover:underline"
+                                        >
+                                            Kaldır
+                                        </button>
+                                    )}
+                                </div>
                             </div>
 
                             <Input

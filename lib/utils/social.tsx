@@ -7,9 +7,9 @@ export const getSocialPlatform = (url: string) => {
     }
     const lowerUrl = url.toLowerCase();
 
-    // Check for email (mailto:)
-    if (lowerUrl.startsWith('mailto:') || lowerUrl.includes('@')) {
-        return { icon: <Mail size={18} />, label: 'Email', color: 'text-red-400' };
+    // Check for email (mailto:) - Improved detection
+    if (lowerUrl.startsWith('mailto:') || (lowerUrl.includes('@') && !lowerUrl.includes('/') && !lowerUrl.startsWith('http'))) {
+        return { icon: <Mail size={18} />, label: 'Email', color: 'text-red-500', isEmail: true };
     }
 
     if (lowerUrl.includes('github.com')) {
@@ -17,11 +17,11 @@ export const getSocialPlatform = (url: string) => {
     }
 
     if (lowerUrl.includes('linkedin.com')) {
-        return { icon: <Linkedin size={18} />, label: 'LinkedIn', color: 'text-blue-400' };
+        return { icon: <Linkedin size={18} />, label: 'LinkedIn', color: 'text-blue-500' };
     }
 
     if (lowerUrl.includes('instagram.com')) {
-        return { icon: <Instagram size={18} />, label: 'Instagram', color: 'text-pink-400' };
+        return { icon: <Instagram size={18} />, label: 'Instagram', color: 'text-pink-500' };
     }
 
     if (lowerUrl.includes('twitter.com') || lowerUrl.includes('x.com')) {
@@ -33,24 +33,32 @@ export const getSocialPlatform = (url: string) => {
     }
 
     if (lowerUrl.includes('youtube.com')) {
-        return { icon: <Youtube size={18} />, label: 'YouTube', color: 'text-red-500' };
+        return { icon: <Youtube size={18} />, label: 'YouTube', color: 'text-red-600' };
     }
 
     // Default
-    return { icon: <Globe size={18} />, label: 'Website', color: 'text-green-400' };
+    return { icon: <Globe size={18} />, label: 'Website', color: 'text-green-500' };
 };
 
 export const SocialIcon = ({ url, size = 18, className = "" }: { url: string, size?: number, className?: string }) => {
     const platform = getSocialPlatform(url);
-    // Clone element to apply size and class if needed, or just return as is
     const iconNode = React.cloneElement(platform.icon as React.ReactElement<any>, { size, className: `${platform.color} ${className}` });
+
+    let href = url;
+    // Auto-fix email links
+    if (platform.isEmail && !url.startsWith('mailto:')) {
+        href = `mailto:${url}`;
+    } else if (!url.startsWith('http') && !url.startsWith('mailto:')) {
+        // Auto-fix web links
+        href = `https://${url}`;
+    }
 
     return (
         <a
-            href={url}
+            href={href}
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:opacity-80 transition-opacity"
+            className="hover:opacity-80 transition-opacity transform hover:scale-110"
             title={platform.label}
         >
             {iconNode}

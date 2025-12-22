@@ -5,6 +5,7 @@ import { Link, useRouter } from '@/i18n/routing';
 import { createClient } from '@/lib/supabase/client';
 import { User } from '@supabase/supabase-js';
 import { useState, useEffect } from 'react';
+import { LogOut } from 'lucide-react';
 
 export default function AuthButton({ user }: { user: User | null }) {
     const t = useTranslations('Navigation');
@@ -53,16 +54,17 @@ export default function AuthButton({ user }: { user: User | null }) {
                 <button
                     onClick={handleLogout}
                     disabled={loading}
-                    className="text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors"
+                    className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-white/10 hover:text-black dark:hover:text-white transition-colors disabled:opacity-50"
                 >
-                    {loading ? '...' : t('logout')}
+                    <LogOut size={16} />
+                    <span className="hidden sm:inline">{t('logout')}</span>
                 </button>
             </div>
         );
     }
 
     return (
-        <Link href="/auth" className="text-sm font-medium hover:text-white/80 transition-colors">
+        <Link href="/auth" className="flex items-center justify-center px-5 py-2 text-sm font-medium text-white bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500 hover:to-blue-500 rounded-full shadow-lg hover:shadow-purple-500/25 transition-all duration-300">
             {t('login')}
         </Link>
     );
