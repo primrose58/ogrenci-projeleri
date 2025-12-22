@@ -8,8 +8,8 @@ import { Project } from '@/types/project';
 import { User } from '@supabase/supabase-js';
 import { createClient } from '@/lib/supabase/client';
 import Input from '@/components/ui/Input';
-
-import { LayoutGrid, List, Edit2, X, Github, Linkedin, Globe, Instagram } from 'lucide-react';
+import { SocialIcon } from '@/lib/utils/social';
+import { LayoutGrid, List, Edit2, X, Link as LinkIcon } from 'lucide-react';
 
 export default function DashboardClient({
     user,
@@ -32,10 +32,7 @@ export default function DashboardClient({
     // Initial state from profile or metadata
     const [profileForm, setProfileForm] = useState({
         full_name: userProfile?.full_name || user.user_metadata?.full_name || '',
-        linkedin_url: userProfile?.linkedin_url || '',
-        github_url: userProfile?.github_url || '',
-        website_url: userProfile?.website_url || '',
-        instagram_url: userProfile?.instagram_url || ''
+        social_links: (userProfile?.social_links || []) as string[]
     });
 
     const userInfo = user.user_metadata || {};
@@ -52,10 +49,7 @@ export default function DashboardClient({
                 .from('profiles')
                 .update({
                     full_name: profileForm.full_name,
-                    linkedin_url: profileForm.linkedin_url,
-                    github_url: profileForm.github_url,
-                    website_url: profileForm.website_url,
-                    instagram_url: profileForm.instagram_url,
+                    social_links: profileForm.social_links.filter(l => l.trim() !== ''),
                     updated_at: new Date().toISOString()
                 })
                 .eq('id', user.id);
@@ -77,6 +71,28 @@ export default function DashboardClient({
         } finally {
             setIsSaving(false);
         }
+    };
+
+    // Helper to add a new empty link
+    const addSocialLink = () => {
+        setProfileForm(prev => ({
+            ...prev,
+            social_links: [...prev.social_links, '']
+        }));
+    };
+
+    // Helper to update a link at index
+    const updateSocialLink = (index: number, val: string) => {
+        const newLinks = [...profileForm.social_links];
+        newLinks[index] = val;
+        setProfileForm(prev => ({ ...prev, social_links: newLinks }));
+    };
+
+    // Helper to remove a link
+    const removeSocialLink = (index: number) => {
+        const newLinks = [...profileForm.social_links];
+        newLinks.splice(index, 1);
+        setProfileForm(prev => ({ ...prev, social_links: newLinks }));
     };
 
     return (
@@ -104,28 +120,15 @@ export default function DashboardClient({
                                 </span>
                             )}
 
-                            {/* Social Icons */}
+                            {/* Social Icons Display */}
                             <div className="flex items-center gap-2 ml-2 border-l border-white/10 pl-3">
-                                {profileForm.github_url && (
-                                    <a href={profileForm.github_url} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors">
-                                        <Github size={18} />
-                                    </a>
-                                )}
-                                {profileForm.linkedin_url && (
-                                    <a href={profileForm.linkedin_url} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-blue-400 transition-colors">
-                                        <Linkedin size={18} />
-                                    </a>
-                                )}
-                                {profileForm.website_url && (
-                                    <a href={profileForm.website_url} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-green-400 transition-colors">
-                                        <Globe size={18} />
-                                    </a>
-                                )}
-                                {profileForm.instagram_url && (
-                                    <a href={profileForm.instagram_url} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-pink-400 transition-colors">
-                                        <Instagram size={18} />
-                                    </a>
-                                )}
+                                {profileForm.social_links.map((link, i) => (
+                                    link.trim() !== '' && (
+                                        <a key={i} href={link.includes('@') && !link.startsWith('mailto:') ? `mailto:${link}` : link} target="_blank" rel="noopener noreferrer" className="hover:scale-110 transition-transform">
+                                            <SocialIcon url={link} size={18} />
+                                        </a>
+                                    )
+                                ))}
                             </div>
                         </div>
                         <p className="text-gray-400 mt-1">
@@ -198,7 +201,7 @@ export default function DashboardClient({
             {/* Edit Profile Modal */}
             {isEditProfileOpen && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
-                    <div className="bg-[#1A1A1A] border border-white/10 rounded-2xl w-full max-w-md p-6 relative shadow-xl">
+                    <div className="bg-[#1A1A1A] border border-white/10 rounded-2xl w-full max-w-md p-6 relative shadow-xl max-h-[90vh] overflow-y-auto">
                         <button
                             onClick={() => setIsEditProfileOpen(false)}
                             className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors"
@@ -218,55 +221,42 @@ export default function DashboardClient({
 
                             <div className="flex flex-col gap-2">
                                 <label className="text-sm font-medium text-gray-400">Sosyal Medya Linkleri</label>
+                                <p className="text-xs text-gray-500 mb-2">
+                                    Instagram, GitHub, LinkedIn profil linklerinizi veya E-posta adresinizi ekleyebilirsiniz. İkonlar otomatik algılanır.
+                                </p>
+
                                 <div className="space-y-3">
-                                    <div className="relative">
-                                        <div className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">
-                                            <Github size={16} />
+                                    {profileForm.social_links.map((link, index) => (
+                                        <div key={index} className="flex items-center gap-2">
+                                            <div className="relative flex-1">
+                                                <div className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">
+                                                    {link ? <SocialIcon url={link} size={16} /> : <LinkIcon size={16} />}
+                                                </div>
+                                                <input
+                                                    type="text"
+                                                    value={link}
+                                                    onChange={(e) => updateSocialLink(index, e.target.value)}
+                                                    placeholder="https://..."
+                                                    className="w-full bg-white/5 border border-white/10 rounded-lg py-2 pl-9 pr-3 text-sm text-white focus:ring-2 focus:ring-purple-500 outline-none placeholder-gray-600"
+                                                />
+                                            </div>
+                                            <button
+                                                type="button"
+                                                onClick={() => removeSocialLink(index)}
+                                                className="p-2 bg-white/5 hover:bg-red-500/20 text-gray-400 hover:text-red-400 rounded-lg transition-colors"
+                                            >
+                                                <X size={18} />
+                                            </button>
                                         </div>
-                                        <input
-                                            type="url"
-                                            value={profileForm.github_url}
-                                            onChange={(e) => setProfileForm(prev => ({ ...prev, github_url: e.target.value }))}
-                                            placeholder="GitHub Profil URL"
-                                            className="w-full bg-white/5 border border-white/10 rounded-lg py-2 pl-9 pr-3 text-sm text-white focus:ring-2 focus:ring-purple-500 outline-none placeholder-gray-600"
-                                        />
-                                    </div>
-                                    <div className="relative">
-                                        <div className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">
-                                            <Linkedin size={16} />
-                                        </div>
-                                        <input
-                                            type="url"
-                                            value={profileForm.linkedin_url}
-                                            onChange={(e) => setProfileForm(prev => ({ ...prev, linkedin_url: e.target.value }))}
-                                            placeholder="LinkedIn Profil URL"
-                                            className="w-full bg-white/5 border border-white/10 rounded-lg py-2 pl-9 pr-3 text-sm text-white focus:ring-2 focus:ring-purple-500 outline-none placeholder-gray-600"
-                                        />
-                                    </div>
-                                    <div className="relative">
-                                        <div className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">
-                                            <Instagram size={16} />
-                                        </div>
-                                        <input
-                                            type="url"
-                                            value={profileForm.instagram_url}
-                                            onChange={(e) => setProfileForm(prev => ({ ...prev, instagram_url: e.target.value }))}
-                                            placeholder="Instagram Profil URL"
-                                            className="w-full bg-white/5 border border-white/10 rounded-lg py-2 pl-9 pr-3 text-sm text-white focus:ring-2 focus:ring-purple-500 outline-none placeholder-gray-600"
-                                        />
-                                    </div>
-                                    <div className="relative">
-                                        <div className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">
-                                            <Globe size={16} />
-                                        </div>
-                                        <input
-                                            type="url"
-                                            value={profileForm.website_url}
-                                            onChange={(e) => setProfileForm(prev => ({ ...prev, website_url: e.target.value }))}
-                                            placeholder="Kişisel Web Sitesi URL"
-                                            className="w-full bg-white/5 border border-white/10 rounded-lg py-2 pl-9 pr-3 text-sm text-white focus:ring-2 focus:ring-purple-500 outline-none placeholder-gray-600"
-                                        />
-                                    </div>
+                                    ))}
+
+                                    <button
+                                        type="button"
+                                        onClick={addSocialLink}
+                                        className="text-sm text-purple-400 hover:text-purple-300 font-medium flex items-center gap-1 mt-1"
+                                    >
+                                        + Link Ekle
+                                    </button>
                                 </div>
                             </div>
 

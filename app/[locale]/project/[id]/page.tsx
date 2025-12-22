@@ -8,6 +8,7 @@ import { createClient } from "@/lib/supabase/client";
 import { notFound } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { Github, Linkedin, Globe, Instagram, Users } from 'lucide-react';
+import { SocialIcon } from '@/lib/utils/social';
 
 export default function ProjectDetailPage({ params }: { params: Promise<{ id: string }> }) {
     const { id } = use(params);
@@ -21,7 +22,7 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
                 .from('projects')
                 .select(`
                 *,
-                user:profiles(full_name, student_number, department, linkedin_url, github_url, website_url, instagram_url)
+                user:profiles(full_name, student_number, department, social_links)
             `)
                 .eq('id', id)
                 .single();
@@ -98,26 +99,13 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
 
                             {/* User Social Links */}
                             <div className="flex gap-3 mt-2">
-                                {project.user.github_url && (
-                                    <a href={project.user.github_url} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors">
-                                        <Github size={20} />
-                                    </a>
-                                )}
-                                {project.user.linkedin_url && (
-                                    <a href={project.user.linkedin_url} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-blue-400 transition-colors">
-                                        <Linkedin size={20} />
-                                    </a>
-                                )}
-                                {project.user.website_url && (
-                                    <a href={project.user.website_url} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-green-400 transition-colors">
-                                        <Globe size={20} />
-                                    </a>
-                                )}
-                                {project.user.instagram_url && (
-                                    <a href={project.user.instagram_url} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-pink-400 transition-colors">
-                                        <Instagram size={20} />
-                                    </a>
-                                )}
+                                {(project.user.social_links || []).map((link: string, i: number) => (
+                                    link && (
+                                        <a key={i} href={link.includes('@') && !link.startsWith('mailto:') ? `mailto:${link}` : link} target="_blank" rel="noopener noreferrer" className="hover:scale-110 transition-transform">
+                                            <SocialIcon url={link} size={20} />
+                                        </a>
+                                    )
+                                ))}
                             </div>
                         </div>
                     </div>
@@ -171,21 +159,13 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
 
                                             {/* Collaborator Social Links */}
                                             <div className="flex gap-2 mt-1">
-                                                {collab.github_url && (
-                                                    <a href={collab.github_url} target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-white transition-colors">
-                                                        <Github size={16} />
-                                                    </a>
-                                                )}
-                                                {collab.linkedin_url && (
-                                                    <a href={collab.linkedin_url} target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-blue-400 transition-colors">
-                                                        <Linkedin size={16} />
-                                                    </a>
-                                                )}
-                                                {collab.instagram_url && (
-                                                    <a href={collab.instagram_url} target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-pink-400 transition-colors">
-                                                        <Instagram size={16} />
-                                                    </a>
-                                                )}
+                                                {(collab.social_links || []).map((link: string, i: number) => (
+                                                    link && (
+                                                        <a key={i} href={link.includes('@') && !link.startsWith('mailto:') ? `mailto:${link}` : link} target="_blank" rel="noopener noreferrer" className="hover:scale-110 transition-transform">
+                                                            <SocialIcon url={link} size={16} />
+                                                        </a>
+                                                    )
+                                                ))}
                                             </div>
                                         </div>
                                     </div>

@@ -23,7 +23,7 @@ export default async function DashboardPage() {
         .from('projects')
         .select(`
             *,
-            user:profiles(full_name, student_number, department, linkedin_url, github_url, website_url, instagram_url)
+            user:profiles(full_name, student_number, department, social_links)
         `)
         .eq('user_id', user.id)
         .order('created_at', { ascending: false });
@@ -33,7 +33,7 @@ export default async function DashboardPage() {
         .from('projects')
         .select(`
             *,
-            user:profiles(full_name, student_number, department, linkedin_url, github_url, website_url, instagram_url)
+            user:profiles(full_name, student_number, department, social_links)
         `)
         .order('created_at', { ascending: false });
 

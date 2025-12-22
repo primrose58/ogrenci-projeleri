@@ -7,8 +7,16 @@ import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
 import Textarea from "@/components/ui/Textarea";
 import { useRouter } from "@/i18n/routing";
-import { UploadCloud, X } from "lucide-react";
+import { UploadCloud, X, Link as LinkIcon } from "lucide-react";
 import Image from "next/image";
+import { SocialIcon } from '@/lib/utils/social';
+
+interface Collaborator {
+    full_name: string;
+    student_number: string;
+    department: string;
+    social_links: string[];
+}
 
 export default function UploadPage() {
     const t = useTranslations('Upload');
@@ -23,14 +31,7 @@ export default function UploadPage() {
         repoLink: '',
         demoLink: '',
         tags: '',
-        collaborators: [] as {
-            full_name: string;
-            student_number: string;
-            department: string;
-            github_url?: string;
-            linkedin_url?: string;
-            instagram_url?: string;
-        }[]
+        collaborators: [] as Collaborator[]
     });
 
     const [imageFile, setImageFile] = useState<File | null>(null);
@@ -63,6 +64,31 @@ export default function UploadPage() {
         if (fileInputRef.current) fileInputRef.current.value = '';
     };
 
+    // Helper functions for collaborators
+    const updateCollaborator = (index: number, field: keyof Collaborator, value: any) => {
+        const newCollabs = [...formData.collaborators];
+        newCollabs[index] = { ...newCollabs[index], [field]: value };
+        setFormData({ ...formData, collaborators: newCollabs });
+    };
+
+    const addCollaboratorLink = (collabIndex: number) => {
+        const newCollabs = [...formData.collaborators];
+        newCollabs[collabIndex].social_links.push('');
+        setFormData({ ...formData, collaborators: newCollabs });
+    };
+
+    const updateCollaboratorLink = (collabIndex: number, linkIndex: number, value: string) => {
+        const newCollabs = [...formData.collaborators];
+        newCollabs[collabIndex].social_links[linkIndex] = value;
+        setFormData({ ...formData, collaborators: newCollabs });
+    };
+
+    const removeCollaboratorLink = (collabIndex: number, linkIndex: number) => {
+        const newCollabs = [...formData.collaborators];
+        newCollabs[collabIndex].social_links.splice(linkIndex, 1);
+        setFormData({ ...formData, collaborators: newCollabs });
+    };
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setLoading(true);
@@ -79,7 +105,7 @@ export default function UploadPage() {
                 const fileExt = imageFile.name.split('.').pop();
                 const fileName = `${user.id}/${Date.now()}.${fileExt}`;
 
-                const { error: uploadError, data } = await supabase.storage
+                const { error: uploadError } = await supabase.storage
                     .from('project-images')
                     .upload(fileName, imageFile);
 
@@ -92,6 +118,14 @@ export default function UploadPage() {
                 imageUrl = publicUrl;
             }
 
+            // Clean up collaborators data before insert
+            const cleanedCollaborators = formData.collaborators
+                .filter(c => c.full_name.trim() !== '')
+                .map(c => ({
+                    ...c,
+                    social_links: c.social_links.filter(l => l.trim() !== '')
+                }));
+
             // Insert project data
             const { error: insertError } = await supabase.from('projects').insert({
                 title: formData.title,
@@ -100,7 +134,7 @@ export default function UploadPage() {
                 demo_url: formData.demoLink,
                 thumbnail_url: imageUrl,
                 tags: formData.tags ? formData.tags.split(',').map(t => t.trim()).filter(Boolean) : [],
-                collaborators: formData.collaborators.filter(c => c.full_name.trim() !== ''),
+                collaborators: cleanedCollaborators,
                 user_id: user.id
             });
 
@@ -163,31 +197,19 @@ export default function UploadPage() {
                                         <Input
                                             placeholder="Ad Soyad"
                                             value={collab.full_name}
-                                            onChange={(e) => {
-                                                const newCollabs = [...formData.collaborators];
-                                                newCollabs[index].full_name = e.target.value;
-                                                setFormData({ ...formData, collaborators: newCollabs });
-                                            }}
+                                            onChange={(e) => updateCollaborator(index, 'full_name', e.target.value)}
                                             containerClassName="flex-1 w-full"
                                         />
                                         <Input
                                             placeholder="Öğrenci No"
                                             value={collab.student_number}
-                                            onChange={(e) => {
-                                                const newCollabs = [...formData.collaborators];
-                                                newCollabs[index].student_number = e.target.value;
-                                                setFormData({ ...formData, collaborators: newCollabs });
-                                            }}
+                                            onChange={(e) => updateCollaborator(index, 'student_number', e.target.value)}
                                             containerClassName="w-full md:w-32"
                                         />
                                         <Input
                                             placeholder="Bölüm"
                                             value={collab.department}
-                                            onChange={(e) => {
-                                                const newCollabs = [...formData.collaborators];
-                                                newCollabs[index].department = e.target.value;
-                                                setFormData({ ...formData, collaborators: newCollabs });
-                                            }}
+                                            onChange={(e) => updateCollaborator(index, 'department', e.target.value)}
                                             containerClassName="w-full md:w-40"
                                         />
                                         <button
@@ -203,37 +225,41 @@ export default function UploadPage() {
                                     </div>
 
                                     {/* Social Links for Collaborator */}
-                                    <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
-                                        <Input
-                                            placeholder="GitHub (opsiyonel)"
-                                            value={collab.github_url || ''}
-                                            onChange={(e) => {
-                                                const newCollabs = [...formData.collaborators];
-                                                newCollabs[index].github_url = e.target.value;
-                                                setFormData({ ...formData, collaborators: newCollabs });
-                                            }}
-                                            containerClassName="text-xs"
-                                        />
-                                        <Input
-                                            placeholder="LinkedIn (opsiyonel)"
-                                            value={collab.linkedin_url || ''}
-                                            onChange={(e) => {
-                                                const newCollabs = [...formData.collaborators];
-                                                newCollabs[index].linkedin_url = e.target.value;
-                                                setFormData({ ...formData, collaborators: newCollabs });
-                                            }}
-                                            containerClassName="text-xs"
-                                        />
-                                        <Input
-                                            placeholder="Instagram (opsiyonel)"
-                                            value={collab.instagram_url || ''}
-                                            onChange={(e) => {
-                                                const newCollabs = [...formData.collaborators];
-                                                newCollabs[index].instagram_url = e.target.value;
-                                                setFormData({ ...formData, collaborators: newCollabs });
-                                            }}
-                                            containerClassName="text-xs"
-                                        />
+                                    <div className="flex flex-col gap-2">
+                                        <label className="text-xs text-gray-500">Sosyal Medya Linkleri</label>
+                                        <div className="space-y-2">
+                                            {collab.social_links.map((link, linkIdx) => (
+                                                <div key={linkIdx} className="flex items-center gap-2">
+                                                    <div className="relative flex-1">
+                                                        <div className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">
+                                                            {link ? <SocialIcon url={link} size={14} /> : <LinkIcon size={14} />}
+                                                        </div>
+                                                        <input
+                                                            type="text"
+                                                            value={link}
+                                                            onChange={(e) => updateCollaboratorLink(index, linkIdx, e.target.value)}
+                                                            placeholder="https://..."
+                                                            className="w-full bg-white/5 border border-white/10 rounded-lg py-1.5 pl-9 pr-2 text-xs text-white focus:ring-1 focus:ring-purple-500 outline-none placeholder-gray-600"
+                                                        />
+                                                    </div>
+                                                    <button
+                                                        type="button"
+                                                        onClick={() => removeCollaboratorLink(index, linkIdx)}
+                                                        className="text-gray-400 hover:text-red-400 p-1"
+                                                    >
+                                                        <X size={14} />
+                                                    </button>
+                                                </div>
+                                            ))}
+                                            <button
+                                                type="button"
+                                                onClick={() => addCollaboratorLink(index)}
+                                                className="text-xs text-purple-400 hover:text-purple-300 font-medium self-start flex items-center gap-1"
+                                            >
+                                                <LinkIcon size={12} />
+                                                Link Ekle
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             ))}
@@ -245,9 +271,7 @@ export default function UploadPage() {
                                         full_name: '',
                                         student_number: '',
                                         department: '',
-                                        github_url: '',
-                                        linkedin_url: '',
-                                        instagram_url: ''
+                                        social_links: ['']
                                     }]
                                 })}
                                 className="self-start text-sm text-purple-400 hover:text-purple-300 font-medium flex items-center gap-1"

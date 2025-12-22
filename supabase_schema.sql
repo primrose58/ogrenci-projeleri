@@ -10,9 +10,7 @@ create table public.profiles (
   student_number text null,
   department text null,
   linkedin_url text null,
-  github_url text null,
-  website_url text null,
-  instagram_url text null,
+  social_links jsonb default '[]'::jsonb,
   
   primary key (id)
 );

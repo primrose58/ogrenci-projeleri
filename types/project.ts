@@ -10,9 +10,7 @@ export interface Project {
         full_name: string;
         student_number?: string;
         department?: string;
-        linkedin_url?: string;
-        github_url?: string;
-        instagram_url?: string;
+        social_links?: string[];
     }[];
     repo_url?: string;
     demo_url?: string;
@@ -20,9 +18,6 @@ export interface Project {
         full_name: string;
         student_number: string;
         department?: string;
-        linkedin_url?: string;
-        github_url?: string;
-        website_url?: string;
-        instagram_url?: string;
+        social_links?: string[];
     };
 }
