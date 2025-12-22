@@ -87,19 +87,23 @@
         "subTitle": "Topluluğumuz tarafından geliştirilen harika projelere göz atın."
     },
     "Guide": {
-        "title": "Proje Yükleme Rehberi",
-        "subTitle": "Projelerini dünyayla paylaşmak için izlemen gereken adımlar.",
-        "step1": "1. GitHub Hesabı ve Kod Yükleme",
-        "step1Desc": "Projelerini güvenle saklamak ve paylaşmak için.",
-        "step1Content": "Öncelikle github.com adresinden ücretsiz bir hesap oluştur. Ardından 'New Repository' diyerek projen için bir depo aç. Kodlarını sürükle-bırak yöntemiyle veya terminal kullanarak bu depoya yükle.",
-        "step2": "2. Projeni Canlıya Al (Deployment)",
-        "step2Desc": "Sitenin herkes tarafından erişilebilir olması için.",
-        "step2Content": "Vercel.com veya Netlify.com adresine GitHub hesabınla giriş yap. 'Add New Project' diyerek GitHub'daki projeni seç. 'Deploy' butonuna bastığında siten dakikalar içinde yayına girecek ve sana bir link verecek.",
-        "step3": "3. Platforma Yükle",
-        "step3Desc": "Projeni okuldaki diğer arkadaşlarında paylaş.",
-        "step3Content": "Sitemizdeki 'Proje Yükle' sayfasına git. Proje ismini, açıklamasını, arkadaşlarını ve proje linklerini (GitHub ve Canlı Demo) gir. Görselini de ekledikten sonra 'Projeyi Paylaş'a bas!",
-        "openGithub": "GitHub'ı Aç",
-        "openVercel": "Vercel'i Aç",
-        "goToUpload": "Yükleme Sayfasına Git"
+        "title": "Detaylı Proje Rehberi",
+        "subTitle": "A'dan Z'ye projenizi nasıl geliştirip yayınlayacağınızı öğrenin.",
+        "step1": "1. Kod & GitHub",
+        "step1Desc": "Projenizi oluşturun ve kodlarınızı GitHub'a yükleyin.",
+        "step1Content": "Github.com adresinden bir hesap oluşturun ve 'New Repository' diyerek yeni bir depo açın. Projenizin kodlarını bu depoya 'git push' komutları veya doğrudan yükleme (upload) yöntemiyle gönderin. Kodlarınızın 'main' branch'inde olduğundan emin olun.",
+        "step2": "2. Veritabanı (Supabase)",
+        "step2Desc": "Projeniz için ücretsiz ve güçlü bir veritabanı kurun.",
+        "step2Content": "Supabase.com'a GitHub ile giriş yapın ve 'New Project' oluşturun. Projeniz oluştuktan sonra 'Project Settings > API' kısmından 'URL' ve 'ANON KEY' bilgilerini not edin. Bu bilgileri projenizin .env dosyasına ekleyerek veritabanı bağlantısını kurun.",
+        "step3": "3. Yayınlama (Vercel)",
+        "step3Desc": "Sitenizi tüm dünyaya açın.",
+        "step3Content": "Vercel.com'a girin ve 'Add New Project' diyerek GitHub reponuzu seçin. 'Environment Variables' kısmına Supabase'den aldığınız URL ve ANON KEY bilgilerini eklemeyi unutmayın! Ardından 'Deploy' butonuna basın.",
+        "step4": "4. Platforma Yükle",
+        "step4Desc": "Son adım: Projeni Okul Ağına Ekle!",
+        "step4Content": "Artık canlı bir linkin var! Sitemizdeki 'Proje Yükle' sayfasına git. Proje bilgilerini, canlı demo linkini ve GitHub linkini gir. Arkadaşlarını etiketle ve 'Paylaş' butonuna bas.",
+        "openGithub": "GitHub'a Git",
+        "openSupabase": "Supabase'e Git",
+        "openVercel": "Vercel'e Git",
+        "goToUpload": "Yükleme Sayfası"
     }
 }

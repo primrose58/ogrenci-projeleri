@@ -86,19 +86,23 @@
     "subTitle": "Browse through the amazing projects built by our community."
   },
   "Guide": {
-    "title": "Project Upload Guide",
-    "subTitle": "Steps you need to follow to share your projects with the world.",
-    "step1": "1. GitHub Account & Code Upload",
-    "step1Desc": "To safely store and share your projects.",
-    "step1Content": "First, create a free account at github.com. Then create a 'New Repository' for your project. Upload your codes to this repository using drag-and-drop or terminal.",
-    "step2": "2. Deploy Your Project",
-    "step2Desc": "Make your site accessible to everyone.",
-    "step2Content": "Log in to Vercel.com or Netlify.com with your GitHub account. Select 'Add New Project' and choose your project from GitHub. When you click 'Deploy', your site will be live in minutes.",
-    "step3": "3. Upload to Platform",
-    "step3Desc": "Share your project with other students.",
-    "step3Content": "Go to the 'Upload Project' page on our site. Enter project name, description, collaborators and project links (GitHub and Live Demo). Add your image and click 'Share Project'!",
-    "openGithub": "Open GitHub",
-    "openVercel": "Open Vercel",
-    "goToUpload": "Go to Upload Page"
+    "title": "Detailed Project Guide",
+    "subTitle": "Learn how to develop and deploy your project from A to Z.",
+    "step1": "1. Code & GitHub",
+    "step1Desc": "Create your project and upload your code to GitHub.",
+    "step1Content": "Create an account on Github.com and open a 'New Repository'. Upload your project codes to this repository via 'git push' commands or direct upload. Make sure your codes are on the 'main' branch.",
+    "step2": "2. Database (Supabase)",
+    "step2Desc": "Set up a free and powerful database for your project.",
+    "step2Content": "Log in to Supabase.com with GitHub and create a 'New Project'. After your project is created, note down the 'URL' and 'ANON KEY' from 'Project Settings > API'. Add these details to your project's .env file to establish the database connection.",
+    "step3": "3. Deployment (Vercel)",
+    "step3Desc": "Share your site with the world.",
+    "step3Content": "Go to Vercel.com and select 'Add New Project' to import your GitHub repo. Don't forget to add the URL and ANON KEY from Supabase to the 'Environment Variables' section! Then click the 'Deploy' button.",
+    "step4": "4. Upload to Platform",
+    "step4Desc": "Final step: Add your project to the Student Network!",
+    "step4Content": "You now have a live link! Go to the 'Upload Project' page on our site. Enter project details, live demo link, and GitHub link. Tag your friends and click the 'Share' button.",
+    "openGithub": "Go to GitHub",
+    "openSupabase": "Go to Supabase",
+    "openVercel": "Go to Vercel",
+    "goToUpload": "Upload Page"
   }
 }
