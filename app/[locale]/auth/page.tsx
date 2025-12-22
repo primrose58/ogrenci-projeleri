@@ -62,6 +62,9 @@ export default function AuthPage() {
                     throw new Error(t('eduEmailRequired') || "Öğrenci kaydı için lütfen okul e-posta adresinizi (.edu veya .edu.tr) kullanın.");
                 }
 
+                // Auto-extract student ID from email (everything before @)
+                const derivedStudentId = formData.email.split('@')[0];
+
                 const { error } = await supabase.auth.signUp({
                     email: formData.email,
                     password: formData.password,
@@ -69,7 +72,7 @@ export default function AuthPage() {
                         emailRedirectTo: `${location.origin}/auth/callback`,
                         data: {
                             full_name: formData.name,
-                            student_number: isStudent ? formData.studentId : null,
+                            student_number: isStudent ? derivedStudentId : null,
                             department: isStudent ? formData.department : null,
                             phone: !isStudent ? formData.phoneNumber : null,
                             is_student: isStudent
@@ -146,13 +149,7 @@ export default function AuthPage() {
 
                                 {isStudent ? (
                                     <>
-                                        <Input
-                                            label={t('idNumber')}
-                                            placeholder="2023001"
-                                            value={formData.studentId}
-                                            onChange={(e) => setFormData({ ...formData, studentId: e.target.value })}
-                                            required={isStudent}
-                                        />
+                                        {/* Student ID is auto-extracted from email */}
 
                                         <SearchableSelect
                                             label={t('department')}
