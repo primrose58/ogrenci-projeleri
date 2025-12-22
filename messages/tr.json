@@ -40,7 +40,8 @@
         "phoneNumber": "Telefon Numarası",
         "invalidCredentials": "Giriş bilgileri hatalı veya kullanıcı bulunamadı.",
         "eduEmailRequired": "Öğrenci kaydı için lütfen okul e-posta adresinizi (.edu / .edu.tr) kullanın.",
-        "lostStudentEmail": "Okul e-postama erişimim yok"
+        "lostStudentEmail": "Okul e-postama erişimim yok",
+        "loginSuccess": "Başarıyla giriş yapıldı!"
     },
     "Upload": {
         "title": "Proje Yükle",

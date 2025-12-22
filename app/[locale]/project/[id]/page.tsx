@@ -11,46 +11,112 @@ import { Github, Linkedin, Globe, Instagram, Users } from 'lucide-react';
 import { SocialIcon } from '@/lib/utils/social';
 
 export default function ProjectDetailPage({ params }: { params: Promise<{ id: string }> }) {
-    const { id } = use(params);
+    // Defensive params unwrapping
+    const [resolvedId, setResolvedId] = useState<string | null>(null);
     const [project, setProject] = useState<any>(null);
     const [loading, setLoading] = useState(true);
+    const [fetchError, setFetchError] = useState<string | null>(null); // State to show specialized fetch errors
     const supabase = createClient();
+    const t = useTranslations('ProjectDetail');
+
+    // Handle params unwrapping safe for both Next 13/14/15
+    useEffect(() => {
+        if (params instanceof Promise) {
+            params.then(p => setResolvedId(p.id)).catch(e => console.error("Params check failed", e));
+        } else {
+            // @ts-ignore - Fallback for older Next versions where params is object
+            setResolvedId(params.id);
+        }
+    }, [params]);
 
     useEffect(() => {
+        if (!resolvedId) return;
+
         const fetchProject = async () => {
-            const { data, error } = await supabase
-                .from('projects')
-                .select(`
-                *,
-                user:profiles(full_name, student_number, department, social_links)
-            `)
-                .eq('id', id)
-                .single();
+            try {
+                console.log("Fetching project:", resolvedId);
+                const { data, error } = await supabase
+                    .from('projects')
+                    .select(`
+                    *,
+                    user:profiles(full_name, student_number, department, social_links)
+                `)
+                    .eq('id', resolvedId)
+                    .single();
 
-            if (error || !data) {
+                if (error) {
+                    console.error("Supabase Error:", error);
+                    throw error;
+                }
+
+                if (!data) {
+                    console.error("No data returned");
+                    setLoading(false);
+                    return;
+                }
+
+                // Nuclear-proof data normalization
+                const safeProject = {
+                    id: data.id,
+                    title: data.title || "Untitled Project",
+                    description: data.description || "",
+                    thumbnail_url: data.thumbnail_url, // Allow null, handled in UI
+                    repo_url: data.repo_url,
+                    demo_url: data.demo_url,
+                    created_at: data.created_at || new Date().toISOString(),
+                    tags: Array.isArray(data.tags) ? data.tags : [],
+                    collaborators: Array.isArray(data.collaborators) ? data.collaborators.map((c: any) => ({
+                        full_name: c.full_name || "Unknown",
+                        student_number: c.student_number || "",
+                        department: c.department || "",
+                        social_links: Array.isArray(c.social_links) ? c.social_links : []
+                    })) : [],
+                    user: data.user ? {
+                        full_name: data.user.full_name || 'Unknown User',
+                        student_number: data.user.student_number || '',
+                        department: data.user.department || '',
+                        social_links: Array.isArray(data.user.social_links) ? data.user.social_links : []
+                    } : {
+                        full_name: 'Unknown User',
+                        student_number: '',
+                        department: '',
+                        social_links: []
+                    }
+                };
+
+                console.log("Safe Project Data:", safeProject);
+                setProject(safeProject);
+            } catch (err: any) {
+                console.error("Fetch Loop Error:", err);
+                setFetchError(err.message || "Failed to load project");
+            } finally {
                 setLoading(false);
-                return; // Handle 404 visually or redirect
             }
-
-            setProject({
-                ...data,
-                tags: Array.isArray(data.tags) ? data.tags : [],
-                collaborators: Array.isArray(data.collaborators) ? data.collaborators : [],
-                user: data.user ? {
-                    ...data.user,
-                    social_links: Array.isArray(data.user.social_links) ? data.user.social_links : []
-                } : { full_name: 'Unknown', social_links: [] }
-            });
-            setLoading(false);
         };
 
         fetchProject();
-    }, [id]);
+    }, [resolvedId]);
 
-    if (loading) return <div className="min-h-screen text-white flex items-center justify-center">Loading...</div>;
-    if (!project) return <div className="min-h-screen text-white flex items-center justify-center">Project not found.</div>;
+    const formatDate = (dateString: string) => {
+        try {
+            return new Date(dateString).toLocaleDateString();
+        } catch (e) {
+            return "Date unavailable";
+        }
+    };
 
-    const t = useTranslations('ProjectDetail');
+    if (loading) return <div className="min-h-screen pt-20 flex items-center justify-center text-white"><span className="animate-pulse">Loading project...</span></div>;
+
+    // Show detailed error if fetch failed
+    if (fetchError) return (
+        <div className="min-h-screen pt-20 flex flex-col items-center justify-center text-white gap-4">
+            <h2 className="text-xl font-bold text-red-500">Error Loading Project</h2>
+            <code className="bg-black/50 p-2 rounded text-red-300">{fetchError}</code>
+            <Link href="/" className="px-4 py-2 bg-white/10 rounded hover:bg-white/20">Go Back</Link>
+        </div>
+    );
+
+    if (!project) return <div className="min-h-screen pt-20 flex items-center justify-center text-white">Project not found.</div>;
 
     return (
         <div className="min-h-screen pt-20 px-4 md:px-20 pb-10 max-w-7xl mx-auto">
@@ -61,7 +127,7 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
                 {/* Left: Image */}
-                <div className="relative h-[400px] w-full rounded-2xl overflow-hidden border border-white/10 shadow-2xl">
+                <div className="relative h-[400px] w-full rounded-2xl overflow-hidden border border-white/10 shadow-2xl bg-black/40">
                     {project.thumbnail_url ? (
                         <Image
                             src={project.thumbnail_url}
@@ -69,6 +135,7 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
                             fill
                             className="object-cover"
                             priority
+                            onError={(e) => console.log("Image load failed", e)}
                         />
                     ) : (project.demo_url || project.repo_url) ? (
                         <Image
@@ -80,7 +147,10 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
                             unoptimized
                         />
                     ) : (
-                        <div className="w-full h-full bg-gray-800 flex items-center justify-center text-4xl">🚀</div>
+                        <div className="w-full h-full flex flex-col items-center justify-center text-gray-500 gap-2">
+                            <span className="text-4xl">🚀</span>
+                            <span className="text-sm">No Preview</span>
+                        </div>
                     )}
                 </div>
 
@@ -94,7 +164,7 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
                             <div className="flex items-center gap-2 text-gray-400 text-sm">
                                 <span>{t('by')} <span className="text-white font-medium">{project.user.full_name}</span></span>
                                 <span>•</span>
-                                <span>{new Date(project.created_at).toLocaleDateString()}</span>
+                                <span>{formatDate(project.created_at)}</span>
                             </div>
                             <div className="text-sm text-gray-500">
                                 {project.user.student_number}
@@ -122,7 +192,7 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
                         ))}
                     </div>
 
-                    <p className="text-gray-300 leading-relaxed text-lg">
+                    <p className="text-gray-300 leading-relaxed text-lg whitespace-pre-wrap">
                         {project.description}
                     </p>
 

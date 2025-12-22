@@ -39,6 +39,8 @@
     "areYouStudent": "I am a student",
     "phoneNumber": "Phone Number",
     "invalidCredentials": "Invalid login credentials or user not found.",
+    "lostStudentEmail": "I don't have access to my school email",
+    "loginSuccess": "Successfully logged in!",
     "eduEmailRequired": "Please use your school email address (.edu / .edu.tr) for student registration."
   },
   "Upload": {
