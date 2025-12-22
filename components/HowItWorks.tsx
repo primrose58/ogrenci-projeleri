@@ -9,22 +9,22 @@ export default function HowItWorks() {
 
     const steps = [
         {
-            icon: <Upload className="w-8 h-8 text-blue-400" />,
+            icon: <Upload className="w-8 h-8 text-blue-500 dark:text-blue-400" />,
             title: t('step1Title'),
             desc: t('step1Desc'),
-            color: "from-blue-500/20 to-blue-600/5"
+            color: "from-blue-50/50 to-blue-100/50 dark:from-blue-500/20 dark:to-blue-600/5"
         },
         {
-            icon: <Users className="w-8 h-8 text-purple-400" />,
+            icon: <Users className="w-8 h-8 text-purple-500 dark:text-purple-400" />,
             title: t('step2Title'),
             desc: t('step2Desc'),
-            color: "from-purple-500/20 to-purple-600/5"
+            color: "from-purple-50/50 to-purple-100/50 dark:from-purple-500/20 dark:to-purple-600/5"
         },
         {
-            icon: <Globe className="w-8 h-8 text-pink-400" />,
+            icon: <Globe className="w-8 h-8 text-pink-500 dark:text-pink-400" />,
             title: t('step3Title'),
             desc: t('step3Desc'),
-            color: "from-pink-500/20 to-pink-600/5"
+            color: "from-pink-50/50 to-pink-100/50 dark:from-pink-500/20 dark:to-pink-600/5"
         }
     ];
 

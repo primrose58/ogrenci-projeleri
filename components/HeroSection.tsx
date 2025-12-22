@@ -31,8 +31,14 @@ export default function HeroSection({ user }: { user: User | null }) {
     return (
         <section className="relative min-h-[80vh] flex flex-col items-center justify-center text-center p-4 overflow-hidden">
             {/* Dynamic Background */}
-            <div className="absolute inset-0 bg-gradient-to-b from-purple-100/80 via-white to-white dark:from-purple-900/20 dark:via-black dark:to-black z-0 transition-colors duration-500" />
-            <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-5 dark:opacity-20 z-0 mix-blend-overlay"></div>
+            <div className="absolute inset-0 bg-white dark:bg-black z-0 transition-colors duration-500" />
+
+            {/* Light Mode Gradient - Subtle & Clean */}
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-50/50 via-white to-white opacity-100 dark:opacity-0 transition-opacity duration-500 z-0"></div>
+
+            {/* Dark Mode Gradient & Noise */}
+            <div className="absolute inset-0 bg-gradient-to-b from-purple-900/20 via-black to-black opacity-0 dark:opacity-100 transition-opacity duration-500 z-0"></div>
+            <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-0 dark:opacity-20 z-0 mix-blend-overlay transition-opacity duration-500"></div>
 
             {/* Floating Elements Animation */}
             <motion.div
