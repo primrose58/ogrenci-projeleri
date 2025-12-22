@@ -18,6 +18,16 @@ interface Collaborator {
     social_links: string[];
 }
 
+const POPULAR_TECHNOLOGIES = [
+    'React', 'Next.js', 'Vue.js', 'Angular', 'Svelte', 'Node.js', 'Python', 'Django', 'Flask',
+    'FastAPI', 'Java', 'Spring Boot', 'C#', '.NET', 'Go', 'Rust', 'PHP', 'Laravel', 'TypeScript',
+    'JavaScript', 'Tailwind CSS', 'Bootstrap', 'Material UI', 'Shadcn UI', 'Supabase', 'Firebase',
+    'AWS', 'Google Cloud', 'Azure', 'Vercel', 'Netlify', 'Docker', 'Kubernetes', 'Git', 'GitHub',
+    'GitLab', 'PostgreSQL', 'MySQL', 'MongoDB', 'Redis', 'GraphQL', 'Rest API', 'Gemini API',
+    'OpenAI API', 'Stripe', 'Prisma', 'Drizzle ORM', 'Zod', 'Redux', 'Zustand', 'Recoil',
+    'Framer Motion', 'Three.js', 'Antigravity'
+];
+
 export default function UploadPage() {
     const t = useTranslations('Upload');
     const router = useRouter();
@@ -36,6 +46,10 @@ export default function UploadPage() {
 
     const [imageFile, setImageFile] = useState<File | null>(null);
     const [imagePreview, setImagePreview] = useState<string | null>(null);
+
+    // Autocomplete state
+    const [tagSuggestions, setTagSuggestions] = useState<string[]>([]);
+    const [showTagSuggestions, setShowTagSuggestions] = useState(false);
 
     const supabase = createClient();
 
@@ -181,12 +195,58 @@ export default function UploadPage() {
                                 onChange={(e) => setFormData({ ...formData, title: e.target.value })}
                                 required
                             />
-                            <Input
-                                label={t('tags')}
-                                placeholder="React, Next.js, AI"
-                                value={formData.tags}
-                                onChange={(e) => setFormData({ ...formData, tags: e.target.value })}
-                            />
+
+                            <div className="relative">
+                                <Input
+                                    label={t('tags')}
+                                    placeholder="React, Next.js, AI"
+                                    value={formData.tags}
+                                    onChange={(e) => {
+                                        const value = e.target.value;
+                                        setFormData({ ...formData, tags: value });
+
+                                        const parts = value.split(',');
+                                        const lastPart = parts[parts.length - 1].trim().toLowerCase();
+
+                                        if (lastPart.length > 0) {
+                                            const filteredInfo = POPULAR_TECHNOLOGIES.filter(tech =>
+                                                tech.toLowerCase().includes(lastPart) &&
+                                                !parts.slice(0, -1).some(p => p.trim().toLowerCase() === tech.toLowerCase())
+                                            );
+                                            setTagSuggestions(filteredInfo);
+                                            setShowTagSuggestions(true);
+                                        } else {
+                                            setShowTagSuggestions(false);
+                                        }
+                                    }}
+                                    onBlur={() => {
+                                        // Delay hiding to allow click event on suggestion to register
+                                        setTimeout(() => setShowTagSuggestions(false), 200);
+                                    }}
+                                />
+                                {showTagSuggestions && tagSuggestions.length > 0 && (
+                                    <div className="absolute z-50 w-full mt-1 bg-[#1a1b26] border border-white/10 rounded-lg shadow-xl max-h-48 overflow-y-auto">
+                                        {tagSuggestions.map((tech, i) => (
+                                            <button
+                                                key={i}
+                                                type="button"
+                                                onClick={() => {
+                                                    const parts = formData.tags.split(',');
+                                                    parts.pop(); // Remove partial input
+                                                    parts.push(tech); // Add selected tag
+
+                                                    const newValue = parts.join(', ') + ', ';
+                                                    setFormData({ ...formData, tags: newValue });
+                                                    setShowTagSuggestions(false);
+                                                }}
+                                                className="w-full text-left px-4 py-2 text-sm text-gray-300 hover:bg-purple-500/20 hover:text-purple-300 transition-colors"
+                                            >
+                                                {tech}
+                                            </button>
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
                         </div>
 
                         <div className="flex flex-col gap-3">
@@ -347,7 +407,7 @@ export default function UploadPage() {
                         </Button>
                     </form>
                 </div>
-            </div>
-        </div>
+            </div >
+        </div >
     );
 }
