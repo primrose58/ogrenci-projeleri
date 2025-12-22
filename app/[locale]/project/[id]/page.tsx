@@ -167,7 +167,11 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
                                 <span>
                                     {t.rich('by', {
                                         name: project.user.full_name,
-                                        user: (chunks) => <span className="text-gray-900 dark:text-white font-medium">{chunks}</span>
+                                        user: (chunks) => (
+                                            <Link href={`/profile/${project.user_id || '#'}`} className="text-gray-900 dark:text-white font-medium hover:underline hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+                                                {chunks}
+                                            </Link>
+                                        )
                                     })}
                                 </span>
                                 <span>•</span>

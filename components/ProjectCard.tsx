@@ -83,12 +83,12 @@ export default function ProjectCard({ project, layout = 'grid', isOwner = false 
 
                         <div className="flex items-center gap-4 mt-3 text-xs text-gray-500 dark:text-gray-500">
                             <div className="mt-2 flex items-center gap-4 text-xs text-gray-500 dark:text-gray-400">
-                                <div className="flex items-center gap-2">
+                                <Link href={`/profile/${project.user_id}`} className="flex items-center gap-2 hover:opacity-80 transition-opacity" onClick={(e) => e.stopPropagation()}>
                                     <div className="w-5 h-5 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center text-[10px] font-bold text-blue-600 dark:text-blue-400">
                                         {project.user.full_name?.charAt(0) || '?'}
                                     </div>
-                                    <span className="font-medium text-gray-700 dark:text-gray-300">{project.user.full_name}</span>
-                                </div>
+                                    <span className="font-medium text-gray-700 dark:text-gray-300 hover:underline">{project.user.full_name}</span>
+                                </Link>
                                 <span>•</span>
                                 <span>{project.user.student_number}</span>
                                 <span>•</span>
@@ -171,7 +171,7 @@ export default function ProjectCard({ project, layout = 'grid', isOwner = false 
 
                     {/* Footer */}
                     <div className="mt-4 pt-4 border-t border-gray-100 dark:border-white/5 flex justify-between items-center text-xs text-gray-500">
-                        <span>By {project.user.full_name}</span>
+                        <span>By <Link href={`/profile/${project.user_id}`} className="hover:text-blue-600 dark:hover:text-blue-400 hover:underline" onClick={(e) => e.stopPropagation()}>{project.user.full_name}</Link></span>
                         <span>{new Date(project.created_at).toLocaleDateString()}</span>
                     </div>
                 </div>

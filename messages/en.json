@@ -92,12 +92,21 @@
     "subTitle": "Check out the amazing projects built by our community."
   },
   "ProjectDetail": {
-    "backToProjects": "Back to Projects",
-    "by": "by <user>{name}</user>",
-    "studentNumber": "Student No",
-    "liveDemo": "Live Demo",
-    "viewCode": "View Code",
-    "collaborators": "Collaborators"
+    "loading": "Loading project details...",
+    "backToFeed": "Back to Feed",
+    "demo": "Live Demo",
+    "code": "View Code",
+    "collaborators": "Collaborators",
+    "owner": "Project Owner",
+    "notFound": "Project not found",
+    "by": "by {name}",
+    "studentNumber": "Student ID"
+  },
+  "Profile": {
+    "projectsTitle": "Projects",
+    "noSocialLinks": "No social links added.",
+    "noProjectsTitle": "No projects yet",
+    "noProjectsDesc": "This user hasn't shared any projects yet."
   },
   "Guide": {
     "title": "Detailed Project Guide",
