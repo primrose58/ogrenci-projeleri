@@ -59,6 +59,7 @@
     "subTitle": "Manage your projects and explore what others are building.",
     "myProjects": "My Projects",
     "community": "Explore Community",
-    "noProjects": "You haven't uploaded any projects yet."
+    "noProjects": "You haven't uploaded any projects yet.",
+    "uploadFirst": "Upload Your First Project"
   }
 }

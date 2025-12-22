@@ -59,6 +59,7 @@
         "subTitle": "Projelerini yönet ve diğerlerinin neler yaptığını keşfet.",
         "myProjects": "Projelerim",
         "community": "Topluluğu Keşfet",
-        "noProjects": "Henüz hiç proje yüklemedin."
+        "noProjects": "Henüz hiç proje yüklemedin.",
+        "uploadFirst": "İlk Projeni Yükle"
     }
 }
