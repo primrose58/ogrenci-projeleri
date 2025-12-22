@@ -102,9 +102,6 @@ export default function AuthPage() {
                                     required
                                 />
                             </>
-                                    onChange={(e) => setFormData({ ...formData, studentId: e.target.value })}
-                        required
-                                />
                         <Input
                             label={t('department')}
                             placeholder="Computer Engineering"
@@ -147,6 +144,5 @@ export default function AuthPage() {
                 </div>
             </div>
         </div>
-        </div >
     );
 }
