@@ -6,6 +6,7 @@ import ProjectCard from "@/components/ProjectCard";
 import { SocialIcon } from "@/lib/utils/social";
 import { Mail, GraduationCap, Hash, LayoutGrid, Calendar, Edit2 } from "lucide-react";
 import { Link } from "@/i18n/routing";
+import ProfileEditButton from "@/components/ProfileEditButton";
 
 export default async function ProfilePage({ params }: { params: Promise<{ id: string }> }) {
     const supabase = await createClient();
@@ -22,12 +23,16 @@ export default async function ProfilePage({ params }: { params: Promise<{ id: st
     let profile = null;
     let projects = [];
     let isOwner = false;
+    let currentUser = null;
 
     try {
         // Check current user for ownership
         const { data: { user } } = await supabase.auth.getUser();
-        if (user && user.id === id) {
-            isOwner = true;
+        if (user) {
+            currentUser = user;
+            if (user.id === id) {
+                isOwner = true;
+            }
         }
 
         // 1. Fetch User Profile
@@ -100,13 +105,7 @@ export default async function ProfilePage({ params }: { params: Promise<{ id: st
                                 {profile.full_name}
                             </h1>
                             {isOwner && (
-                                <Link
-                                    href="/dashboard"
-                                    className="flex items-center gap-2 px-3 py-1.5 bg-blue-500/10 text-blue-600 dark:text-blue-400 rounded-full text-sm font-medium hover:bg-blue-500/20 transition-colors"
-                                >
-                                    <Edit2 size={16} />
-                                    <span>Düzenle</span>
-                                </Link>
+                                <ProfileEditButton user={currentUser} profile={profile} />
                             )}
                         </div>
 
