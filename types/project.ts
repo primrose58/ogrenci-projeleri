@@ -9,7 +9,7 @@ export interface Project {
     collaborators: string[];
     repo_url?: string;
     demo_url?: string;
-    user?: {
+    user: {
         full_name: string;
     };
 }
