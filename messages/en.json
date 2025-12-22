@@ -68,5 +68,9 @@
     "community": "Explore Community",
     "noProjects": "You haven't uploaded any projects yet.",
     "uploadFirst": "Upload Your First Project"
+  },
+  "ProjectsPage": {
+    "title": "All Projects",
+    "subTitle": "Browse through the amazing projects built by our community."
   }
 }
