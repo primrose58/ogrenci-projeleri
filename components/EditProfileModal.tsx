@@ -16,6 +16,7 @@ interface EditProfileModalProps {
         avatar_url: string;
         social_links: string[];
         birth_date?: string;
+        department?: string;
     };
     onSuccess?: () => void;
 }
@@ -68,7 +69,8 @@ export default function EditProfileModal({ isOpen, onClose, user, initialProfile
                     full_name: profileForm.full_name,
                     avatar_url: profileForm.avatar_url,
                     social_links: profileForm.social_links.filter(l => l.trim() !== ''),
-                    birth_date: profileForm.birth_date || null, // Handle empty string as null
+                    birth_date: profileForm.birth_date || null,
+                    department: profileForm.department || null,
                     updated_at: new Date().toISOString()
                 })
                 .eq('id', user.id);
@@ -80,7 +82,8 @@ export default function EditProfileModal({ isOpen, onClose, user, initialProfile
                 data: {
                     full_name: profileForm.full_name,
                     avatar_url: profileForm.avatar_url,
-                    birth_date: profileForm.birth_date
+                    birth_date: profileForm.birth_date,
+                    department: profileForm.department
                 }
             });
 
@@ -216,6 +219,13 @@ export default function EditProfileModal({ isOpen, onClose, user, initialProfile
                         type="date"
                         value={profileForm.birth_date || ''}
                         onChange={(e) => setProfileForm(prev => ({ ...prev, birth_date: e.target.value }))}
+                    />
+
+                    <Input
+                        label="Bölüm"
+                        value={profileForm.department || ''}
+                        onChange={(e) => setProfileForm(prev => ({ ...prev, department: e.target.value }))}
+                        placeholder="Örn: Bilgisayar Mühendisliği"
                     />
 
                     <div className="flex flex-col gap-2">
