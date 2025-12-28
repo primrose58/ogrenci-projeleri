@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Void Descent - 3D Rope Challenge</title>
+    <meta name="description" content="Infinite 3D Rope Physics Game. Descend into the void.">
+    <meta name="theme-color" content="#000000">
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+
+    <!-- Three.js & Post Processing -->
+    <script async src="https://unpkg.com/es-module-shims@1.6.3/dist/es-module-shims.js"></script>
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://unpkg.com/three@0.154.0/build/three.module.js",
+          "three/addons/": "https://unpkg.com/three@0.154.0/examples/jsm/"
+        }
+      }
+    </script>
+</head>
+
+<body>
+    <div id="game-container">
+        <!-- 3D Canvas will be injected here by script -->
+
+        <!-- Cinematic UI Layer -->
+        <div id="ui-layer">
+            <!-- Top HUD -->
+            <div id="hud-top">
+                <div class="hud-item score-box">
+                    <span class="label">DEPTH</span>
+                    <span class="value" id="score-value">0m</span>
+                </div>
+                <div class="hud-item currency-box">
+                    <span class="label">ENERGY</span>
+                    <span class="value" id="currency-value">0</span>
+                </div>
+            </div>
+
+            <!-- Tension Gauge (Holographic) -->
+            <div id="tension-container">
+                <div class="tension-label">TENSION INTEGRITY</div>
+                <div class="tension-bar-bg">
+                    <div id="tension-bar-fill"></div>
+                </div>
+            </div>
+
+            <!-- Warning Overlay -->
+            <div id="warning-overlay" class="hidden">CRITICAL TENSION</div>
+
+            <!-- Start Screen -->
+            <div id="start-screen" class="glass-panel">
+                <h1 class="neon-title">VOID DESCENT</h1>
+                <p class="subtitle">Infinite 3D Rope Physics</p>
+                <div class="instructions">
+                    <p>DRAG to Swing & Lower</p>
+                    <p>COLLECT Energy Orbs</p>
+                    <p>DON'T SNAP the Line</p>
+                </div>
+                <button id="start-btn" class="cyber-btn">INITIATE DIVE</button>
+            </div>
+
+            <!-- Game Over Screen -->
+            <div id="game-over-screen" class="glass-panel hidden">
+                <h1 class="glitch-text" data-text="SIGNAL LOST">SIGNAL LOST</h1>
+                <p>Tether Snapped at <span id="final-score">0</span>m</p>
+                <div class="stats-grid">
+                    <div>
+                        <small>Energy Collected</small>
+                        <span id="final-currency">0</span>
+                    </div>
+                </div>
+                <button id="restart-btn" class="cyber-btn">RECONNECT</button>
+            </div>
+        </div>
+    </div>
+    <script type="module" src="script.js"></script>
+</body>
+
+</html>

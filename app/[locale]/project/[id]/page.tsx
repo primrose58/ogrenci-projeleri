@@ -68,12 +68,25 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
                     demo_url: data.demo_url,
                     created_at: data.created_at || new Date().toISOString(),
                     tags: Array.isArray(data.tags) ? data.tags : [],
-                    collaborators: Array.isArray(data.collaborators) ? data.collaborators.map((c: any) => ({
-                        full_name: c.full_name || "Unknown",
-                        student_number: c.student_number || "",
-                        department: c.department || "",
-                        social_links: Array.isArray(c.social_links) ? c.social_links : []
-                    })) : [],
+                    collaborators: Array.isArray(data.collaborators) ? data.collaborators.map((c: any) => {
+                        // Handle potential double-parsing or string data
+                        let parsed = c;
+                        if (typeof c === 'string') {
+                            try {
+                                parsed = JSON.parse(c);
+                            } catch (e) {
+                                console.warn("Failed to parse collaborator:", c);
+                                return { full_name: "Unknown", student_number: "", department: "", social_links: [] };
+                            }
+                        }
+
+                        return {
+                            full_name: parsed.full_name || "Unknown",
+                            student_number: parsed.student_number || "",
+                            department: parsed.department || "",
+                            social_links: Array.isArray(parsed.social_links) ? parsed.social_links : []
+                        };
+                    }) : [],
                     user: rawUser ? {
                         full_name: rawUser.full_name || 'Unknown User',
                         student_number: rawUser.student_number || '',
@@ -178,18 +191,29 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
                                 <span>•</span>
                                 <span>{formatDate(project.created_at)}</span>
                             </div>
-                            <div className="text-sm text-gray-500 flex flex-col">
-                                <span>{t('studentNumber', { defaultValue: 'Öğrenci No' })}: {project.user.student_number}</span>
-                                <span>{project.user.department}</span>
+                            <div className="text-sm text-gray-500 flex flex-col gap-1">
+                                <span className="font-medium text-gray-700 dark:text-gray-300">
+                                    {t('studentNumber', { defaultValue: 'Öğrenci No' })}: {project.user.student_number}
+                                </span>
+                                {project.user.department && (
+                                    <span className="text-gray-600 dark:text-gray-400">
+                                        {project.user.department}
+                                    </span>
+                                )}
                             </div>
 
                             {/* User Social Links */}
-                            <div className="flex gap-3 mt-2">
-                                {(project.user.social_links || []).map((link: string, i: number) => (
-                                    link && (
-                                        <SocialIcon key={i} url={link} size={20} />
-                                    )
-                                ))}
+                            <div className="flex flex-col gap-2 mt-3">
+                                <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                                    {t('contact', { defaultValue: 'İletişim' })}
+                                </span>
+                                <div className="flex gap-3">
+                                    {(project.user.social_links || []).map((link: string, i: number) => (
+                                        link && (
+                                            <SocialIcon key={i} url={link} size={20} />
+                                        )
+                                    ))}
+                                </div>
                             </div>
                         </div>
                     </div>

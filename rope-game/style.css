@@ -1,0 +1,230 @@
+:root {
+    --bg-color: #000510;
+    /* Dark blue/void */
+    --neon-blue: #00f3ff;
+    --neon-pink: #ff00ff;
+    --neon-red: #ff3333;
+    --glass-bg: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --font-head: 'Orbitron', sans-serif;
+    --font-body: 'Rajdhani', sans-serif;
+}
+
+body,
+html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: var(--bg-color);
+    font-family: var(--font-body);
+    color: #fff;
+}
+
+#game-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+canvas {
+    display: block;
+    outline: none;
+}
+
+/* UI Layer */
+#ui-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+/* HUD */
+#hud-top {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.hud-item {
+    background: rgba(0, 10, 20, 0.8);
+    border: 1px solid var(--neon-blue);
+    padding: 10px 20px;
+    border-radius: 4px;
+    box-shadow: 0 0 10px rgba(0, 243, 255, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.label {
+    font-size: 12px;
+    color: var(--neon-blue);
+    letter-spacing: 2px;
+    font-weight: 700;
+}
+
+.value {
+    font-family: var(--font-head);
+    font-size: 24px;
+    font-weight: 700;
+    text-shadow: 0 0 5px var(--neon-blue);
+}
+
+.currency-box {
+    border-color: var(--neon-pink);
+}
+
+.currency-box .label {
+    color: var(--neon-pink);
+}
+
+.currency-box .value {
+    text-shadow: 0 0 5px var(--neon-pink);
+}
+
+/* Tension Gauge */
+#tension-container {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 300px;
+    text-align: center;
+}
+
+.tension-label {
+    font-size: 14px;
+    letter-spacing: 3px;
+    margin-bottom: 5px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.tension-bar-bg {
+    width: 100%;
+    height: 8px;
+    background: rgba(0, 0, 0, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+}
+
+#tension-bar-fill {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg, #00ff00, #ffff00, #ff0000);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    transition: width 0.1s linear;
+}
+
+/* Warnings */
+#warning-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: var(--font-head);
+    font-size: 48px;
+    color: var(--neon-red);
+    text-shadow: 0 0 20px var(--neon-red);
+    animation: flash 0.2s infinite alternate;
+    border: 4px solid var(--neon-red);
+    padding: 20px;
+    background: rgba(255, 0, 0, 0.1);
+}
+
+@keyframes flash {
+    from {
+        opacity: 0.5;
+        transform: translate(-50%, -50%) scale(1);
+    }
+
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1.05);
+    }
+}
+
+/* Screens */
+.glass-panel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(10px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    pointer-events: auto;
+    z-index: 100;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.neon-title {
+    font-family: var(--font-head);
+    font-size: 64px;
+    margin: 0;
+    background: linear-gradient(to bottom, #fff, #aaa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+    letter-spacing: 5px;
+}
+
+.subtitle {
+    font-size: 24px;
+    color: var(--neon-blue);
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    margin-bottom: 40px;
+}
+
+.instructions {
+    background: rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 40px;
+    line-height: 1.8;
+}
+
+/* Buttons */
+.cyber-btn {
+    background: transparent;
+    color: var(--neon-blue);
+    font-family: var(--font-head);
+    font-size: 24px;
+    padding: 20px 60px;
+    border: 2px solid var(--neon-blue);
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(0, 243, 255, 0.2), inset 0 0 10px rgba(0, 243, 255, 0.1);
+    transition: all 0.3s;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    clip-path: polygon(10% 0, 100% 0, 100% 90%, 90% 100%, 0 100%, 0 10%);
+}
+
+.cyber-btn:hover {
+    background: var(--neon-blue);
+    color: #000;
+    box-shadow: 0 0 30px rgba(0, 243, 255, 0.6);
+}
+
+.glitch-text {
+    font-family: var(--font-head);
+    font-size: 64px;
+    color: var(--neon-red);
+    text-shadow: 2px 2px var(--neon-pink), -2px -2px #000;
+    margin: 0;
+}
