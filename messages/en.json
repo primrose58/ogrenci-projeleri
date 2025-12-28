@@ -101,7 +101,8 @@
     "owner": "Project Owner",
     "notFound": "Project not found",
     "by": "by {name}",
-    "studentNumber": "Student ID"
+    "studentNumber": "Student ID",
+    "contact": "Contact"
   },
   "Profile": {
     "projectsTitle": "Projects",

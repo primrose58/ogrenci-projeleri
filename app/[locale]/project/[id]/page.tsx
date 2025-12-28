@@ -182,7 +182,7 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
                                     {t.rich('by', {
                                         name: project.user.full_name,
                                         user: (chunks) => (
-                                            <Link href={`/profile/${project.user_id || '#'}`} className="text-gray-900 dark:text-white font-medium hover:underline hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+                                            <Link href={`/profile/${project.user_id || '#'}`} className="text-gray-900 dark:text-white font-bold hover:underline hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
                                                 {chunks}
                                             </Link>
                                         )
@@ -192,7 +192,7 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
                                 <span>{formatDate(project.created_at)}</span>
                             </div>
                             <div className="text-sm text-gray-500 flex flex-col gap-1">
-                                <span className="font-medium text-gray-700 dark:text-gray-300">
+                                <span className="text-gray-700 dark:text-gray-300">
                                     {t('studentNumber', { defaultValue: 'Öğrenci No' })}: {project.user.student_number}
                                 </span>
                                 {project.user.department && (
